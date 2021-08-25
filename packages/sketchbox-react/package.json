@@ -1,0 +1,21 @@
+{
+  "name": "sketchbox-react",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": ["editor"],
+  "main": "lib/main.js",
+  "typings": "lib/main.d.ts",
+  "license": "MIT",
+  "author": {
+    "name": "Byeonggeol Ha",
+    "email": "byeonggeol98@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/baechoofarm/sketchbox.git"
+  },
+  "bugs": {
+    "url": "https://github.com/baechoofarm/sketchbox/issues",
+    "email": "byeonggeol98@gmail.com"
+  }
+}
