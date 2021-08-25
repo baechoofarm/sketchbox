@@ -22,7 +22,6 @@
     "@types/is-url": "^1.2.30",
     "@types/dateformat": "^3.0.1",
     "slate": "0.65.3",
-    "slate-react": "0.65.3",
     "slate-history": "0.65.3",
     "is-url": "^1.2.4",
     "dateformat": "^4.5.1"
