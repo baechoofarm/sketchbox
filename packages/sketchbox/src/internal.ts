@@ -4,8 +4,6 @@ export * from "./editor/elements/sketchboxElementBase";
 
 export * from "./editor/elements/paragraph/paragraphElement";
 
-export * from "./editor/elements/text/textElement";
-
 export * from "./editor/elements/link/links";
 export * from "./editor/elements/link/linkElement";
 

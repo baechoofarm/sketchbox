@@ -6,8 +6,6 @@ export * from "./editor/elements/mention/MentionElementItem";
 
 export * from "./editor/elements/paragraph/ParagraphElementItem";
 
-export * from "./editor/elements/text/TextElementItem";
-
 export * from "./editor/elements/SketchboxElementSwitcher";
 
 export * from "./editor/sketchboxValue";
