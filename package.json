@@ -5,10 +5,6 @@
   "workspaces": [
     "packages/*"
   ],
-  "scripts": {
-    "eslint": "eslint .",
-    "eslint-quiet-fix": "eslint . --quiet --fix"
-  },
   "author": {
     "name": "Byeonggeol Ha",
     "email": "byeonggeol98@gmail.com"
@@ -21,6 +17,11 @@
     "url": "https://github.com/baechoofarm/sketchbox/issues",
     "email": "byeonggeol98@gmail.com"
   },
+  "scripts": {
+    "build:core": "rollup --config packages/sketchbox/rollup.config.js",
+    "eslint": "eslint .",
+    "eslint-quiet-fix": "eslint . --quiet --fix"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.21.0",
     "@typescript-eslint/parser": "^4.21.0",
@@ -30,6 +31,9 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "typescript": "^4.3.5"
+    "typescript": "^4.3.5",
+    "rollup": "^2.56.3",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "tslib": "^2.3.1"
   }
 }

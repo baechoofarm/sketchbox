@@ -9,7 +9,8 @@
     "experimentalDecorators": true,
     "downlevelIteration": true,
     "allowJs": false,
-    "strict": true
+    "strict": true,
+    "declaration": true
   },
   "include": [],
   "exclude": [

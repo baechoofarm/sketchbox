@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "keywords": ["editor"],
-  "main": "lib/main.js",
-  "typings": "lib/main.d.ts",
+  "main": "dist/main.js",
+  "typings": "dist/main.d.ts",
   "license": "MIT",
   "author": {
     "name": "Byeonggeol Ha",
@@ -17,6 +17,9 @@
   "bugs": {
     "url": "https://github.com/baechoofarm/sketchbox/issues",
     "email": "byeonggeol98@gmail.com"
+  },
+  "scripts": {
+
   },
   "devDependencies": {
     "@types/is-url": "^1.2.30",
