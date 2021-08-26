@@ -1,4 +1,4 @@
-import {SketchboxText, SketchboxElementBase, SketchboxElementType} from "../../internal";
+import {SketchboxText, SketchboxElementBase, SketchboxElementType} from "../../../internal";
 
 export interface MentionElement extends SketchboxElementBase {
     readonly type: SketchboxElementType.MENTION;

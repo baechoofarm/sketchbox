@@ -1,20 +1,20 @@
 import {Editor, Element as SlateElement, Range, Transforms} from "slate";
-import {SketchboxElementType, LinkElement} from "../../internal";
+import {SketchboxElementType, LinkElement, SketchboxEditor} from "../../../internal";
 
-function isLinkActive(editor: Editor) {
+function isLinkActive(editor: SketchboxEditor) {
     const [link] = Editor.nodes(editor, {
         match: n => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === SketchboxElementType.LINK,
     });
     return !!link;
 }
 
-export function unwrapLink(editor: Editor) {
+export function unwrapLink(editor: SketchboxEditor) {
     Transforms.unwrapNodes(editor, {
         match: n => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === SketchboxElementType.LINK,
     });
 }
 
-export function wrapLink(editor: Editor, url: string) {
+export function wrapLink(editor: SketchboxEditor, url: string) {
     if (isLinkActive(editor)) {
         unwrapLink(editor);
     }

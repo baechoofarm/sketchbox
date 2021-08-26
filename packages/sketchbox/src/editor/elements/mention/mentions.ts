@@ -1,5 +1,5 @@
 import {Editor, Transforms} from "slate";
-import {MentionElement, SketchboxElementType} from "../../internal";
+import {MentionElement, SketchboxElementType} from "../../../internal";
 
 export interface MentionMember<T = any> {
     title: string;
