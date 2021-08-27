@@ -33,5 +33,5 @@ jobs:
           target_branch: gh-pages
           github_token: ${{secrets.GITHUB_TOKEN}}
       
-      - name: confirm merge
-        run: dir
+      - name: build storybook
+        run: cd packages/sketchbox-react; npm run build-storybook
