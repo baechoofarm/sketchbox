@@ -30,7 +30,7 @@ jobs:
         with:
           type: now
           from_branch: master
-          target_branch: staging
+          target_branch: gh-pages
           github_token: ${{secrets.GITHUB_TOKEN}}
       
       - name: confirm merge
