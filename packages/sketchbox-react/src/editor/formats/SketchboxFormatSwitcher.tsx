@@ -8,7 +8,6 @@ interface Props extends SketchboxFormatProps {
 
 export const SketchboxFormatSwitcher: React.FC<Props> = ({leaf, attributes, children, text}) => {
     if (leaf.bold) {
-        console.log(leaf);
         return (
             <BoldFormatItem leaf={leaf} attributes={attributes} text={text}>
                 {children}

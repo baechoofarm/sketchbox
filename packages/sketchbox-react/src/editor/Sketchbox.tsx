@@ -1,11 +1,11 @@
 import React, {useCallback, useMemo, useState} from "react";
-import {Editable, ReactEditor, Slate, withReact} from "slate-react";
-import {createSketchboxEditor, SketchboxEditor, SketchboxElementType} from "sketchbox";
-import {SketchboxElementSwitcher, SketchboxValue, SketchboxFormatSwitcher} from "../internal";
+import {Editable, Slate, withReact} from "slate-react";
+import {createSketchboxEditor, SketchboxElementType} from "sketchbox";
+import {SketchboxElementSwitcher, SketchboxValue, SketchboxFormatSwitcher, FormatCommand} from "../internal";
 import s from "./sketchbox.scss";
 
 interface Props {
-    onKeyDown?: (event: React.KeyboardEvent, editor?: SketchboxEditor & ReactEditor) => void;
+    formatCommand?: FormatCommand;
 }
 
 const Sketchbox: React.FC<Props> = props => {
@@ -14,17 +14,17 @@ const Sketchbox: React.FC<Props> = props => {
         type: SketchboxElementType.PARAGRAPH,
         children: [{text: ''}]
     }]);
-    const {onKeyDown} = props;
+    const {formatCommand} = props;
 
     const onChange = useCallback((newValue: SketchboxValue) => {
         setValue(newValue);
     }, []);
 
     const handleKeyDown = useCallback((event: React.KeyboardEvent) => {
-        if (onKeyDown) {
-            onKeyDown(event, editor);
+        if (formatCommand && event.ctrlKey && event.key === formatCommand.command) {
+            formatCommand.formatFunc(editor);
         }
-    }, []);
+    }, [editor, formatCommand]);
 
     return (
         <div className={s.sketchbox}>

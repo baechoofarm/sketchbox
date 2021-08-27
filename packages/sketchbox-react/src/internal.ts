@@ -8,6 +8,8 @@ export * from "./editor/elements/paragraph/ParagraphElementItem";
 
 export * from "./editor/elements/SketchboxElementSwitcher";
 
+export * from "./editor/formats/formatCommand";
+
 export * from "./editor/formats/sketchboxFormatProps";
 
 export * from "./editor/formats/bold/BoldFormatItem";
