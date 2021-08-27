@@ -34,8 +34,8 @@ jobs:
 #           target_branch: gh-pages
 #           github_token: ${{secrets.GITHUB_TOKEN}}
 
-      - name: git force merge master
-        run: git checkout gh-pages;git merge master -Xtheirs master
+      - name: git rebase master
+        run: git rebase master
       
       - name: yarn install
         run: yarn install
