@@ -24,6 +24,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: gh-pages
+          token: ${{secrets.GITHUB_TOKEN}}
       
       - name: Merge master -> gh-pages
         uses: devmasx/merge-branch@v1.3.1
@@ -45,5 +46,14 @@ jobs:
       - name: delete all files except docs
         run : mv ./.git ../.git;sudo rm -rf *
         
-      - name: confirm
-        run : dir; mv ../docs ./docs;mv ../.git ./.git;dir
+      - name: move docs and .git
+        run : mv ../docs ./docs;mv ../.git ./.git;dir -a
+        
+      - name: commit and push
+        uses: EndBug/add-and-commit@v7
+        with:
+          add: "*"
+          default_author: github_bot
+          message: deploy storybook to github pages
+          push: true
+          
