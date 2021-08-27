@@ -63,5 +63,6 @@ jobs:
           branch: gh-pages
           default_author: github_actions
           message: deploy storybook to github pages
+          pull-strategy: 'NO-PULL'
           push: true
           
