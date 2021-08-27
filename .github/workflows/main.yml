@@ -40,10 +40,10 @@ jobs:
         run: npm run build:core
       
       - name: build storybook and move to project root
-        run : cd ./packages/sketchbox-react;npm run build-storybook;dir;mv ./storybook-static ../../docs
+        run : cd ./packages/sketchbox-react;npm run build-storybook;dir;mv ./storybook-static ../../../docs
         
       - name: delete all files except docs
-        run : sudo find ./ ! -name 'docs' -exec rm -rf {} \;
+        run : sudo rm -rf ./
         
       - name: confirm
-        run : dir
+        run : dir; mv ../docs ./docs; dir
