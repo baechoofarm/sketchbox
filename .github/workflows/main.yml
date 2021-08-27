@@ -43,7 +43,7 @@ jobs:
         run : cd ./packages/sketchbox-react;npm run build-storybook;dir;mv ./storybook-static ../../../docs
         
       - name: delete all files except docs
-        run : sudo rm -rf ./
+        run : sudo rm -rf *
         
       - name: confirm
         run : dir; mv ../docs ./docs; dir
