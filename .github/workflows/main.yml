@@ -34,8 +34,8 @@ jobs:
 #           target_branch: gh-pages
 #           github_token: ${{secrets.GITHUB_TOKEN}}
 
-      - name: git rebase master
-        run: git rebase master
+      - name: git rebase origin master
+        run: git rebase origin/master
       
       - name: yarn install
         run: yarn install
