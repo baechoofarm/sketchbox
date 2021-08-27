@@ -13,5 +13,7 @@ export * from "./editor/elements/mention/mentionElement";
 export * from "./editor/elements/sketchboxElement";
 export * from "./editor/elements/customTypes";
 
+export * from "./editor/formats/bold/bold";
+
 export * from "./editor/sketchboxEditor";
 export * from "./editor/createSketchboxEditor";
