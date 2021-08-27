@@ -43,7 +43,7 @@ jobs:
         run : cd ./packages/sketchbox-react;npm run build-storybook
         
       - name: move static directory to project root
-        run : mv -R storybook-static ../../../
+        run : mv storybook-static ../../../
         
       - name: confirm
         run : dir
