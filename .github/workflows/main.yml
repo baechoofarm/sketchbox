@@ -35,6 +35,9 @@ jobs:
       
       - name: yarn install
         run: yarn install
+        
+      - name: build core
+        run: npm run build:core
       
       - name: build storybook
-        run : dir;cd ./packages/sketchbox-react;npm run-script build-storybook
+        run : dir;cd ./packages/sketchbox-react;npm run build-storybook
