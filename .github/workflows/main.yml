@@ -35,7 +35,7 @@ jobs:
 #           github_token: ${{secrets.GITHUB_TOKEN}}
 
       - name: git merge master
-        run: git merge -Xtheirs gh-pages
+        run: git checkout master; git checkout gh-pages; git merge -Xtheirs master
       
       - name: yarn install
         run: yarn install
