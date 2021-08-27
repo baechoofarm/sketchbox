@@ -35,9 +35,6 @@ jobs:
       
       - name: npm install
         run: npm install
-        
-      - name: move to sketchbox-react directory
-        run : cd ./packages/sketchbox-react
       
       - name: build storybook
-        run : dir;npm run-script build-storybook
+        run : dir;cd ./packages/sketchbox-react;npm run-script build-storybook
