@@ -46,4 +46,4 @@ jobs:
         run : mv ./.git ../.git;sudo rm -rf *
         
       - name: confirm
-        run : dir; mv ../docs ./docs;mv ../git ./git;dir
+        run : dir; mv ../docs ./docs;mv ../.git ./.git;dir
