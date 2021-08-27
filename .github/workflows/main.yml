@@ -31,7 +31,7 @@ jobs:
           type: now
           from_branch: master
           target_branch: staging
-          github_token: ${{secrets.AUTH_TOKEN}}
+          github_token: ${{secrets.GITHUB_TOKEN}}
       
       - name: confirm merge
         run: dir
