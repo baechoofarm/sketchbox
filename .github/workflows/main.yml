@@ -23,6 +23,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
+          ref: master
+          token: ${{secrets.GITHUB_TOKEN}}
+          
+      - uses: actions/checkout@v2
+        with:
           ref: gh-pages
           token: ${{secrets.GITHUB_TOKEN}}
       
