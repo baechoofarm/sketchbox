@@ -34,4 +34,4 @@ jobs:
           github_token: ${{secrets.GITHUB_TOKEN}}
       
       - name: build storybook
-        run: cd packages/sketchbox-react; npm run build-storybook
+        run: npm install;cd packages/sketchbox-react;npm run build-storybook
