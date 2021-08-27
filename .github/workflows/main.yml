@@ -40,4 +40,4 @@ jobs:
         run : cd ./packages/sketchbox-react
       
       - name: build storybook
-        run : npm run build-storybook
+        run : dir;npm run-script build-storybook
