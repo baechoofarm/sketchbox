@@ -35,7 +35,7 @@ jobs:
 #           github_token: ${{secrets.GITHUB_TOKEN}}
 
       - name: git merge master
-        run: git checkout master; git checkout gh-pages; git merge -Xtheirs master
+        run: git remote add upstream https://github.com/baechoofarm/sketchbox.git; git fetch --all; git merge upstream/gh-pages
       
       - name: yarn install
         run: yarn install
