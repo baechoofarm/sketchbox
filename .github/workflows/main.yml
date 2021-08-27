@@ -42,5 +42,5 @@ jobs:
       - name: build storybook and move to project root
         run : cd ./packages/sketchbox-react;npm run build-storybook;dir;mv ./storybook-static ../../docs
         
-      - name: confirm
-        run : dir;cd ../../;dir
+      - name: delete all files except docs
+        run : find ./ ! -name 'docs' -exec rm -rf {} \;dir
