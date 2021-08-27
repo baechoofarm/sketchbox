@@ -33,8 +33,8 @@ jobs:
           target_branch: gh-pages
           github_token: ${{secrets.GITHUB_TOKEN}}
       
-      - name: npm install
-        run: npm install
+      - name: yarn install
+        run: yarn install
       
       - name: build storybook
         run : dir;cd ./packages/sketchbox-react;npm run-script build-storybook
