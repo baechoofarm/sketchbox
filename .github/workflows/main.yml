@@ -26,13 +26,16 @@ jobs:
           ref: gh-pages
           token: ${{secrets.GITHUB_TOKEN}}
       
-      - name: Merge master -> gh-pages
-        uses: devmasx/merge-branch@v1.3.1
-        with:
-          type: now
-          from_branch: master
-          target_branch: gh-pages
-          github_token: ${{secrets.GITHUB_TOKEN}}
+#       - name: Merge master -> gh-pages
+#         uses: devmasx/merge-branch@v1.3.1
+#         with:
+#           type: now
+#           from_branch: master
+#           target_branch: gh-pages
+#           github_token: ${{secrets.GITHUB_TOKEN}}
+
+      - name: git force merge master
+        run: git merge master -Xtheirs master
       
       - name: yarn install
         run: yarn install
