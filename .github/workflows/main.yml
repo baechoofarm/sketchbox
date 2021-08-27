@@ -40,7 +40,7 @@ jobs:
 #           github_token: ${{secrets.GITHUB_TOKEN}}
 
       - name: git merge master
-        run: git branch -r; git reset --hard origin/master; git pull origin/master
+        run: git branch -r; git reset --hard origin/master
       
       - name: yarn install
         run: yarn install
