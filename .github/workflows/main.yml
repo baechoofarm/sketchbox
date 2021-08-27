@@ -40,4 +40,10 @@ jobs:
         run: npm run build:core
       
       - name: build storybook
-        run : dir;cd ./packages/sketchbox-react;npm run build-storybook
+        run : cd ./packages/sketchbox-react;npm run build-storybook
+        
+      - name: move static directory to project root
+        run : mv -R storybook-static ../../../
+        
+      - name: confirm
+        run : dir
