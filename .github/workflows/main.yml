@@ -14,6 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
+          ref: master
+          token: ${{secrets.GITHUB_TOKEN}}
+    
+      - uses: actions/checkout@v2
+        with:
           ref: gh-pages
           token: ${{secrets.GITHUB_TOKEN}}
 
