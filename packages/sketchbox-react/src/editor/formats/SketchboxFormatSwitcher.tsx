@@ -9,7 +9,11 @@ interface Props extends SketchboxFormatProps {
 
 export const SketchboxFormatSwitcher: React.FC<Props> = ({leaf, attributes, children}) => {
     return (
-        <span {...attributes} className={cn(s.formatSwitcher, {[s.bold]: leaf.bold}, {[s.italic]: leaf.italic})}>
+        <span
+            {...attributes}
+            className={cn(s.formatSwitcher, {[s.bold]: leaf.bold}, {[s.italic]: leaf.italic}, {[s.underline]: leaf.underline},
+                {[s.lineThrough]: leaf.lineThrough})}
+        >
             {children}
         </span>
     );

@@ -5,4 +5,10 @@
   &.italic {
     font-style: italic;
   }
+  &.underline {
+    text-decoration: underline;
+  }
+  &.lineThrough {
+    text-decoration: line-through;
+  }
 }
