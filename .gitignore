@@ -119,4 +119,4 @@ dist
 # IDEA
 .idea
 *.iml
-dist
+storybook-static
