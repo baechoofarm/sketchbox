@@ -5,7 +5,7 @@ import {SketchboxElementSwitcher, SketchboxValue, SketchboxFormatSwitcher, Forma
 import s from "./sketchbox.scss";
 
 interface Props {
-    formatCommand?: FormatCommand;
+    formatCommands?: FormatCommand[];
 }
 
 const Sketchbox: React.FC<Props> = props => {
@@ -14,17 +14,20 @@ const Sketchbox: React.FC<Props> = props => {
         type: SketchboxElementType.PARAGRAPH,
         children: [{text: ''}]
     }]);
-    const {formatCommand} = props;
+    const {formatCommands} = props;
 
     const onChange = useCallback((newValue: SketchboxValue) => {
         setValue(newValue);
     }, []);
 
     const handleKeyDown = useCallback((event: React.KeyboardEvent) => {
-        if (formatCommand && event.ctrlKey && event.key === formatCommand.command) {
-            formatCommand.formatFunc(editor);
-        }
-    }, [editor, formatCommand]);
+        if (formatCommands === undefined || !event.ctrlKey) return;
+        formatCommands.forEach(command => {
+            if (event.key === command.key) {
+                command.formatFunc(editor);
+            }
+        });
+    }, [editor, formatCommands]);
 
     return (
         <div className={s.sketchbox}>

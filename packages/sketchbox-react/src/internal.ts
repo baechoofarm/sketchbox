@@ -13,6 +13,7 @@ export * from "./editor/formats/formatCommand";
 export * from "./editor/formats/sketchboxFormatProps";
 
 export * from "./editor/formats/bold/BoldFormatItem";
+export * from "./editor/formats/italic/ItalicFormatItem";
 
 export * from "./editor/formats/SketchboxFormatSwitcher";
 
