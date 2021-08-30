@@ -22,3 +22,5 @@ export * from "./editor/formats/fontSize/fontSize";
 
 export * from "./editor/sketchboxEditor";
 export * from "./editor/createSketchboxEditor";
+
+export * from "./editor/utils/getLeafOfSelection";
