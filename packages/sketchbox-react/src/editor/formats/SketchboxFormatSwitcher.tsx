@@ -13,6 +13,7 @@ export const SketchboxFormatSwitcher: React.FC<Props> = ({leaf, attributes, chil
             {...attributes}
             className={cn(s.formatSwitcher, {[s.bold]: leaf.bold}, {[s.italic]: leaf.italic}, {[s.underline]: leaf.underline},
                 {[s.lineThrough]: leaf.lineThrough})}
+            style={{fontSize: leaf.fontSize ? leaf.fontSize : 16}}
         >
             {children}
         </span>

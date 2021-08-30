@@ -9,6 +9,7 @@ export * from "./editor/elements/paragraph/ParagraphElementItem";
 export * from "./editor/elements/SketchboxElementSwitcher";
 
 export * from "./editor/formats/formatCommand";
+export * from "./editor/formats/formatChanger";
 
 export * from "./editor/formats/sketchboxFormatProps";
 

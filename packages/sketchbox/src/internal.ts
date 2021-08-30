@@ -18,6 +18,7 @@ export * from "./editor/formats/createApplyFormatFunc";
 export * from "./editor/formats/bold/bold";
 export * from "./editor/formats/italic/italic";
 export * from "./editor/formats/line/line";
+export * from "./editor/formats/fontSize/fontSize";
 
 export * from "./editor/sketchboxEditor";
 export * from "./editor/createSketchboxEditor";
