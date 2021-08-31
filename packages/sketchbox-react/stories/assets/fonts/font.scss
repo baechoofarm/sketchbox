@@ -2,19 +2,22 @@
   font-family: "Noto Sans KR";
   font-weight: 400;
   src: url("../assets/fonts/NotoSansKR-Regular.ttf") format("truetype"),
-  url("../assets/fonts/NotoSansKR-Regular.woff") format("woff");
+  url("../assets/fonts/NotoSansKR-Regular.woff") format("woff"),
+  url("../assets/fonts/NotoSansKR-Regular.eot?iefix") format("embedded-opentype");
 }
 
 @font-face {
   font-family: "Black Han Sans";
   font-weight: 400;
   src: url("../assets/fonts/BlackHanSans-Regular.ttf") format("truetype"),
-  url("../assets/fonts/BlackHanSans-Regular.woff") format("woff");
+  url("../assets/fonts/BlackHanSans-Regular.woff") format("woff"),
+  url("../assets/fonts/BlackHanSans-Regular.eot?iefix") format("embedded-opentype");
 }
 
 @font-face {
   font-family: "Yeon Sung";
   font-weight: 400;
   src: url("../assets/fonts/YeonSung-Regular.ttf") format("truetype"),
-  url("../assets/fonts/YeonSung-Regular.woff") format("woff");
+  url("../assets/fonts/YeonSung-Regular.woff") format("woff"),
+  url("../assets/fonts/YeonSung-Regular.eot?iefix") format("embedded-opentype");
 }
