@@ -1,5 +1,6 @@
 import React, {useCallback, useMemo, useState} from "react";
 import {Editable, Slate, withReact} from "slate-react";
+import cn from "classnames";
 import {createSketchboxEditor, SketchboxElementType} from "sketchbox";
 import {SketchboxElementSwitcher, SketchboxValue, SketchboxFormatSwitcher, FormatCommand, FormatChanger} from "../internal";
 import s from "./sketchbox.scss";
@@ -7,10 +8,11 @@ import s from "./sketchbox.scss";
 interface Props {
     formatCommands?: FormatCommand[];
     formatChangers?: FormatChanger[];
+    className?: string;
 }
 
 const Sketchbox: React.FC<Props> = props => {
-    const {formatCommands, formatChangers} = props;
+    const {formatCommands, formatChangers, className} = props;
     const editor = useMemo(() => withReact(createSketchboxEditor()), []);
     const [value, setValue] = useState<SketchboxValue>(() => [{
         type: SketchboxElementType.PARAGRAPH,
@@ -38,7 +40,7 @@ const Sketchbox: React.FC<Props> = props => {
     }, [editor, formatCommands]);
 
     return (
-        <div className={s.sketchbox}>
+        <div className={className ? cn(s.sketchbox, className) : s.sketchbox}>
             <Slate editor={editor} value={value} onChange={onChange}>
                 <Editable
                     renderElement={ep => (

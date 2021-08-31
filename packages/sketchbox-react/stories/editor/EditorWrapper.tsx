@@ -18,6 +18,19 @@ export const EditorWrapper = () => {
 
     const commands: FormatCommand[] = [boldCommand, italicCommand, underlineCommand, lineThroughCommand];
 
+    const fonts = {
+        NOTO_SANS_KR: s.noto_sans_kr,
+        BLACK_HAN_SANS: s.black_han_sans,
+        YEON_SUNG: s.yeon_sung
+    };
+
+    type FontType = "NOTO_SANS_KR" | "BLACK_HAN_SANS" | "YEON_SUNG";
+    const renderFontOptions = () => {
+        return Object.keys(fonts).map(font => {
+            return <option key={font} value={fonts[font as FontType]}>{font}</option>;
+        });
+    };
+
     const handleChangeFontSize = (event: React.ChangeEvent<HTMLInputElement>) => {
         let size = Number(event.target.value);
         if (Number.isNaN(size)) size = 16;
@@ -32,9 +45,14 @@ export const EditorWrapper = () => {
     return (
         <div className={s.editor}>
             <div className={s.fontSize}>
-                Font Size : <input value={fontSize} onChange={handleChangeFontSize}/>
+                <span>Font Size : </span>
+                <input type={"number"} value={fontSize} onChange={handleChangeFontSize} className={s.input}/>
+                <span>Font Style : </span>
+                <select>
+                    {renderFontOptions()}
+                </select>
             </div>
-            <Sketchbox formatCommands={commands} formatChangers={changers}/>
+            <Sketchbox formatCommands={commands} formatChangers={changers} className={s.black_han_sans}/>
         </div>
     );
 };
