@@ -1,15 +1,26 @@
 import React, {useEffect, useState} from "react";
-import {applyBoldFormat, applyItalicFormat, applyLineThroughFormat, applyUnderlineFormat, changeFontSize} from "sketchbox";
+import {
+    applyBoldFormat,
+    applyItalicFormat,
+    applyLineThroughFormat,
+    applyUnderlineFormat,
+    changeFontSize,
+    changeFontFamily
+} from "sketchbox";
 import {useFormatChanger, Sketchbox, FormatCommand} from "../../src/internal";
 import s from "./EditorWrapper.scss";
 
 export const EditorWrapper = () => {
     const defaultSize = 16;
+    const defaultFamily = s.noto_sans_kr;
     const [fontSize, setFontSize] = useState(defaultSize);
+    const [fontFamily, setFontFamily] = useState(defaultFamily);
 
-    const [value, check, change, setEditor] = useFormatChanger("fontSize", defaultSize, changeFontSize);
+    const [_fontSize, fontSizeCheck, changeSize, setFontSizeEditor] = useFormatChanger("fontSize", defaultSize, changeFontSize);
+    const [_fontFamily, fontFamilyCheck, changeFamily, setFontFamilyEditor] = useFormatChanger("fontFamily", defaultFamily,
+        changeFontFamily);
 
-    const changers = [{check, setEditor}];
+    const changers = [{check: fontSizeCheck, setEditor: setFontSizeEditor}, {check: fontFamilyCheck, setEditor: setFontFamilyEditor}];
 
     const boldCommand = new FormatCommand("b", applyBoldFormat);
     const italicCommand = new FormatCommand("i", applyItalicFormat);
@@ -35,24 +46,33 @@ export const EditorWrapper = () => {
         let size = Number(event.target.value);
         if (Number.isNaN(size)) size = 16;
 
-        change(size);
+        changeSize(size);
+    };
+
+    const handleChangeFontFamily = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        changeFamily(event.target.value);
+        setFontFamily(_fontFamily as string);
     };
 
     useEffect(() => {
-        setFontSize(Number(value));
-    }, [value]);
+        setFontSize(Number(_fontSize));
+    }, [_fontSize]);
+
+    useEffect(() => {
+        setFontFamily(_fontFamily as string);
+    }, [_fontFamily]);
 
     return (
         <div className={s.editor}>
             <div className={s.fontSize}>
                 <span>Font Size : </span>
-                <input type={"number"} value={fontSize} onChange={handleChangeFontSize} className={s.input}/>
+                <input type={"number"} value={fontSize} onChange={handleChangeFontSize}/>
                 <span>Font Family : </span>
-                <select>
+                <select value={fontFamily} onChange={handleChangeFontFamily}>
                     {renderFontOptions()}
                 </select>
             </div>
-            <Sketchbox formatCommands={commands} formatChangers={changers} className={s.black_han_sans}/>
+            <Sketchbox formatCommands={commands} formatChangers={changers}/>
         </div>
     );
 };
