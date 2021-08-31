@@ -1,16 +1,17 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {applyBoldFormat, applyItalicFormat, applyLineThroughFormat, applyUnderlineFormat, changeFontSize} from "sketchbox";
 import {FormatCommand} from "../../src/editor/formats/formatCommand";
+import {useFormatChanger} from "../../src/internal";
 import {Sketchbox} from "../../src/editor/Sketchbox";
 import s from "./EditorWrapper.scss";
-import {FormatChanger} from "../../src/editor/formats/formatChanger";
 
 export const EditorWrapper = () => {
-    const [fontSize, setFontSize] = useState(16);
+    const defaultSize = 16;
+    const [fontSize, setFontSize] = useState(defaultSize);
 
-    const fontSizeChanger = new FormatChanger<number>(fontSize, changeFontSize);
+    const [value, check, change, setEditor] = useFormatChanger("fontSize", defaultSize, changeFontSize);
 
-    const changers = [fontSizeChanger];
+    const changers = [{check, setEditor}];
 
     const boldCommand = new FormatCommand("b", applyBoldFormat);
     const italicCommand = new FormatCommand("i", applyItalicFormat);
@@ -23,9 +24,12 @@ export const EditorWrapper = () => {
         let size = Number(event.target.value);
         if (Number.isNaN(size)) size = 16;
 
-        fontSizeChanger.change(size);
-        setFontSize(size);
+        change(size);
     };
+
+    useEffect(() => {
+        setFontSize(value);
+    }, [value]);
 
     return (
         <div className={s.editor}>

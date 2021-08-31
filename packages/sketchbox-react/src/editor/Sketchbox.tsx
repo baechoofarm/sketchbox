@@ -1,12 +1,17 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 import {Editable, Slate, withReact} from "slate-react";
 import {createSketchboxEditor, SketchboxElementType} from "sketchbox";
-import {SketchboxElementSwitcher, SketchboxValue, SketchboxFormatSwitcher, FormatCommand, FormatChanger} from "../internal";
+import {SketchboxElementSwitcher, SketchboxValue, SketchboxFormatSwitcher, FormatCommand} from "../internal";
 import s from "./sketchbox.scss";
+
+type FormatChanger = {
+    check: any;
+    setEditor: any;
+}
 
 interface Props {
     formatCommands?: FormatCommand[];
-    formatChangers?: FormatChanger<any>[];
+    formatChangers?: FormatChanger[];
 }
 
 const Sketchbox: React.FC<Props> = props => {
@@ -20,18 +25,11 @@ const Sketchbox: React.FC<Props> = props => {
     const onChange = useCallback((newValue: SketchboxValue) => {
         setValue(newValue);
 
-        if (!formatChangers || formatChangers.length < 1 || editor.selection === null) return;
-
-        formatChangers.forEach(charger => {
-            charger.selection = editor.selection;
-        });
-    }, [editor.selection, formatChangers]);
-
-    useEffect(() => {
-        if (formatChangers === undefined || formatChangers.length < 1) return;
+        if (!formatChangers || formatChangers.length < 1 || !editor.selection) return;
 
         formatChangers.forEach(changer => {
-            changer.editor = editor;
+            changer.setEditor(editor);
+            changer.check();
         });
     }, [editor, formatChangers]);
 
