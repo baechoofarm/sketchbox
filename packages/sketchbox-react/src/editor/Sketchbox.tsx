@@ -1,13 +1,8 @@
 import React, {useCallback, useMemo, useState} from "react";
 import {Editable, Slate, withReact} from "slate-react";
 import {createSketchboxEditor, SketchboxElementType} from "sketchbox";
-import {SketchboxElementSwitcher, SketchboxValue, SketchboxFormatSwitcher, FormatCommand} from "../internal";
+import {SketchboxElementSwitcher, SketchboxValue, SketchboxFormatSwitcher, FormatCommand, FormatChanger} from "../internal";
 import s from "./sketchbox.scss";
-
-type FormatChanger = {
-    check: any;
-    setEditor: any;
-}
 
 interface Props {
     formatCommands?: FormatCommand[];

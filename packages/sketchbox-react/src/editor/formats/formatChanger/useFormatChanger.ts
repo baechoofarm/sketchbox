@@ -1,13 +1,11 @@
 import {useState} from "react";
 import {Range} from "slate";
-import {getLeafOfSelection, SketchboxEditor, SketchboxEmptyText, SketchboxText} from "sketchbox";
+import {getLeafOfSelection, SketchboxEditor} from "sketchbox";
+import {FormatChangeFunction, FormatIndex} from "../../../internal";
 
-type FormatInputFunction<T> = (value: T, selection: Range | null, editor?: SketchboxEditor) => void;
-type IndexType = keyof SketchboxText | keyof SketchboxEmptyText;
-
-export function useFormatChanger<T extends IndexType, U>(
-    format: T, defaultValue: any, formatFunc: FormatInputFunction<U>
-) {
+export function useFormatChanger<T extends FormatIndex, U>(
+    format: T, defaultValue: any, formatFunc: FormatChangeFunction<U>
+): [unknown, () => void, (value: any) => void, (value: any) => void] {
     const [value, setValue] = useState(defaultValue);
     const [editor, setEditor] = useState<SketchboxEditor | null>(null);
     const [selection, setSelection] = useState<Range | null>(null);

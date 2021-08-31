@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {applyBoldFormat, applyItalicFormat, applyLineThroughFormat, applyUnderlineFormat, changeFontSize} from "sketchbox";
-import {FormatCommand} from "../../src/editor/formats/formatCommand";
-import {useFormatChanger} from "../../src/internal";
-import {Sketchbox} from "../../src/editor/Sketchbox";
+import {useFormatChanger, Sketchbox, FormatCommand} from "../../src/internal";
 import s from "./EditorWrapper.scss";
 
 export const EditorWrapper = () => {
@@ -28,7 +26,7 @@ export const EditorWrapper = () => {
     };
 
     useEffect(() => {
-        setFontSize(value);
+        setFontSize(Number(value));
     }, [value]);
 
     return (
