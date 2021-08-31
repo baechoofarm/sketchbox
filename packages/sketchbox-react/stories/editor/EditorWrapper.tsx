@@ -47,7 +47,7 @@ export const EditorWrapper = () => {
             <div className={s.fontSize}>
                 <span>Font Size : </span>
                 <input type={"number"} value={fontSize} onChange={handleChangeFontSize} className={s.input}/>
-                <span>Font Style : </span>
+                <span>Font Family : </span>
                 <select>
                     {renderFontOptions()}
                 </select>

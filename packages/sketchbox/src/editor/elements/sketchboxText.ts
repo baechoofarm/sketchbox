@@ -1,17 +1,14 @@
 import {BaseText} from "slate";
 
-export interface SketchboxText extends BaseText {
+interface FormatText extends BaseText{
     fontSize?: number;
+    fontFamily?: string;
     bold?: boolean;
     italic?: boolean;
     underline?: boolean;
     lineThrough?: boolean;
 }
 
-export interface SketchboxEmptyText extends BaseText {
-    fontSize?: number;
-    bold?: boolean;
-    italic?: boolean;
-    underline?: boolean;
-    lineThrough?: boolean;
-}
+export interface SketchboxText extends FormatText {}
+
+export interface SketchboxEmptyText extends FormatText {}
