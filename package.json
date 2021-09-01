@@ -1,10 +1,11 @@
 {
-  "name": "sketchbox-packages",
+  "name": "sketchbox",
+  "version": "1.0.0",
   "description": "",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "keywords": ["editor"],
+  "main": "dist/main.js",
+  "typings": "dist/main.d.ts",
+  "license": "MIT",
   "author": {
     "name": "Byeonggeol Ha",
     "email": "byeonggeol98@gmail.com"
@@ -18,11 +19,17 @@
     "email": "byeonggeol98@gmail.com"
   },
   "scripts": {
-    "build:core": "rollup --config packages/sketchbox/rollup.config.js",
+    "build:core": "rollup --c rollup.config.js",
     "eslint": "eslint .",
-    "eslint-quiet-fix": "eslint . --quiet --fix"
+    "eslint-quiet-fix": "eslint . --quiet --fix",
+    "storybook": "start-storybook -p 6006 --no-manager-cache",
+    "build-storybook": "build-storybook"
   },
   "devDependencies": {
+    "@types/react": "^17.0.19",
+    "@types/react-dom": "^17.0.9",
+    "@types/is-url": "^1.2.30",
+    "@types/dateformat": "^3.0.1",
     "@typescript-eslint/eslint-plugin": "^4.21.0",
     "@typescript-eslint/parser": "^4.21.0",
     "eslint": "^7.2.0",
@@ -37,6 +44,28 @@
     "rollup-plugin-json": "^4.0.0",
     "tslib": "^2.3.1",
     "typescript": "^4.3.5",
-    "classnames": "^2.3.1"
+    "classnames": "^2.3.1",
+    "slate": "0.65.3",
+    "slate-history": "0.65.3",
+    "is-url": "^1.2.4",
+    "dateformat": "^4.5.1",
+    "image-extensions": "^1.1.0",
+    "@babel/core": "^7.15.0",
+    "@storybook/addon-actions": "^6.3.7",
+    "@storybook/addon-essentials": "^6.3.7",
+    "@storybook/addon-links": "^6.3.7",
+    "@storybook/preset-scss": "^1.0.3",
+    "@storybook/react": "^6.3.7",
+    "@storybook/builder-webpack5": "^6.3.7",
+    "@storybook/manager-webpack5": "^6.3.7",
+    "webpack": "^5.51.1",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^6.2.0",
+    "style-loader": "^3.2.1",
+    "sass": "^1.38.1",
+    "sass-loader": "^12.1.0",
+    "slate-react": "0.65.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }

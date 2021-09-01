@@ -12,14 +12,17 @@
     "strict": true,
     "declaration": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "jsx": "react",
+    "typeRoots": [
+      "src/types"
+    ]
   },
-  "include": [],
+  "include": [
+    "src",
+    "stories"
+  ],
   "exclude": [
     "node_modules"
-  ],
-  "references": [
-    {"path": "./packages/sketchbox"},
-    {"path": "./packages/sketchbox-react"}
   ]
 }
