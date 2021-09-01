@@ -10,8 +10,12 @@ export * from "./editor/elements/link/linkElement";
 export * from "./editor/elements/mention/mentions";
 export * from "./editor/elements/mention/mentionElement";
 
+export * from "./editor/elements/image/images";
+export * from "./editor/elements/image/imageElement";
+
 export * from "./editor/elements/sketchboxElement";
 export * from "./editor/elements/customTypes";
+export * from "./editor/elements/withSketchboxElements";
 
 export * from "./editor/formats/createApplyFormatFunc";
 export * from "./editor/formats/createChangeFormatFunc";

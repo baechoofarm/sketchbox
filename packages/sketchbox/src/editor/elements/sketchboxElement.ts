@@ -1,6 +1,7 @@
-import {ParagraphElement, LinkElement, MentionElement} from "../../internal";
+import {ParagraphElement, LinkElement, MentionElement, ImageElement} from "../../internal";
 
 export type SketchboxElement =
     ParagraphElement |
     LinkElement |
-    MentionElement;
+    MentionElement |
+    ImageElement;

@@ -1,7 +1,7 @@
 import {createEditor} from "slate";
 import {withHistory} from "slate-history";
-import {SketchboxEditor} from "../internal";
+import {SketchboxEditor, withSketchboxElements} from "../internal";
 
 export function createSketchboxEditor(): SketchboxEditor {
-    return withHistory(createEditor());
+    return withSketchboxElements(withHistory(createEditor()));
 }

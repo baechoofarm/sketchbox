@@ -10,10 +10,16 @@
     "downlevelIteration": true,
     "allowJs": false,
     "strict": true,
-    "declaration": true
+    "declaration": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
   "include": [],
   "exclude": [
     "node_modules"
+  ],
+  "references": [
+    {"path": "./packages/sketchbox"},
+    {"path": "./packages/sketchbox-react"}
   ]
 }
