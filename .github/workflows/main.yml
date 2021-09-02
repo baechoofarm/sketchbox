@@ -27,12 +27,9 @@ jobs:
       
       - name: yarn install
         run: yarn install
-        
-      - name: build core
-        run: npm run build:core
       
       - name: build storybook and move to project root
-        run : cd ./packages/sketchbox-react;npm run build-storybook;dir;mv ./storybook-static ../../../docs
+        run : npm run build-storybook;dir;mv ./storybook-static ../docs
         
       - name: delete all files except docs and .git
         run : mv ./.git ../.git;sudo rm -rf *
