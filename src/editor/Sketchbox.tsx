@@ -8,13 +8,15 @@ interface Props {
     formatCommands?: FormatCommand[];
     formatChangers?: FormatChanger[];
     className?: string;
+    isReadMode?: boolean;
 }
 
 const Sketchbox: React.FC<Props> = props => {
     const {
         formatCommands,
         formatChangers,
-        className
+        className,
+        isReadMode
     } = props;
     const editor = useMemo(() => createSketchboxEditor(), []);
     const [value, setValue] = useState<SketchboxValue>(() => [{
@@ -46,6 +48,7 @@ const Sketchbox: React.FC<Props> = props => {
         <div className={className ? cn(s.sketchbox, className) : s.sketchbox}>
             <Slate editor={editor} value={value} onChange={onChange}>
                 <Editable
+                    readOnly={isReadMode}
                     renderElement={ep => (
                         <SketchboxElementSwitcher element={ep.element} attributes={ep.attributes}>
                             {ep.children}

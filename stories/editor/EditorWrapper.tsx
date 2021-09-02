@@ -20,7 +20,13 @@ export const EditorWrapper = () => {
     const [_fontFamily, fontFamilyCheck, changeFamily, setFontFamilyEditor] = useFormatChanger("fontFamily", defaultFamily,
         changeFontFamily);
 
-    const changers = [{check: fontSizeCheck, setEditor: setFontSizeEditor}, {check: fontFamilyCheck, setEditor: setFontFamilyEditor}];
+    const changers = [{
+        check: fontSizeCheck,
+        setEditor: setFontSizeEditor
+    }, {
+        check: fontFamilyCheck,
+        setEditor: setFontFamilyEditor
+    }];
 
     const boldCommand = new FormatCommand("b", applyBoldFormat);
     const italicCommand = new FormatCommand("i", applyItalicFormat);
@@ -37,9 +43,10 @@ export const EditorWrapper = () => {
 
     type FontType = "NOTO_SANS_KR" | "BLACK_HAN_SANS" | "YEON_SUNG";
     const renderFontOptions = () => {
-        return Object.keys(fonts).map(font => {
-            return <option key={font} value={fonts[font as FontType]}>{font}</option>;
-        });
+        return Object.keys(fonts)
+            .map(font => {
+                return <option key={font} value={fonts[font as FontType]}>{font}</option>;
+            });
     };
 
     const handleChangeFontSize = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,9 +69,12 @@ export const EditorWrapper = () => {
         setFontFamily(_fontFamily as string);
     }, [_fontFamily]);
 
+    const [isReadMode, setMode] = useState(false);
+
     return (
         <div className={s.editor}>
             <div className={s.fontSize}>
+                <button onClick={() => setMode(!isReadMode)}>{isReadMode ? "Change Edit Mode" : "Change Read Mode"}</button>
                 <span>Font Size : </span>
                 <input type={"number"} value={fontSize} onChange={handleChangeFontSize}/>
                 <span>Font Family : </span>
@@ -72,7 +82,7 @@ export const EditorWrapper = () => {
                     {renderFontOptions()}
                 </select>
             </div>
-            <Sketchbox formatCommands={commands} formatChangers={changers}/>
+            <Sketchbox formatCommands={commands} formatChangers={changers} isReadMode={isReadMode}/>
         </div>
     );
 };
