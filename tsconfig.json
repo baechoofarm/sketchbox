@@ -3,6 +3,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "target": "es5",
+    "declarationDir": ".",
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
@@ -13,14 +14,14 @@
     "declaration": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "jsx": "react",
     "typeRoots": [
       "src/types"
     ]
   },
   "include": [
-    "src",
-    "stories"
+    "src"
   ],
   "exclude": [
     "node_modules"
