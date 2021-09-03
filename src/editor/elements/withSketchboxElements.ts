@@ -1,8 +1,16 @@
 import isUrl from "is-url";
-import {insertImage, isImageUrl, SketchboxEditor, SketchboxElementType, wrapLink} from "../../internal";
+import {Editor, Range, Transforms} from "slate";
+import {findCurrentLineRange, insertImage, isImageUrl, SketchboxEditor, SketchboxElement, SketchboxElementType, unwrapLink, wrapLink} from "../../internal";
 
 export function withSketchboxElements(editor: SketchboxEditor) {
-    const {insertData, insertText, isInline, isVoid} = editor;
+    const {
+        insertData,
+        insertText,
+        isInline,
+        isVoid
+    } = editor;
+
+    const {deleteBackward} = editor;
 
     editor.isInline = element => {
         switch (element.type) {
@@ -30,6 +38,41 @@ export function withSketchboxElements(editor: SketchboxEditor) {
         return isVoid(element);
     };
 
+    editor.deleteBackward = (unit: "character" | "word" | "line" | "block"): void => {
+        const element = editor.getFragment()[0] as SketchboxElement;
+        const child = element.children[0] as SketchboxElement;
+        const isLink = (child.type) !== undefined && child.type === SketchboxElementType.LINK;
+        if (isLink) {
+            return unwrapLink(editor);
+        }
+
+        if (unit !== 'line') {
+            return deleteBackward(unit);
+        }
+
+        if (editor.selection && Range.isCollapsed(editor.selection)) {
+            const parentBlockEntry = Editor.above(editor, {
+                match: n => Editor.isBlock(editor, n),
+                at: editor.selection,
+            });
+
+            if (parentBlockEntry) {
+                const [, parentBlockPath] = parentBlockEntry;
+                const parentElementRange = Editor.range(
+                    editor,
+                    parentBlockPath,
+                    editor.selection.anchor
+                );
+
+                const currentLineRange = findCurrentLineRange(editor, parentElementRange);
+
+                if (!Range.isCollapsed(currentLineRange)) {
+                    Transforms.delete(editor, {at: currentLineRange});
+                }
+            }
+        }
+    };
+
     editor.insertData = data => {
         const text = data.getData('text/plain');
         const {files} = data;
@@ -48,11 +91,9 @@ export function withSketchboxElements(editor: SketchboxEditor) {
                     reader.readAsDataURL(file);
                 }
             }
-        }
-        else if (isImageUrl(text)) {
+        } else if (isImageUrl(text)) {
             insertImage(editor, text);
-        }
-        else if (text && isUrl(text)) {
+        } else if (text && isUrl(text)) {
             wrapLink(editor, text);
         } else {
             insertData(data);

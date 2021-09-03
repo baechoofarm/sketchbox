@@ -30,6 +30,7 @@ export * from "./editor/sketchboxEditor";
 export * from "./editor/createSketchboxEditor";
 
 export * from "./editor/utils/getLeafOfSelection";
+export * from "./editor/utils/line";
 
 export * from "./editor/elements/sketchboxElementProps";
 
