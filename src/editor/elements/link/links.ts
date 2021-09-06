@@ -1,7 +1,7 @@
 import {Editor, Element as SlateElement, Range, Transforms} from "slate";
 import {SketchboxElementType, LinkElement, SketchboxEditor} from "../../../internal";
 
-function isLinkActive(editor: SketchboxEditor) {
+export function isLinkActive(editor: SketchboxEditor) {
     const [link] = Editor.nodes(editor, {
         match: n => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === SketchboxElementType.LINK,
     });

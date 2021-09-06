@@ -10,6 +10,7 @@ import {
 } from "../../src/internal";
 import s from "./EditorWrapper.scss";
 import {LinkButton} from "./LinkButton";
+import {UnLinkButton} from "./UnLinkButton";
 
 export const EditorWrapper = () => {
     const defaultSize = 16;
@@ -85,6 +86,7 @@ export const EditorWrapper = () => {
             </div>
             <Sketchbox formatCommands={commands} formatChangers={changers} isReadMode={isReadMode}>
                 <LinkButton/>
+                <UnLinkButton/>
             </Sketchbox>
         </div>
     );
