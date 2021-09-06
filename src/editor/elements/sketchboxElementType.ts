@@ -3,5 +3,7 @@ export enum SketchboxElementType {
     TEXT = 'TEXT',
     LINK = 'LINK',
     MENTION = 'MENTION',
-    IMAGE = 'IMAGE'
+    IMAGE = 'IMAGE',
+    LIST = 'LIST',
+    BULLET = 'BULLET'
 }

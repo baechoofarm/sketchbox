@@ -13,6 +13,10 @@ export * from "./editor/elements/mention/mentionElement";
 export * from "./editor/elements/image/images";
 export * from "./editor/elements/image/imageElement";
 
+export * from "./editor/elements/bullet/bulletElement";
+
+export * from "./editor/elements/list/listElement";
+
 export * from "./editor/elements/sketchboxElement";
 export * from "./editor/elements/customTypes";
 export * from "./editor/elements/withSketchboxElements";
@@ -41,6 +45,10 @@ export * from "./editor/elements/mention/MentionElementItem";
 export * from "./editor/elements/image/ImageElementItem";
 
 export * from "./editor/elements/paragraph/ParagraphElementItem";
+
+export * from "./editor/elements/bullet/BulletElementItem";
+
+export * from "./editor/elements/list/ListElementItem";
 
 export * from "./editor/elements/SketchboxElementSwitcher";
 
