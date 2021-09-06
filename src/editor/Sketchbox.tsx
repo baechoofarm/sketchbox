@@ -1,7 +1,15 @@
 import React, {useCallback, useMemo, useState} from "react";
 import {Editable, Slate} from "slate-react";
 import cn from "classnames";
-import {createSketchboxEditor, SketchboxElementType, SketchboxElementSwitcher, SketchboxValue, SketchboxFormatSwitcher, FormatCommand, FormatChanger} from "../internal";
+import {
+    createSketchboxEditor,
+    FormatChanger,
+    FormatCommand,
+    SketchboxElementSwitcher,
+    SketchboxElementType,
+    SketchboxFormatSwitcher,
+    SketchboxValue
+} from "../internal";
 import s from "./sketchbox.scss";
 
 interface Props {
@@ -16,7 +24,8 @@ const Sketchbox: React.FC<Props> = props => {
         formatCommands,
         formatChangers,
         className,
-        isReadMode
+        isReadMode,
+        children
     } = props;
     const editor = useMemo(() => createSketchboxEditor(), []);
     const [value, setValue] = useState<SketchboxValue>(() => [{
@@ -47,6 +56,7 @@ const Sketchbox: React.FC<Props> = props => {
     return (
         <div className={className ? cn(s.sketchbox, className) : s.sketchbox}>
             <Slate editor={editor} value={value} onChange={onChange}>
+                {children}
                 <Editable
                     readOnly={isReadMode}
                     renderElement={ep => (

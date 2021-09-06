@@ -9,6 +9,7 @@ import {
     useFormatChanger, Sketchbox, FormatCommand
 } from "../../src/internal";
 import s from "./EditorWrapper.scss";
+import {LinkButton} from "./LinkButton";
 
 export const EditorWrapper = () => {
     const defaultSize = 16;
@@ -82,7 +83,9 @@ export const EditorWrapper = () => {
                     {renderFontOptions()}
                 </select>
             </div>
-            <Sketchbox formatCommands={commands} formatChangers={changers} isReadMode={isReadMode}/>
+            <Sketchbox formatCommands={commands} formatChangers={changers} isReadMode={isReadMode}>
+                <LinkButton/>
+            </Sketchbox>
         </div>
     );
 };

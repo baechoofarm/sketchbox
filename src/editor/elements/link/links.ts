@@ -34,3 +34,9 @@ export function wrapLink(editor: SketchboxEditor, url: string) {
         Transforms.collapse(editor, {edge: 'end'});
     }
 }
+
+export function insertLink(editor: SketchboxEditor, url: string) {
+    if (editor.selection) {
+        wrapLink(editor, url);
+    }
+}
