@@ -13,7 +13,7 @@ export * from "./editor/elements/mention/mentionElement";
 export * from "./editor/elements/image/images";
 export * from "./editor/elements/image/imageElement";
 
-export * from "./editor/elements/bullet/bulletElement";
+export * from "./editor/elements/bulleted/bulletedElement";
 
 export * from "./editor/elements/list/listElement";
 export * from "./editor/elements/list/toggleList";
@@ -47,7 +47,7 @@ export * from "./editor/elements/image/ImageElementItem";
 
 export * from "./editor/elements/paragraph/ParagraphElementItem";
 
-export * from "./editor/elements/bullet/BulletElementItem";
+export * from "./editor/elements/bulleted/BulletedElementItem";
 
 export * from "./editor/elements/list/ListElementItem";
 
