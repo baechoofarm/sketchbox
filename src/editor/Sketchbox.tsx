@@ -57,21 +57,23 @@ const Sketchbox: React.FC<Props> = props => {
         <div className={className ? cn(s.sketchbox, className) : s.sketchbox}>
             <Slate editor={editor} value={value} onChange={onChange}>
                 {children}
-                <Editable
-                    className={s.editable}
-                    readOnly={isReadMode}
-                    renderElement={ep => (
-                        <SketchboxElementSwitcher element={ep.element} attributes={ep.attributes}>
-                            {ep.children}
-                        </SketchboxElementSwitcher>
-                    )}
-                    renderLeaf={ep => (
-                        <SketchboxFormatSwitcher leaf={ep.leaf} text={ep.text} attributes={ep.attributes}>
-                            {ep.children}
-                        </SketchboxFormatSwitcher>
-                    )}
-                    onKeyDown={handleKeyDown}
-                />
+                <div className={s.scrollBox}>
+                    <Editable
+                        className={s.editable}
+                        readOnly={isReadMode}
+                        renderElement={ep => (
+                            <SketchboxElementSwitcher element={ep.element} attributes={ep.attributes}>
+                                {ep.children}
+                            </SketchboxElementSwitcher>
+                        )}
+                        renderLeaf={ep => (
+                            <SketchboxFormatSwitcher leaf={ep.leaf} text={ep.text} attributes={ep.attributes}>
+                                {ep.children}
+                            </SketchboxFormatSwitcher>
+                        )}
+                        onKeyDown={handleKeyDown}
+                    />
+                </div>
             </Slate>
         </div>
     );

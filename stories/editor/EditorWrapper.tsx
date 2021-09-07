@@ -12,6 +12,7 @@ import s from "./EditorWrapper.scss";
 import {LinkButton} from "./LinkButton";
 import {UnLinkButton} from "./UnLinkButton";
 import {BulletedButton} from "./BulletedButton";
+import {NumberedButton} from "./NumberedButton";
 
 export const EditorWrapper = () => {
     const defaultSize = 16;
@@ -87,9 +88,13 @@ export const EditorWrapper = () => {
                 </select>
             </div>
             <Sketchbox formatCommands={commands} formatChangers={changers} isReadMode={isReadMode}>
-                <LinkButton/>
-                <UnLinkButton/>
-                <BulletedButton/>
+                <div className={s.toolbar}>
+                    <LinkButton/>
+                    <UnLinkButton/>
+                    <BulletedButton/>
+                    <NumberedButton/>
+                </div>
+                <div className={s.marginBottom}/>
             </Sketchbox>
         </div>
     );

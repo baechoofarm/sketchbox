@@ -1,4 +1,4 @@
-import {ParagraphElement, LinkElement, MentionElement, ImageElement, ListElement, BulletedElement} from "../../internal";
+import {ParagraphElement, LinkElement, MentionElement, ImageElement, ListElement, BulletedElement, NumberedElement} from "../../internal";
 
 export type SketchboxElement =
     ParagraphElement |
@@ -6,4 +6,5 @@ export type SketchboxElement =
     MentionElement |
     ImageElement |
     ListElement |
-    BulletedElement;
+    BulletedElement |
+    NumberedElement;

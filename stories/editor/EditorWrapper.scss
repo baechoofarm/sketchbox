@@ -23,4 +23,13 @@
     font-family: "Yeon Sung", sans-serif;
     font-weight: 400;
   }
+
+  .toolbar {
+    position: fixed;
+    z-index: 100;
+  }
+
+  .marginBottom {
+    margin-bottom: 30px;
+  }
 }

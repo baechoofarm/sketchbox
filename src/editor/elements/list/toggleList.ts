@@ -14,7 +14,8 @@ export const toggleList = (editor: SketchboxEditor, type: SketchboxElementType) 
 
     Transforms.unwrapNodes(editor, {
         match: n => (
-            !Editor.isEditor(n) && Element.isElement(n) && n.type === SketchboxElementType.BULLETED
+            !Editor.isEditor(n) && Element.isElement(n)
+            && (n.type === SketchboxElementType.BULLETED || n.type === SketchboxElementType.NUMBERED)
         ),
         split: true
     });
@@ -24,7 +25,7 @@ export const toggleList = (editor: SketchboxEditor, type: SketchboxElementType) 
     };
     Transforms.setNodes(editor, newProperties);
 
-    if (!isActive && type === SketchboxElementType.BULLETED) {
+    if (!isActive && (type === SketchboxElementType.BULLETED || type === SketchboxElementType.NUMBERED)) {
         const listWrapper = {type, children: []};
         Transforms.wrapNodes(editor, listWrapper);
     }

@@ -15,6 +15,9 @@ export * from "./editor/elements/image/imageElement";
 
 export * from "./editor/elements/bulleted/bulletedElement";
 
+export * from "./editor/elements/numbered/numberedElement";
+export * from "./editor/elements/numbered/NumberedElementItem";
+
 export * from "./editor/elements/list/listElement";
 export * from "./editor/elements/list/toggleList";
 
