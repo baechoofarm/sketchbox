@@ -58,6 +58,7 @@ const Sketchbox: React.FC<Props> = props => {
             <Slate editor={editor} value={value} onChange={onChange}>
                 {children}
                 <Editable
+                    className={s.editable}
                     readOnly={isReadMode}
                     renderElement={ep => (
                         <SketchboxElementSwitcher element={ep.element} attributes={ep.attributes}>

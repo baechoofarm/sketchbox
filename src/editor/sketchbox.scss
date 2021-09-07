@@ -2,4 +2,10 @@
   width: 500px;
   height: 300px;
   border: solid 1px black;
+  overflow: auto;
+
+  .editable {
+    min-width: 100%;
+    min-height: 100%;
+  }
 }

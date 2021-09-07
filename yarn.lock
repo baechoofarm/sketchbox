@@ -9163,6 +9163,11 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-overlay-layer@0.1.0-alpha:
+  version "0.1.0-alpha"
+  resolved "https://registry.yarnpkg.com/react-overlay-layer/-/react-overlay-layer-0.1.0-alpha.tgz#44a587a3061ce65fe70a633253dc9296cac1ce65"
+  integrity sha512-W7b/PEdwaXMs2JVCMeFSvmcqO/hRF3GCQKonhPzpY63OAE7GGTUdY3wQuLBV1Yebum2uwZjhJaesJnbHAMgbNA==
+
 react-popper-tooltip@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/react-popper-tooltip/-/react-popper-tooltip-3.1.1.tgz#329569eb7b287008f04fcbddb6370452ad3f9eac"
