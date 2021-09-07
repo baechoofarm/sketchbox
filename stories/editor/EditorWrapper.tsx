@@ -15,9 +15,9 @@ import {BulletButton} from "./BulletButton";
 
 export const EditorWrapper = () => {
     const defaultSize = 16;
-    const defaultFamily = s.noto_sans_kr;
+    const defaultFamily = null;
     const [fontSize, setFontSize] = useState(defaultSize);
-    const [fontFamily, setFontFamily] = useState(defaultFamily);
+    const [fontFamily, setFontFamily] = useState<string | null>(defaultFamily);
 
     const [_fontSize, fontSizeCheck, changeSize, setFontSizeEditor] = useFormatChanger("fontSize", defaultSize, changeFontSize);
     const [_fontFamily, fontFamilyCheck, changeFamily, setFontFamilyEditor] = useFormatChanger("fontFamily", defaultFamily,
@@ -39,6 +39,7 @@ export const EditorWrapper = () => {
     const commands: FormatCommand[] = [boldCommand, italicCommand, underlineCommand, lineThroughCommand];
 
     const fonts = {
+        NONE: null,
         NOTO_SANS_KR: s.noto_sans_kr,
         BLACK_HAN_SANS: s.black_han_sans,
         YEON_SUNG: s.yeon_sung
@@ -61,7 +62,7 @@ export const EditorWrapper = () => {
 
     const handleChangeFontFamily = (event: React.ChangeEvent<HTMLSelectElement>) => {
         changeFamily(event.target.value);
-        setFontFamily(_fontFamily as string);
+        setFontFamily(_fontFamily ? _fontFamily as string : null);
     };
 
     useEffect(() => {
@@ -69,7 +70,7 @@ export const EditorWrapper = () => {
     }, [_fontSize]);
 
     useEffect(() => {
-        setFontFamily(_fontFamily as string);
+        setFontFamily(_fontFamily ? _fontFamily as string : null);
     }, [_fontFamily]);
 
     const [isReadMode, setMode] = useState(false);
@@ -81,7 +82,7 @@ export const EditorWrapper = () => {
                 <span>Font Size : </span>
                 <input type={"number"} value={fontSize} onChange={handleChangeFontSize}/>
                 <span>Font Family : </span>
-                <select value={fontFamily} onChange={handleChangeFontFamily}>
+                <select value={fontFamily ?? ""} onChange={handleChangeFontFamily}>
                     {renderFontOptions()}
                 </select>
             </div>
