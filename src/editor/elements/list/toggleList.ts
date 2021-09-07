@@ -1,8 +1,6 @@
 import {Editor, Element, Transforms} from "slate";
 import {SketchboxEditor, SketchboxElement, SketchboxElementType} from "../../../internal";
 
-type ListWrapper = SketchboxElementType.BULLET;
-
 const isListActive = (editor: SketchboxEditor, type: SketchboxElementType) => {
     const [match] = Editor.nodes(editor, {
         match: n => !Editor.isEditor(n) && Element.isElement(n) && n.type === type,
@@ -11,21 +9,22 @@ const isListActive = (editor: SketchboxEditor, type: SketchboxElementType) => {
     return !!match;
 };
 
-export const toggleList = (editor: SketchboxEditor, type: ListWrapper) => {
+export const toggleList = (editor: SketchboxEditor, type: SketchboxElementType) => {
     const isActive = isListActive(editor, type);
 
-    if (isActive) {
-        Transforms.unwrapNodes(editor, {
-            split: true
-        });
-    }
+    Transforms.unwrapNodes(editor, {
+        match: n => (
+            !Editor.isEditor(n) && Element.isElement(n) && n.type === SketchboxElementType.BULLET
+        ),
+        split: true
+    });
 
     const newProperties: Partial<SketchboxElement> = {
         type: isActive ? SketchboxElementType.PARAGRAPH : SketchboxElementType.LIST
     };
     Transforms.setNodes(editor, newProperties);
 
-    if (!isActive) {
+    if (!isActive && type === SketchboxElementType.BULLET) {
         const listWrapper = {type, children: []};
         Transforms.wrapNodes(editor, listWrapper);
     }
