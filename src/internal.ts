@@ -16,6 +16,7 @@ export * from "./editor/elements/image/imageElement";
 export * from "./editor/elements/bullet/bulletElement";
 
 export * from "./editor/elements/list/listElement";
+export * from "./editor/elements/list/toggleList";
 
 export * from "./editor/elements/sketchboxElement";
 export * from "./editor/elements/customTypes";
