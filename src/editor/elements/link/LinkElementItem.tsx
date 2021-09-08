@@ -14,25 +14,31 @@ const LinkElementItem: React.FC<LinkElementItemProps> = ({
     isReadMode
 }) => {
 
-    const handleMouseOver = () => {
+    const handleMouseDown = () => {
         if (!isReadMode) overlay.open();
     };
 
-    const handleClick = () => {
+    const handleRedirect = () => {
+        window.open(element.url);
+    };
+
+    const handleClose = () => {
         if (!isReadMode) overlay.close();
     };
 
     const overlay = useOverlay(() => (
         <div className={s.tooltip}>
-            Overlay
-            <button className={s.close} onClick={handleClick}>
-                Close
+            <button className={s.button} onClick={handleRedirect}>
+                Open link in a new tab
+            </button>
+            <button className={s.close} onClick={handleClose}>
+                X
             </button>
         </div>
     ));
 
     return (
-        <a {...attributes} href={element.url} onMouseOver={handleMouseOver}>
+        <a {...attributes} href={element.url} onMouseDown={handleMouseDown}>
             {children}
         </a>
     );

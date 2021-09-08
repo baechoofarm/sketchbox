@@ -5,7 +5,12 @@
 .tooltip {
   border: 3px solid black;
   background-color: gray;
+  height: 20px;
   width: 400px;
+
+  .button {
+    float: left;
+  }
   .close {
     float: right;
   }
