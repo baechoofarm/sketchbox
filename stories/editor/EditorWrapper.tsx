@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from "react";
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import EditIcon from '@material-ui/icons/Edit';
 import {
     applyBoldFormat,
     applyItalicFormat,
@@ -9,6 +11,7 @@ import {
     useFormatChanger, Sketchbox, FormatCommand
 } from "../../src/internal";
 import s from "./EditorWrapper.scss";
+import style from "./EditorButton.scss";
 import {LinkButton} from "./LinkButton";
 import {UnLinkButton} from "./UnLinkButton";
 import {BulletedButton} from "./BulletedButton";
@@ -79,7 +82,6 @@ export const EditorWrapper = () => {
     return (
         <div className={s.editor}>
             <div className={s.fontSize}>
-                <button onClick={() => setMode(!isReadMode)}>{isReadMode ? "Change Edit Mode" : "Change Read Mode"}</button>
                 <span>Font Size : </span>
                 <input type={"number"} value={fontSize} onChange={handleChangeFontSize}/>
                 <span>Font Family : </span>
@@ -89,6 +91,9 @@ export const EditorWrapper = () => {
             </div>
             <Sketchbox formatCommands={commands} formatChangers={changers} isReadMode={isReadMode}>
                 <div className={s.toolbar}>
+                    <button onClick={() => setMode(!isReadMode)} className={style.button}>
+                        {isReadMode ? <EditIcon className={style.icon}/> : <MenuBookIcon className={style.icon}/>}
+                    </button>
                     <LinkButton/>
                     <UnLinkButton/>
                     <BulletedButton/>
