@@ -1,15 +1,23 @@
 .sketchbox {
   width: 500px;
   height: 300px;
-  border-radius: 4px;
-  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0, rgba(27, 31, 35, 0.15) 0 0 0 1px;
   padding-top: 10px;
 
   .scrollBox {
     overflow: auto;
   }
 
+  .scrollBox::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #AFB1B3;
+  }
+
+  .scrollBox::-webkit-scrollbar {
+    width: 10px;
+  }
+
   .editable {
+    padding: 0 10px;
     box-sizing: border-box;
     min-width: 100%;
     min-height: 100%;
