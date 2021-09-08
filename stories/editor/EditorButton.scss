@@ -1,0 +1,11 @@
+.button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  .icon {
+    fill: #999999;
+    &:hover {
+      fill: #FF4785;
+    }
+  }
+}

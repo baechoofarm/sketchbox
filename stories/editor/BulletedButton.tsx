@@ -1,7 +1,8 @@
 import React from "react";
 import {useSlate} from "slate-react";
-import {toggleList} from "../../src/editor/elements/list/toggleList";
-import {SketchboxElementType} from "../../src/editor/elements/sketchboxElementType";
+import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import {toggleList, SketchboxElementType} from "../../src/internal";
+import s from "./EditorButton.scss";
 
 export const BulletedButton = () => {
     const editor = useSlate();
@@ -12,8 +13,8 @@ export const BulletedButton = () => {
     };
 
     return (
-        <button onClick={handleClick}>
-            Bulleted List
+        <button onClick={handleClick} className={s.button}>
+            <FormatListBulletedIcon className={s.icon}/>
         </button>
     );
 };

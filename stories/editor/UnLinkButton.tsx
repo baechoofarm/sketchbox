@@ -1,6 +1,8 @@
 import React from "react";
 import {useSlate} from "slate-react";
+import LinkOffIcon from '@material-ui/icons/LinkOff';
 import {isLinkActive, unwrapLink} from "../../src/internal";
+import s from "./EditorButton.scss";
 
 export const UnLinkButton = () => {
     const editor = useSlate();
@@ -12,8 +14,8 @@ export const UnLinkButton = () => {
     };
 
     return (
-        <button onClick={handleClick}>
-            UnLink
+        <button onClick={handleClick} className={s.button}>
+            <LinkOffIcon className={s.icon}/>
         </button>
     );
 };

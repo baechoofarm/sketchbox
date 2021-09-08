@@ -1,6 +1,8 @@
 import React from "react";
 import {useSlate} from "slate-react";
-import {insertLink} from "../../src/editor/elements/link/links";
+import LinkIcon from '@material-ui/icons/Link';
+import {insertLink} from "../../src/internal";
+import s from "./EditorButton.scss";
 
 export const LinkButton = () => {
     const editor = useSlate();
@@ -12,8 +14,8 @@ export const LinkButton = () => {
     };
 
     return (
-        <button onClick={handleClick}>
-            Link
+        <button className={s.button} onClick={handleClick}>
+            <LinkIcon className={s.icon}/>
         </button>
     );
 };

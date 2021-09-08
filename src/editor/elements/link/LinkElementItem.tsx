@@ -1,5 +1,9 @@
 import React from "react";
 import {useOverlay} from "react-overlay-layer";
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import LinkIcon from '@material-ui/icons/Link';
+import LinkOffIcon from '@material-ui/icons/LinkOff';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import {LinkElement, SketchboxElementProps, SketchboxText, useLink} from "../../../internal";
 import s from "./linkElementItem.scss";
 
@@ -43,16 +47,16 @@ const LinkElementItem: React.FC<LinkElementItemProps> = ({
     const overlay = useOverlay(() => (
         <div className={s.tooltip}>
             <button className={s.button} onClick={handleRedirect}>
-                Open link in a new tab
-            </button>
-            <button className={s.button} onClick={handleDisconnect}>
-                Disconnect Link
+                <OpenInNewIcon className={s.icon}/>
             </button>
             <button className={s.button} onClick={handleEditConnect}>
-                Edit Link
+                <LinkIcon className={s.icon}/>
             </button>
-            <button className={s.close} onClick={handleClose}>
-                X
+            <button className={s.button} onClick={handleDisconnect}>
+                <LinkOffIcon className={s.icon}/>
+            </button>
+            <button className={s.button} onClick={handleClose}>
+                <HighlightOffIcon className={s.icon}/>
             </button>
         </div>
     ));
