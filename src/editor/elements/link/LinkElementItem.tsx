@@ -1,6 +1,6 @@
 import React from "react";
 import {useOverlay} from "react-overlay-layer";
-import {LinkElement, SketchboxElementProps} from "../../../internal";
+import {LinkElement, SketchboxElementProps, useLink} from "../../../internal";
 import s from "./linkElementItem.scss";
 
 export interface LinkElementItemProps extends SketchboxElementProps<LinkElement> {
@@ -14,12 +14,18 @@ const LinkElementItem: React.FC<LinkElementItemProps> = ({
     isReadMode
 }) => {
 
+    const [wrapLink, unWrapLink] = useLink();
+
     const handleMouseDown = () => {
         if (!isReadMode) overlay.open();
     };
 
     const handleRedirect = () => {
         window.open(element.url);
+    };
+
+    const handleDisconnect = () => {
+        unWrapLink();
     };
 
     const handleClose = () => {
@@ -30,6 +36,9 @@ const LinkElementItem: React.FC<LinkElementItemProps> = ({
         <div className={s.tooltip}>
             <button className={s.button} onClick={handleRedirect}>
                 Open link in a new tab
+            </button>
+            <button className={s.button} onClick={handleDisconnect}>
+                Disconnect Link
             </button>
             <button className={s.close} onClick={handleClose}>
                 X

@@ -1,4 +1,5 @@
 import {Editor, Element as SlateElement, Range, Transforms} from "slate";
+import {useSlate} from "slate-react";
 import {SketchboxElementType, LinkElement, SketchboxEditor} from "../../../internal";
 
 export function isLinkActive(editor: SketchboxEditor) {
@@ -39,4 +40,18 @@ export function insertLink(editor: SketchboxEditor, url: string) {
     if (editor.selection) {
         wrapLink(editor, url);
     }
+}
+
+export function useLink(): [(url:string) => void, () => void] {
+    const editor = useSlate();
+
+    const wrapLinkFunc = (url: string) => {
+        wrapLink(editor, url);
+    };
+
+    const unwrapLinkFunc = () => {
+        unwrapLink(editor);
+    };
+
+    return [wrapLinkFunc, unwrapLinkFunc];
 }
