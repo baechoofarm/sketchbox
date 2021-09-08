@@ -1,6 +1,6 @@
 import React from "react";
 import {useOverlay} from "react-overlay-layer";
-import {LinkElement, SketchboxElementProps, useLink} from "../../../internal";
+import {LinkElement, SketchboxElementProps, SketchboxText, useLink} from "../../../internal";
 import s from "./linkElementItem.scss";
 
 export interface LinkElementItemProps extends SketchboxElementProps<LinkElement> {
@@ -28,6 +28,14 @@ const LinkElementItem: React.FC<LinkElementItemProps> = ({
         unWrapLink();
     };
 
+    const handleEditConnect = () => {
+        const url = window.prompt('Enter the URL of the link: ', element.url);
+        const child = element.children[0] as SketchboxText;
+        const text = window.prompt('Enter the Text of the link: ', child.text);
+        if (!url) return;
+        wrapLink(url, text ?? url);
+    };
+
     const handleClose = () => {
         if (!isReadMode) overlay.close();
     };
@@ -39,6 +47,9 @@ const LinkElementItem: React.FC<LinkElementItemProps> = ({
             </button>
             <button className={s.button} onClick={handleDisconnect}>
                 Disconnect Link
+            </button>
+            <button className={s.button} onClick={handleEditConnect}>
+                Edit Link
             </button>
             <button className={s.close} onClick={handleClose}>
                 X

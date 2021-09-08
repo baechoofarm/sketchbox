@@ -15,17 +15,18 @@ export function unwrapLink(editor: SketchboxEditor) {
     });
 }
 
-export function wrapLink(editor: SketchboxEditor, url: string) {
+export function wrapLink(editor: SketchboxEditor, url: string, text?: string) {
     if (isLinkActive(editor)) {
         unwrapLink(editor);
     }
 
+    const linkText = text || url;
     const {selection} = editor;
     const isCollapsed = selection && Range.isCollapsed(selection);
     const link: LinkElement = {
         type: SketchboxElementType.LINK,
         url,
-        children: isCollapsed ? [{text: url}] : [],
+        children: isCollapsed ? [{text: linkText}] : [],
     };
 
     if (isCollapsed) {
@@ -42,11 +43,11 @@ export function insertLink(editor: SketchboxEditor, url: string) {
     }
 }
 
-export function useLink(): [(url:string) => void, () => void] {
+export function useLink(): [(url: string, text?: string) => void, () => void] {
     const editor = useSlate();
 
-    const wrapLinkFunc = (url: string) => {
-        wrapLink(editor, url);
+    const wrapLinkFunc = (url: string, text?: string) => {
+        wrapLink(editor, url, text);
     };
 
     const unwrapLinkFunc = () => {
