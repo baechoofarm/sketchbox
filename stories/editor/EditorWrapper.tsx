@@ -16,6 +16,10 @@ import {LinkButton} from "./LinkButton";
 import {UnLinkButton} from "./UnLinkButton";
 import {BulletedButton} from "./BulletedButton";
 import {NumberedButton} from "./NumberedButton";
+import {LineThroughButton} from "./LineThroghButton";
+import {BoldButton} from "./BoldButton";
+import {UnderlineButton} from "./UnderlineButton";
+import {ItalicButton} from "./ItalicButton";
 
 export const EditorWrapper = () => {
     const defaultSize = 16;
@@ -96,6 +100,10 @@ export const EditorWrapper = () => {
                     <UnLinkButton/>
                     <BulletedButton/>
                     <NumberedButton/>
+                    <BoldButton/>
+                    <ItalicButton/>
+                    <UnderlineButton/>
+                    <LineThroughButton/>
                 </div>
                 <div className={s.marginBottom}/>
             </Sketchbox>
