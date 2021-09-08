@@ -62,7 +62,7 @@ const Sketchbox: React.FC<Props> = props => {
                         className={s.editable}
                         readOnly={isReadMode}
                         renderElement={ep => (
-                            <SketchboxElementSwitcher element={ep.element} attributes={ep.attributes}>
+                            <SketchboxElementSwitcher element={ep.element} attributes={ep.attributes} isReadMode={isReadMode ?? false}>
                                 {ep.children}
                             </SketchboxElementSwitcher>
                         )}

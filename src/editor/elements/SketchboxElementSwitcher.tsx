@@ -9,17 +9,18 @@ import {
 } from "../../internal";
 
 interface Props extends SketchboxElementProps {
-
+    isReadMode: boolean;
 }
 
 const SketchboxElementSwitcher: React.FC<Props> = ({
     element,
     attributes,
-    children
+    children,
+    isReadMode
 }) => {
     switch (element.type) {
         case SketchboxElementType.LINK:
-            return <LinkElementItem element={element} attributes={attributes}>{children}</LinkElementItem>;
+            return <LinkElementItem element={element} attributes={attributes} isReadMode={isReadMode}>{children}</LinkElementItem>;
         case SketchboxElementType.MENTION:
             return <MentionElementItem element={element} attributes={attributes}>{children}</MentionElementItem>;
         case SketchboxElementType.IMAGE:
