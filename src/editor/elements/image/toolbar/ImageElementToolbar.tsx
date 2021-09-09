@@ -12,7 +12,7 @@ const ImageElementToolbar: React.FC<Props> = ({element}) => {
     const {width, height} = element;
     const editor = useSlate();
 
-    function setSize(w: number, h: number) {
+    function setSize(w: number | null, h: number | null) {
         const path = ReactEditor.findPath(editor, element);
         const newProperties: Partial<ImageElement> = {width: w, height: h};
 
@@ -22,7 +22,7 @@ const ImageElementToolbar: React.FC<Props> = ({element}) => {
     return (
         <div className={s.toolbar}>
             <input
-                value={String(width ?? 0)}
+                value={width ? String(width) : ''}
                 type={"number"}
                 onChange={e => {
                     const v = e.currentTarget.value.trim();
@@ -33,7 +33,7 @@ const ImageElementToolbar: React.FC<Props> = ({element}) => {
             />
             &nbsp;
             <input
-                value={String(height ?? 0)}
+                value={height ? String(height) : ''}
                 type={"number"}
                 onChange={e => {
                     const v = e.currentTarget.value?.trim();

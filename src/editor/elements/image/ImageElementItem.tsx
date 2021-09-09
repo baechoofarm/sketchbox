@@ -31,6 +31,8 @@ const ImageElementItem: React.FC<ImageElementItemProps> = ({attributes, children
                     style={{
                         display: 'block',
                         maxWidth: '100%',
+                        width: element.width ?? undefined,
+                        height: element.height ?? undefined,
                         boxShadow: `${selected && focused ? '0 0 0 3px #B4D5FF' : 'none'}`
                     }}
                     alt={"image"}

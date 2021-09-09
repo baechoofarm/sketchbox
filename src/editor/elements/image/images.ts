@@ -15,8 +15,8 @@ export function insertImage(editor: SketchboxEditor, url: string) {
     const image: ImageElement = {
         type: SketchboxElementType.IMAGE,
         url,
-        width: 0,
-        height: 0,
+        width: null,
+        height: null,
         children: [text]
     };
     Transforms.insertNodes(editor, image);
