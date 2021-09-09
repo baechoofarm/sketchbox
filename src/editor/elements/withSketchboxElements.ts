@@ -27,6 +27,25 @@ export function withSketchboxElements(editor: SketchboxEditor) {
             return;
         }
 
+        const splits = text.split(" ");
+        const hasUrl = splits.find(split => isUrl(split));
+        if (hasUrl) {
+            splits.forEach((split, index) => {
+                if (isUrl(split)) {
+                    if (index !== 0 && !isUrl(splits[index - 1])) {
+                        insertText(" ");
+                    }
+                    wrapLink(editor, split);
+                    if (index !== splits.length - 1) {
+                        insertText(" ");
+                    }
+                } else {
+                    insertText(split);
+                }
+            });
+            return;
+        }
+
         if (text && isUrl(text)) {
             wrapLink(editor, text);
         } else if (text.length >= 1) {
