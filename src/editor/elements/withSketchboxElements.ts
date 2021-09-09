@@ -22,9 +22,14 @@ export function withSketchboxElements(editor: SketchboxEditor) {
     };
 
     editor.insertText = text => {
+        if (text.length < 1) {
+            editor.deleteBackward("block");
+            return;
+        }
+
         if (text && isUrl(text)) {
             wrapLink(editor, text);
-        } else {
+        } else if (text.length >= 1) {
             insertText(text);
         }
     };
