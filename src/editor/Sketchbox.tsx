@@ -1,6 +1,7 @@
 import React, {useCallback, useMemo, useState} from "react";
 import {Editable, Slate} from "slate-react";
 import cn from "classnames";
+import {OverlayRoot} from "react-overlay-layer";
 import {
     createSketchboxEditor,
     FormatChanger,
@@ -74,6 +75,7 @@ const Sketchbox: React.FC<Props> = props => {
                         onKeyDown={handleKeyDown}
                     />
                 </div>
+                <OverlayRoot/>
             </Slate>
         </div>
     );

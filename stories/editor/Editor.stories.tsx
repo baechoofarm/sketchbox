@@ -1,6 +1,5 @@
 import React from "react";
 import {Meta} from "@storybook/react";
-import {OverlayRoot} from "react-overlay-layer";
 import {Sketchbox} from "../../src/internal";
 import {EditorWrapper} from "./EditorWrapper";
 
@@ -13,7 +12,6 @@ const Template = () => {
     return (
         <>
             <EditorWrapper/>
-            <OverlayRoot/>
         </>
     );
 };

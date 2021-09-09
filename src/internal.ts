@@ -46,6 +46,7 @@ export * from "./editor/elements/link/LinkElementItem";
 
 export * from "./editor/elements/mention/MentionElementItem";
 
+export * from "./editor/elements/image/toolbar/ImageElementToolbar";
 export * from "./editor/elements/image/ImageElementItem";
 
 export * from "./editor/elements/paragraph/ParagraphElementItem";

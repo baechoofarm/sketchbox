@@ -12,6 +12,12 @@ export function isImageUrl(url: string) {
 
 export function insertImage(editor: SketchboxEditor, url: string) {
     const text = {text: ''};
-    const image: ImageElement = {type: SketchboxElementType.IMAGE, url, children: [text]};
+    const image: ImageElement = {
+        type: SketchboxElementType.IMAGE,
+        url,
+        width: 0,
+        height: 0,
+        children: [text]
+    };
     Transforms.insertNodes(editor, image);
 }
