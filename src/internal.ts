@@ -1,70 +1,94 @@
-export * from "./editor/elements/sketchboxText";
-export * from "./editor/elements/sketchboxElementType";
-export * from "./editor/elements/sketchboxElementBase";
+/**
+ * Text
+ */
 
-export * from "./editor/elements/paragraph/paragraphElement";
+export * from "./editor/model/text/sketchboxText";
 
-export * from "./editor/elements/link/links";
-export * from "./editor/elements/link/linkElement";
+export * from "./editor/model/text/format/func/createApplyFormatFunc";
+export * from "./editor/model/text/format/func/createChangeFormatFunc";
 
-export * from "./editor/elements/mention/mentions";
-export * from "./editor/elements/mention/mentionElement";
+export * from "./editor/model/text/format/formats/bold";
+export * from "./editor/model/text/format/formats/italic";
+export * from "./editor/model/text/format/formats/line";
+export * from "./editor/model/text/format/formats/fontSize";
+export * from "./editor/model/text/format/formats/fontFamily";
+export * from "./editor/model/text/format/sketchboxFormatIndex";
 
-export * from "./editor/elements/image/images";
-export * from "./editor/elements/image/imageElement";
+export * from "./editor/model/text/format/command/formatCommand";
 
-export * from "./editor/elements/bulleted/bulletedElement";
+export * from "./editor/model/sketchboxEditor";
+export * from "./editor/model/sketchboxValue";
 
-export * from "./editor/elements/numbered/numberedElement";
-export * from "./editor/elements/numbered/NumberedElementItem";
+export * from "./editor/model/text/format/changer/formatChanger";
+export * from "./editor/model/text/format/changer/useFormatChanger";
 
-export * from "./editor/elements/list/listElement";
-export * from "./editor/elements/list/toggleList";
+/**
+ * Elements
+ */
 
-export * from "./editor/elements/sketchboxElement";
-export * from "./editor/elements/customTypes";
-export * from "./editor/elements/withSketchboxElements";
+export * from "./editor/model/elements/sketchboxElementType";
+export * from "./editor/model/elements/sketchboxElementBase";
 
-export * from "./editor/formats/createApplyFormatFunc";
-export * from "./editor/formats/createChangeFormatFunc";
+export * from "./editor/model/elements/image/images";
+export * from "./editor/model/elements/image/imageElement";
 
-export * from "./editor/formats/bold/bold";
-export * from "./editor/formats/italic/italic";
-export * from "./editor/formats/line/line";
-export * from "./editor/formats/fontSize/fontSize";
-export * from "./editor/formats/fontFamily/fontFamily";
+export * from "./editor/model/elements/link/links";
+export * from "./editor/model/elements/link/linkElement";
 
-export * from "./editor/sketchboxEditor";
-export * from "./editor/createSketchboxEditor";
+export * from "./editor/model/elements/listed/list/listElement";
+export * from "./editor/model/elements/listed/list/toggleList";
+export * from "./editor/model/elements/listed/bulletedElement";
+export * from "./editor/model/elements/listed/numberedElement";
+
+export * from "./editor/model/elements/mention/mentions";
+export * from "./editor/model/elements/mention/mentionElement";
+
+export * from "./editor/model/elements/paragraph/paragraphElement";
+
+export * from "./editor/model/elements/sketchboxElement";
+export * from "./editor/model/elements/customTypes";
+export * from "./editor/model/elements/withSketchboxElements";
+
+export * from "./editor/model/createSketchboxEditor";
+
+/**
+ * Utils
+ */
 
 export * from "./editor/utils/getLeafOfSelection";
 export * from "./editor/utils/line";
 
-export * from "./editor/elements/sketchboxElementProps";
+/**
+ * View
+ */
 
-export * from "./editor/elements/link/LinkElementItem";
+export * from "./editor/view/toolbar/buttons/BoldButton";
+export * from "./editor/view/toolbar/buttons/ItalicButton";
+export * from "./editor/view/toolbar/buttons/BulletedButton";
+export * from "./editor/view/toolbar/buttons/NumberedButton";
+export * from "./editor/view/toolbar/buttons/LinkButton";
+export * from "./editor/view/toolbar/buttons/UnLinkButton";
+export * from "./editor/view/toolbar/buttons/LineThroghButton";
+export * from "./editor/view/toolbar/buttons/UnderlineButton";
 
-export * from "./editor/elements/mention/MentionElementItem";
+export * from "./editor/view/text/format/SketchboxFormatSwitcher";
 
-export * from "./editor/elements/image/toolbar/ImageElementToolbar";
-export * from "./editor/elements/image/ImageElementItem";
+export * from "./editor/view/elements/sketchboxElementProps";
 
-export * from "./editor/elements/paragraph/ParagraphElementItem";
+export * from "./editor/view/elements/listed/NumberedElementItem";
+export * from "./editor/view/elements/link/LinkElementItem";
 
-export * from "./editor/elements/bulleted/BulletedElementItem";
+export * from "./editor/view/elements/mention/MentionElementItem";
 
-export * from "./editor/elements/list/ListElementItem";
+export * from "./editor/view/elements/image/toolbar/ImageElementToolbar";
+export * from "./editor/view/elements/image/ImageElementItem";
 
-export * from "./editor/elements/SketchboxElementSwitcher";
+export * from "./editor/view/elements/paragraph/ParagraphElementItem";
 
-export * from "./editor/formats/formatIndex";
-export * from "./editor/formats/formatCommand";
-export * from "./editor/formats/formatChanger/formatChanger";
-export * from "./editor/formats/formatChanger/useFormatChanger";
+export * from "./editor/view/elements/listed/BulletedElementItem";
+export * from "./editor/view/elements/listed/list/ListElementItem";
 
-export * from "./editor/formats/sketchboxFormatProps";
+export * from "./editor/view/elements/SketchboxElementSwitcher";
 
-export * from "./editor/formats/SketchboxFormatSwitcher";
-
-export * from "./editor/sketchboxValue";
+export * from "./editor/EditorWrapper";
 export * from "./editor/Sketchbox";

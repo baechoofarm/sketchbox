@@ -1,11 +1,11 @@
 import React from "react";
 import {Meta} from "@storybook/react";
-import {Sketchbox} from "../../src/main";
-import {EditorWrapper} from "./EditorWrapper";
+import {EditorWrapper, Sketchbox} from "../../src/internal";
+import "./editor.scss";
 
 export default {
     title: 'Sketchbox/Editor',
-    component: Sketchbox
+    component: EditorWrapper
 } as Meta;
 
 const Template = () => {
