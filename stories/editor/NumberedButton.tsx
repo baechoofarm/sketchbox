@@ -1,7 +1,7 @@
 import React from "react";
 import {useSlate} from "slate-react";
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
-import {toggleList, SketchboxElementType} from "../../src/internal";
+import {toggleList, SketchboxElementType} from "../../src/main";
 import s from "./EditorButton.scss";
 
 export const NumberedButton = () => {

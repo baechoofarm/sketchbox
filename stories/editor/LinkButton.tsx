@@ -1,7 +1,7 @@
 import React from "react";
 import {useSlate} from "slate-react";
 import LinkIcon from '@material-ui/icons/Link';
-import {insertLink} from "../../src/internal";
+import {insertLink} from "../../src/main";
 import s from "./EditorButton.scss";
 
 export const LinkButton = () => {

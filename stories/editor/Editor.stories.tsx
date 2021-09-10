@@ -1,6 +1,6 @@
 import React from "react";
 import {Meta} from "@storybook/react";
-import {Sketchbox} from "../../src/internal";
+import {Sketchbox} from "../../src/main";
 import {EditorWrapper} from "./EditorWrapper";
 
 export default {
@@ -9,11 +9,7 @@ export default {
 } as Meta;
 
 const Template = () => {
-    return (
-        <>
-            <EditorWrapper/>
-        </>
-    );
+    return <EditorWrapper/>;
 };
 
 export const Basic = Template.bind({});

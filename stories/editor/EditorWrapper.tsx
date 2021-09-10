@@ -9,7 +9,7 @@ import {
     changeFontSize,
     changeFontFamily,
     useFormatChanger, Sketchbox, FormatCommand
-} from "../../src/internal";
+} from "../../src/main";
 import s from "./EditorWrapper.scss";
 import style from "./EditorButton.scss";
 import {LinkButton} from "./LinkButton";
@@ -84,7 +84,7 @@ export const EditorWrapper = () => {
     const [isReadMode, setMode] = useState(false);
 
     return (
-        <div className={s.editor}>
+        <div className={s.editor} style={{position: "relative"}}>
             <div className={s.fontSize}>
                 <input className={s.input} type={"number"} value={fontSize} onChange={handleChangeFontSize}/>
                 <select className={s.input} value={fontFamily ?? ""} onChange={handleChangeFontFamily}>

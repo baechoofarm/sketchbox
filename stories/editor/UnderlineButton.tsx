@@ -1,7 +1,7 @@
 import React from "react";
 import {useSlate} from "slate-react";
 import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
-import {applyUnderlineFormat} from "../../src/internal";
+import {applyUnderlineFormat} from "../../src/main";
 import s from "./EditorButton.scss";
 
 export const UnderlineButton = () => {

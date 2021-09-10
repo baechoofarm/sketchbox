@@ -1,7 +1,7 @@
 import React from "react";
 import FormatBoldIcon from '@material-ui/icons/FormatBold';
 import {useSlate} from "slate-react";
-import {applyBoldFormat} from "../../src/internal";
+import {applyBoldFormat} from "../../src/main";
 import s from "./EditorButton.scss";
 
 export const BoldButton = () => {

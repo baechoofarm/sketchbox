@@ -1,7 +1,7 @@
 import React from "react";
 import {useSlate} from "slate-react";
 import FormatStrikethroughIcon from '@material-ui/icons/FormatStrikethrough';
-import {applyLineThroughFormat} from "../../src/internal";
+import {applyLineThroughFormat} from "../../src/main";
 import s from "./EditorButton.scss";
 
 export const LineThroughButton = () => {

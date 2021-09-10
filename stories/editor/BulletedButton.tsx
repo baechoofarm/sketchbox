@@ -1,7 +1,7 @@
 import React from "react";
 import {useSlate} from "slate-react";
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
-import {toggleList, SketchboxElementType} from "../../src/internal";
+import {toggleList, SketchboxElementType} from "../../src/main";
 import s from "./EditorButton.scss";
 
 export const BulletedButton = () => {
