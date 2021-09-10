@@ -70,6 +70,7 @@ export * from "./editor/view/toolbar/buttons/LinkButton";
 export * from "./editor/view/toolbar/buttons/UnLinkButton";
 export * from "./editor/view/toolbar/buttons/LineThroghButton";
 export * from "./editor/view/toolbar/buttons/UnderlineButton";
+export * from "./editor/view/toolbar/SketchboxToolbar";
 
 export * from "./editor/view/text/format/SketchboxFormatSwitcher";
 
@@ -90,5 +91,4 @@ export * from "./editor/view/elements/listed/list/ListElementItem";
 
 export * from "./editor/view/elements/SketchboxElementSwitcher";
 
-export * from "./editor/EditorWrapper";
 export * from "./editor/Sketchbox";

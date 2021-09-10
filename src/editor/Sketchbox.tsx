@@ -9,7 +9,8 @@ import {
     SketchboxElementSwitcher,
     SketchboxElementType,
     SketchboxFormatSwitcher,
-    SketchboxValue
+    SketchboxValue,
+    SketchboxToolbar
 } from "../internal";
 import s from "./sketchbox.scss";
 
@@ -18,6 +19,8 @@ interface Props {
     formatChangers?: FormatChanger[];
     className?: string;
     isReadMode?: boolean;
+
+    onIsModeChange(isReadMode: boolean): void;
 }
 
 const Sketchbox: React.FC<Props> = props => {
@@ -26,7 +29,7 @@ const Sketchbox: React.FC<Props> = props => {
         formatChangers,
         className,
         isReadMode,
-        children
+        onIsModeChange
     } = props;
     const editor = useMemo(() => createSketchboxEditor(), []);
     const [value, setValue] = useState<SketchboxValue>(() => [{
@@ -57,7 +60,10 @@ const Sketchbox: React.FC<Props> = props => {
     return (
         <div className={className ? cn(s.sketchbox, className) : s.sketchbox}>
             <Slate editor={editor} value={value} onChange={onChange}>
-                {children}
+                <SketchboxToolbar
+                    isReadMode={isReadMode}
+                    onIsModeChange={v => onIsModeChange(v)}
+                />
                 <div className={s.scrollBox}>
                     <Editable
                         className={s.editable}
