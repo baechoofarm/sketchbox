@@ -8,15 +8,15 @@
   cursor: pointer;
 
   & ~ .button {
-    margin-left: 5px;
+    margin-left: 10px;
   }
 
   .icon {
     font-size: 18px;
-    fill: #999999;
+    color: #999999;
   }
 
   &:hover > .icon {
-    fill: #FF4785;
+    color: #FF4785;
   }
 }

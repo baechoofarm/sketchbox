@@ -1,6 +1,6 @@
 import React from "react";
 import {useSlate} from "slate-react";
-import {LineOutlined, LinkOutlined} from "@ant-design/icons";
+import {DisconnectOutlined} from "@ant-design/icons";
 import {isLinkActive, unwrapLink} from "../../../../internal";
 import s from "./EditorButton.scss";
 
@@ -15,8 +15,7 @@ export const UnLinkButton = () => {
 
     return (
         <button onClick={handleClick} className={s.button}>
-            <LineOutlined className={s.icon} style={{position: "absolute", zIndex: 10}}/>
-            <LinkOutlined className={s.icon}/>
+            <DisconnectOutlined className={s.icon}/>
         </button>
     );
 };

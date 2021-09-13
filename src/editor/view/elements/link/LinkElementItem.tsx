@@ -1,9 +1,6 @@
 import React from "react";
 import {useOverlay} from "react-overlay-layer";
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import LinkIcon from '@material-ui/icons/Link';
-import LinkOffIcon from '@material-ui/icons/LinkOff';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import {CloseCircleOutlined, DisconnectOutlined, ExportOutlined, LinkOutlined} from "@ant-design/icons";
 import {LinkElement, SketchboxElementProps, SketchboxText, useLink} from "../../../../internal";
 import s from "./linkElementItem.scss";
 
@@ -47,16 +44,16 @@ const LinkElementItem: React.FC<LinkElementItemProps> = ({
     const overlay = useOverlay(() => (
         <div className={s.tooltip}>
             <button className={s.button} onClick={handleRedirect}>
-                <OpenInNewIcon className={s.icon}/>
+                <ExportOutlined className={s.icon}/>
             </button>
             <button className={s.button} onClick={handleEditConnect}>
-                <LinkIcon className={s.icon}/>
+                <LinkOutlined className={s.icon}/>
             </button>
             <button className={s.button} onClick={handleDisconnect}>
-                <LinkOffIcon className={s.icon}/>
+                <DisconnectOutlined className={s.icon}/>
             </button>
             <button className={s.button} onClick={handleClose}>
-                <HighlightOffIcon className={s.icon}/>
+                <CloseCircleOutlined className={s.icon}/>
             </button>
         </div>
     ));
