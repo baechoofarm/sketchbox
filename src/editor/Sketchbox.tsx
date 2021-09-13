@@ -63,6 +63,7 @@ const Sketchbox: React.FC<Props> = props => {
         const parsed = new DOMParser().parseFromString(data, 'text/html');
         const fragment = deserialize(parsed.body) as any[];
         if (fragment.length > 1) {
+            editor.insertBreak();
             fragment.forEach(element => {
                 if (element.type) {
                     insertLink(editor, element.url, element.children[0].text);
