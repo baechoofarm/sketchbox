@@ -10629,6 +10629,13 @@ slate-history@0.65.3:
   dependencies:
     is-plain-object "^3.0.0"
 
+slate-hyperscript@^0.62.0:
+  version "0.62.0"
+  resolved "https://registry.yarnpkg.com/slate-hyperscript/-/slate-hyperscript-0.62.0.tgz#ff6f86e94936fbf90f8ec07d2ae8fbcd7e45a927"
+  integrity sha512-PbtxrrIr4qPvtPmKli4/FnvQFjf8zmnF0kyNeDQGHvUzpHnsoSYHM/i4POye3/qt5d8WGukiJBPL03QsIW+SIw==
+  dependencies:
+    is-plain-object "^3.0.0"
+
 slate-react@0.65.3:
   version "0.65.3"
   resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.65.3.tgz#f652e4780b4304189a8a8ecc8feca723f31173a3"

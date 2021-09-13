@@ -37,9 +37,9 @@ export function wrapLink(editor: SketchboxEditor, url: string, text?: string) {
     }
 }
 
-export function insertLink(editor: SketchboxEditor, url: string) {
+export function insertLink(editor: SketchboxEditor, url: string, text?: string) {
     if (editor.selection) {
-        wrapLink(editor, url);
+        wrapLink(editor, url, text);
     }
 }
 
