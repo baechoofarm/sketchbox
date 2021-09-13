@@ -66,7 +66,7 @@ const Sketchbox: React.FC<Props> = props => {
             fragment.forEach(element => {
                 if (element.type) {
                     insertLink(editor, element.url, element.children[0].text);
-                } else if (element.text.length > 1) {
+                } else if (element.text.length >= 1) {
                     const texts = element.text.split('\n');
                     if (texts.length) {
                         editor.insertText(element.text.replaceAll('\n', ''));
