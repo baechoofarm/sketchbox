@@ -23,6 +23,7 @@ export function wrapLink(editor: SketchboxEditor, url: string, text?: string) {
     const linkText = text || url;
     const {selection} = editor;
     const isCollapsed = selection && Range.isCollapsed(selection);
+
     const link: LinkElement = {
         type: SketchboxElementType.LINK,
         url,

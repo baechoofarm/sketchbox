@@ -67,7 +67,10 @@ export function withSketchboxElements(editor: SketchboxEditor) {
         const child = element.children[0] as SketchboxElement;
         const isLink = (child.type) !== undefined && child.type === SketchboxElementType.LINK;
         if (isLink) {
-            return unwrapLink(editor);
+            if (unit === "character") {
+                return unwrapLink(editor);
+            }
+            return;
         }
 
         if (unit !== 'line') {

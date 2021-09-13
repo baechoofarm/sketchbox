@@ -101,5 +101,6 @@ module.exports = {
         "no-return-await": "off",
         "max-classes-per-file": ["warn", 4],
         "prefer-template": "off",
+        "consistent-return": "off"
     }
 };
