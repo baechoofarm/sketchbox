@@ -1,6 +1,6 @@
 import React from "react";
 import {useSlate} from "slate-react";
-import LinkIcon from '@material-ui/icons/Link';
+import {LinkOutlined} from "@ant-design/icons";
 import {insertLink} from "../../../../internal";
 import s from "./EditorButton.scss";
 
@@ -15,7 +15,7 @@ export const LinkButton = () => {
 
     return (
         <button className={s.button} onClick={handleClick}>
-            <LinkIcon className={s.icon}/>
+            <LinkOutlined className={s.icon}/>
         </button>
     );
 };

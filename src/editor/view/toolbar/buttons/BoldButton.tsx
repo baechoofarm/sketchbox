@@ -1,6 +1,6 @@
 import React from "react";
-import FormatBoldIcon from '@material-ui/icons/FormatBold';
 import {useSlate} from "slate-react";
+import {BoldOutlined} from '@ant-design/icons';
 import {applyBoldFormat} from "../../../../internal";
 import s from "./EditorButton.scss";
 
@@ -13,7 +13,7 @@ export const BoldButton = () => {
 
     return (
         <button className={s.button} onClick={handleClick}>
-            <FormatBoldIcon className={s.icon}/>
+            <BoldOutlined className={s.icon}/>
         </button>
     );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import {useSlate} from "slate-react";
-import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import {UnorderedListOutlined} from "@ant-design/icons";
 import {toggleList, SketchboxElementType} from "../../../../internal";
 import s from "./EditorButton.scss";
 
@@ -14,7 +14,7 @@ export const BulletedButton = () => {
 
     return (
         <button onClick={handleClick} className={s.button}>
-            <FormatListBulletedIcon className={s.icon}/>
+            <UnorderedListOutlined className={s.icon}/>
         </button>
     );
 };

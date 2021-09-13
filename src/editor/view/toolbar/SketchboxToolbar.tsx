@@ -1,6 +1,5 @@
 import React from "react";
-import EditIcon from "@material-ui/icons/Edit";
-import MenuBookIcon from "@material-ui/icons/MenuBook";
+import {EditOutlined, ReadOutlined} from "@ant-design/icons";
 import style from "./buttons/EditorButton.scss";
 import {LinkButton} from "./buttons/LinkButton";
 import {UnLinkButton} from "./buttons/UnLinkButton";
@@ -24,7 +23,7 @@ const SketchboxToolbar: React.FC<Props> = props => {
     return (
         <div className={s.toolbar}>
             <button onClick={() => onIsModeChange(!isReadMode)} className={style.button}>
-                {isReadMode ? <EditIcon className={style.icon}/> : <MenuBookIcon className={style.icon}/>}
+                {isReadMode ? <EditOutlined className={style.icon}/> : <ReadOutlined className={style.icon}/>}
             </button>
             <LinkButton/>
             <UnLinkButton/>

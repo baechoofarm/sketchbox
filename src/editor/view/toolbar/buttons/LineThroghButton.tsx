@@ -1,6 +1,6 @@
 import React from "react";
 import {useSlate} from "slate-react";
-import FormatStrikethroughIcon from '@material-ui/icons/FormatStrikethrough';
+import {StrikethroughOutlined} from "@ant-design/icons";
 import {applyLineThroughFormat} from "../../../../internal";
 import s from "./EditorButton.scss";
 
@@ -13,7 +13,7 @@ export const LineThroughButton = () => {
 
     return (
         <button className={s.button} onClick={handleClick}>
-            <FormatStrikethroughIcon className={s.icon}/>
+            <StrikethroughOutlined className={s.icon}/>
         </button>
     );
 };

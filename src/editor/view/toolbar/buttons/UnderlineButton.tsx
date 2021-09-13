@@ -1,6 +1,6 @@
 import React from "react";
 import {useSlate} from "slate-react";
-import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
+import {UnderlineOutlined} from "@ant-design/icons";
 import {applyUnderlineFormat} from "../../../../internal";
 import s from "./EditorButton.scss";
 
@@ -13,7 +13,7 @@ export const UnderlineButton = () => {
 
     return (
         <button className={s.button} onClick={handleClick}>
-            <FormatUnderlinedIcon className={s.icon}/>
+            <UnderlineOutlined className={s.icon}/>
         </button>
     );
 };

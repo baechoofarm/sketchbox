@@ -1,6 +1,6 @@
 import React from "react";
 import {useSlate} from "slate-react";
-import FormatItalicIcon from '@material-ui/icons/FormatItalic';
+import {ItalicOutlined} from "@ant-design/icons";
 import {applyItalicFormat} from "../../../model/text/format/formats/italic";
 import s from "./EditorButton.scss";
 
@@ -13,7 +13,7 @@ export const ItalicButton = () => {
 
     return (
         <button className={s.button} onClick={handleClick}>
-            <FormatItalicIcon className={s.icon}/>
+            <ItalicOutlined className={s.icon}/>
         </button>
     );
 };

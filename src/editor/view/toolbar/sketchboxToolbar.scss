@@ -1,5 +1,9 @@
 .toolbar {
-  width: 500px;
-  top: 50px;
-  border-bottom: 1px solid #DBDCDC;
+  width: 100%;
+  padding: 8px 10px;
+  display: flex;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e8e8e8;
+  flex-shrink: 0;
+  flex-grow: 0;
 }

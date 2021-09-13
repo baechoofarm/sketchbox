@@ -1,11 +1,22 @@
 .button {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  box-sizing: border-box;
   background: none;
   border: none;
   cursor: pointer;
+
+  & ~ .button {
+    margin-left: 5px;
+  }
+
   .icon {
+    font-size: 18px;
     fill: #999999;
-    &:hover {
-      fill: #FF4785;
-    }
+  }
+
+  &:hover > .icon {
+    fill: #FF4785;
   }
 }

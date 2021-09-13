@@ -7,7 +7,7 @@ import {
     FormatCommand,
     Sketchbox,
     useFormatChanger
-} from "../../src/internal";
+} from "../../src/main";
 import s from "./editor.scss";
 
 export default {

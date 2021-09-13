@@ -1,6 +1,6 @@
 import React from "react";
 import {useSlate} from "slate-react";
-import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
+import {OrderedListOutlined} from "@ant-design/icons";
 import {toggleList, SketchboxElementType} from "../../../../internal";
 import s from "./EditorButton.scss";
 
@@ -14,7 +14,7 @@ export const NumberedButton = () => {
 
     return (
         <button onClick={handleClick} className={s.button}>
-            <FormatListNumberedIcon className={s.icon}/>
+            <OrderedListOutlined className={s.icon}/>
         </button>
     );
 };

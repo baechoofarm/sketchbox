@@ -84,7 +84,7 @@ const Sketchbox: React.FC<Props> = props => {
                     isReadMode={isReadMode}
                     onIsModeChange={v => onIsModeChange(v)}
                 />
-                <div className={s.scrollBox}>
+                <div className={s.content}>
                     <Editable
                         className={s.editable}
                         readOnly={isReadMode}

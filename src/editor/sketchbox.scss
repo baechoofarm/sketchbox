@@ -1,19 +1,25 @@
 .sketchbox {
   width: 500px;
   height: 300px;
-  padding-top: 10px;
+  border: 1px solid #e8e8e8;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 
-  .scrollBox {
+  .content {
+    flex-shrink: 1;
+    flex-grow: 1;
     overflow: auto;
-  }
 
-  .scrollBox::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: #AFB1B3;
-  }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: #AFB1B3;
+    }
 
-  .scrollBox::-webkit-scrollbar {
-    width: 10px;
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
   }
 
   .editable {
