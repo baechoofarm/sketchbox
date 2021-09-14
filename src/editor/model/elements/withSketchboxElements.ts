@@ -1,6 +1,16 @@
 import isUrl from "is-url";
 import {Editor, Range, Transforms} from "slate";
-import {findCurrentLineRange, insertImage, isImageUrl, SketchboxEditor, SketchboxElement, SketchboxElementType, unwrapLink, wrapLink} from "../../../internal";
+import {
+    checkDeleteChecklist,
+    findCurrentLineRange,
+    insertImage,
+    isImageUrl,
+    SketchboxEditor,
+    SketchboxElement,
+    SketchboxElementType,
+    unwrapLink,
+    wrapLink
+} from "../../../internal";
 
 export function withSketchboxElements(editor: SketchboxEditor) {
     const {
@@ -65,6 +75,9 @@ export function withSketchboxElements(editor: SketchboxEditor) {
     editor.deleteBackward = (unit: "character" | "word" | "line" | "block"): void => {
         const element = editor.getFragment()[0] as SketchboxElement;
         const child = element.children[0] as SketchboxElement;
+
+        checkDeleteChecklist(editor);
+
         const isLink = (child.type) !== undefined && child.type === SketchboxElementType.LINK;
         if (isLink) {
             if (unit === "character") {
