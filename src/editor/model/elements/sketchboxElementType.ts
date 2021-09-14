@@ -5,5 +5,6 @@ export enum SketchboxElementType {
     IMAGE = 'IMAGE',
     LIST = 'LIST',
     BULLETED = 'BULLETED',
-    NUMBERED = 'NUMBERED'
+    NUMBERED = 'NUMBERED',
+    CHECKBOX = 'CHECKBOX'
 }

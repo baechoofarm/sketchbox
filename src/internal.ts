@@ -43,6 +43,9 @@ export * from "./editor/model/elements/listed/numberedElement";
 export * from "./editor/model/elements/mention/mentions";
 export * from "./editor/model/elements/mention/mentionElement";
 
+export * from "./editor/model/elements/checkbox/checkboxElement";
+export * from "./editor/model/elements/checkbox/checkboxs";
+
 export * from "./editor/model/elements/paragraph/paragraphElement";
 
 export * from "./editor/model/elements/sketchboxElement";
@@ -70,6 +73,7 @@ export * from "./editor/view/toolbar/buttons/LinkButton";
 export * from "./editor/view/toolbar/buttons/UnLinkButton";
 export * from "./editor/view/toolbar/buttons/LineThroghButton";
 export * from "./editor/view/toolbar/buttons/UnderlineButton";
+export * from "./editor/view/toolbar/buttons/CheckboxButton";
 export * from "./editor/view/toolbar/SketchboxToolbar";
 
 export * from "./editor/view/text/format/SketchboxFormatSwitcher";
@@ -83,6 +87,8 @@ export * from "./editor/view/elements/mention/MentionElementItem";
 
 export * from "./editor/view/elements/image/toolbar/ImageElementToolbar";
 export * from "./editor/view/elements/image/ImageElementItem";
+
+export * from "./editor/view/elements/checkbox/CheckboxElementItem";
 
 export * from "./editor/view/elements/paragraph/ParagraphElementItem";
 

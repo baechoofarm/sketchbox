@@ -9,6 +9,7 @@ import {BoldButton} from "./buttons/BoldButton";
 import {ItalicButton} from "./buttons/ItalicButton";
 import {UnderlineButton} from "./buttons/UnderlineButton";
 import {LineThroughButton} from "./buttons/LineThroghButton";
+import {CheckboxButton} from "./buttons/CheckboxButton";
 import s from "./sketchboxToolbar.scss";
 
 interface Props {
@@ -33,6 +34,7 @@ const SketchboxToolbar: React.FC<Props> = props => {
             <ItalicButton/>
             <UnderlineButton/>
             <LineThroughButton/>
+            <CheckboxButton/>
         </div>
     );
 };

@@ -5,7 +5,7 @@ import {
     LinkElementItem,
     MentionElementItem,
     ParagraphElementItem,
-    SketchboxElementProps, BulletedElementItem, ListElementItem, NumberedElementItem
+    SketchboxElementProps, BulletedElementItem, ListElementItem, NumberedElementItem, CheckboxElementItem
 } from "../../../internal";
 
 interface Props extends SketchboxElementProps {
@@ -31,6 +31,8 @@ const SketchboxElementSwitcher: React.FC<Props> = ({
             return <NumberedElementItem element={element} attributes={attributes}>{children}</NumberedElementItem>;
         case SketchboxElementType.LIST:
             return <ListElementItem element={element} attributes={attributes}>{children}</ListElementItem>;
+        case SketchboxElementType.CHECKBOX:
+            return <CheckboxElementItem element={element} attributes={attributes}>{children}</CheckboxElementItem>;
         case SketchboxElementType.PARAGRAPH:
         default:
             return <ParagraphElementItem element={element} attributes={attributes}>{children}</ParagraphElementItem>;
