@@ -1,7 +1,7 @@
 import isUrl from "is-url";
 import {Editor, Range, Transforms} from "slate";
 import {
-    checkDeleteChecklist,
+    checkDeleteCheckbox, checkDeleteList,
     findCurrentLineRange,
     insertImage,
     isImageUrl,
@@ -76,7 +76,9 @@ export function withSketchboxElements(editor: SketchboxEditor) {
         const element = editor.getFragment()[0] as SketchboxElement;
         const child = element.children[0] as SketchboxElement;
 
-        checkDeleteChecklist(editor);
+        checkDeleteCheckbox(editor);
+        checkDeleteList(editor);
+        checkDeleteList(editor);
 
         const isLink = (child.type) !== undefined && child.type === SketchboxElementType.LINK;
         if (isLink) {

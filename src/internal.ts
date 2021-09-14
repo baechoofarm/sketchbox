@@ -36,7 +36,7 @@ export * from "./editor/model/elements/link/links";
 export * from "./editor/model/elements/link/linkElement";
 
 export * from "./editor/model/elements/listed/list/listElement";
-export * from "./editor/model/elements/listed/list/toggleList";
+export * from "./editor/model/elements/listed/list/lists";
 export * from "./editor/model/elements/listed/bulletedElement";
 export * from "./editor/model/elements/listed/numberedElement";
 
@@ -44,7 +44,7 @@ export * from "./editor/model/elements/mention/mentions";
 export * from "./editor/model/elements/mention/mentionElement";
 
 export * from "./editor/model/elements/checkbox/checkboxElement";
-export * from "./editor/model/elements/checkbox/checkboxs";
+export * from "./editor/model/elements/checkbox/checkboxes";
 
 export * from "./editor/model/elements/paragraph/paragraphElement";
 

@@ -27,7 +27,7 @@ export function toggleCheckbox(editor: SketchboxEditor) {
     Transforms.setNodes(editor, newProperties);
 }
 
-export function checkDeleteChecklist(editor: SketchboxEditor) {
+export function checkDeleteCheckbox(editor: SketchboxEditor) {
     const {selection} = editor;
 
     if (selection && Range.isCollapsed(selection)) {
