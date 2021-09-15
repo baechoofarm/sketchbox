@@ -77,11 +77,10 @@ export function withSketchboxElements(editor: SketchboxEditor) {
         const child = element.children[0] as SketchboxElement;
 
         const isCheckbox = checkDeleteCheckbox(editor);
-        if (isCheckbox) {
+        const isList = checkDeleteList(editor);
+        if (isCheckbox || isList) {
             return;
         }
-        checkDeleteList(editor);
-        checkDeleteList(editor);
 
         const isLink = (child.type) !== undefined && child.type === SketchboxElementType.LINK;
         if (isLink) {

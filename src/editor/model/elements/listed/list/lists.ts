@@ -33,7 +33,7 @@ export const toggleList = (editor: SketchboxEditor, type: SketchboxElementType) 
     }
 };
 
-export function checkDeleteList(editor: SketchboxEditor) {
+export function checkDeleteList(editor: SketchboxEditor): boolean {
     const {selection} = editor;
 
     if (selection && Range.isCollapsed(selection)) {
@@ -51,14 +51,21 @@ export function checkDeleteList(editor: SketchboxEditor) {
                 const newProperties: Partial<SketchboxElement> = {
                     type: SketchboxElementType.PARAGRAPH
                 };
+                Transforms.unwrapNodes(editor, {
+                    match: n => !Editor.isEditor(n)
+                        && Element.isElement(n)
+                        && n.type === SketchboxElementType.LIST
+                });
                 Transforms.setNodes(editor, newProperties, {
                     match: n => !Editor.isEditor(n)
                         && Element.isElement(n)
-                        && (n.type === SketchboxElementType.BULLETED || n.type === SketchboxElementType.NUMBERED || n.type === SketchboxElementType.LIST)
+                        && (n.type === SketchboxElementType.BULLETED || n.type === SketchboxElementType.NUMBERED)
                 });
+                return true;
             }
         }
     }
+    return false;
 }
 
 export function applyNestedList(editor: SketchboxEditor) {
