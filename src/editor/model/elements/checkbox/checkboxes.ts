@@ -27,7 +27,7 @@ export function toggleCheckbox(editor: SketchboxEditor) {
     Transforms.setNodes(editor, newProperties);
 }
 
-export function checkDeleteCheckbox(editor: SketchboxEditor) {
+export function checkDeleteCheckbox(editor: SketchboxEditor): boolean {
     const {selection} = editor;
 
     if (selection && Range.isCollapsed(selection)) {
@@ -50,7 +50,9 @@ export function checkDeleteCheckbox(editor: SketchboxEditor) {
                         && Element.isElement(n)
                         && n.type === SketchboxElementType.CHECKBOX
                 });
+                return true;
             }
         }
     }
+    return false;
 }

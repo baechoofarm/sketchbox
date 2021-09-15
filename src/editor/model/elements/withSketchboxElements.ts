@@ -76,7 +76,10 @@ export function withSketchboxElements(editor: SketchboxEditor) {
         const element = editor.getFragment()[0] as SketchboxElement;
         const child = element.children[0] as SketchboxElement;
 
-        checkDeleteCheckbox(editor);
+        const isCheckbox = checkDeleteCheckbox(editor);
+        if (isCheckbox) {
+            return;
+        }
         checkDeleteList(editor);
         checkDeleteList(editor);
 
