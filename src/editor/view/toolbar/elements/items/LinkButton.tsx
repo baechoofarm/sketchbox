@@ -1,8 +1,7 @@
 import React from "react";
 import {useSlate} from "slate-react";
 import {LinkOutlined} from "@ant-design/icons";
-import {insertLink} from "../../../../internal";
-import s from "./EditorButton.scss";
+import {insertLink, SketchboxToolbarButton} from "../../../../../internal";
 
 export const LinkButton = () => {
     const editor = useSlate();
@@ -14,8 +13,8 @@ export const LinkButton = () => {
     };
 
     return (
-        <button className={s.button} onClick={handleClick}>
-            <LinkOutlined className={s.icon}/>
-        </button>
+        <SketchboxToolbarButton onClick={handleClick}>
+            <LinkOutlined/>
+        </SketchboxToolbarButton>
     );
 };

@@ -1,8 +1,7 @@
 import React from "react";
 import {useSlate} from "slate-react";
 import {UnorderedListOutlined} from "@ant-design/icons";
-import {toggleList, SketchboxElementType} from "../../../../internal";
-import s from "./EditorButton.scss";
+import {toggleList, SketchboxElementType, SketchboxToolbarButton} from "../../../../../internal";
 
 export const BulletedButton = () => {
     const editor = useSlate();
@@ -13,8 +12,8 @@ export const BulletedButton = () => {
     };
 
     return (
-        <button onClick={handleClick} className={s.button}>
-            <UnorderedListOutlined className={s.icon}/>
-        </button>
+        <SketchboxToolbarButton onClick={handleClick}>
+            <UnorderedListOutlined/>
+        </SketchboxToolbarButton>
     );
 };

@@ -1,7 +1,7 @@
 import isUrl from "is-url";
 import imageExtensions from "image-extensions";
 import {Transforms} from "slate";
-import {ImageElement, SketchboxEditor, SketchboxElementType} from "../../../../internal";
+import {ImageElement, ImageElementAlign, SketchboxEditor, SketchboxElementType} from "../../../../internal";
 
 export function isImageUrl(url: string) {
     if (!url) return false;
@@ -14,6 +14,7 @@ export function insertImage(editor: SketchboxEditor, url: string) {
     const text = {text: ''};
     const image: ImageElement = {
         type: SketchboxElementType.IMAGE,
+        align: ImageElementAlign.LEFT,
         url,
         width: null,
         height: null,

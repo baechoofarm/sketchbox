@@ -65,15 +65,26 @@ export * from "./editor/utils/line";
  * View
  */
 
-export * from "./editor/view/toolbar/buttons/BoldButton";
-export * from "./editor/view/toolbar/buttons/ItalicButton";
-export * from "./editor/view/toolbar/buttons/BulletedButton";
-export * from "./editor/view/toolbar/buttons/NumberedButton";
-export * from "./editor/view/toolbar/buttons/LinkButton";
-export * from "./editor/view/toolbar/buttons/UnLinkButton";
-export * from "./editor/view/toolbar/buttons/LineThroghButton";
-export * from "./editor/view/toolbar/buttons/UnderlineButton";
-export * from "./editor/view/toolbar/buttons/CheckboxButton";
+export * from "./editor/view/toolbar/common/SketchboxToolbarButton";
+export * from "./editor/view/toolbar/common/SketchboxToolbarRow";
+export * from "./editor/view/toolbar/common/SketchboxToolbarDivider";
+
+export * from "./editor/view/toolbar/modes/items/EditorModeButton";
+export * from "./editor/view/toolbar/modes/SketchboxToolbarModes";
+
+export * from "./editor/view/toolbar/fonts/items/BoldButton";
+export * from "./editor/view/toolbar/fonts/items/ItalicButton";
+export * from "./editor/view/toolbar/fonts/items/LineThroghButton";
+export * from "./editor/view/toolbar/fonts/items/UnderlineButton";
+export * from "./editor/view/toolbar/fonts/SketchboxToolbarFonts";
+
+export * from "./editor/view/toolbar/elements/SketchboxToolbarElements";
+export * from "./editor/view/toolbar/elements/items/BulletedButton";
+export * from "./editor/view/toolbar/elements/items/NumberedButton";
+export * from "./editor/view/toolbar/elements/items/LinkButton";
+export * from "./editor/view/toolbar/elements/items/UnLinkButton";
+export * from "./editor/view/toolbar/elements/items/CheckboxButton";
+
 export * from "./editor/view/toolbar/SketchboxToolbar";
 
 export * from "./editor/view/text/format/SketchboxFormatSwitcher";

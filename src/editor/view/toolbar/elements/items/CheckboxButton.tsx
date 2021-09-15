@@ -1,8 +1,7 @@
 import React from "react";
 import {useSlate} from "slate-react";
 import {CheckSquareOutlined} from "@ant-design/icons";
-import {toggleCheckbox} from "../../../../internal";
-import s from "./EditorButton.scss";
+import {SketchboxToolbarButton, toggleCheckbox} from "../../../../../internal";
 
 export const CheckboxButton = () => {
     const editor = useSlate();
@@ -12,8 +11,8 @@ export const CheckboxButton = () => {
     };
 
     return (
-        <button onClick={handleClick} className={s.button}>
-            <CheckSquareOutlined className={s.icon}/>
-        </button>
+        <SketchboxToolbarButton onClick={handleClick}>
+            <CheckSquareOutlined/>
+        </SketchboxToolbarButton>
     );
 };
