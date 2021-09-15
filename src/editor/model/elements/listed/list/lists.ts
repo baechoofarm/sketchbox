@@ -73,7 +73,19 @@ export function applyNestedList(editor: SketchboxEditor) {
 
         const type = match ? SketchboxElementType.BULLETED : SketchboxElementType.NUMBERED;
 
-        const listWrapper: {type: SketchboxElementType.BULLETED | SketchboxElementType.NUMBERED, children: any[]} = {type, children: []};
+        const listWrapper: { type: SketchboxElementType.BULLETED | SketchboxElementType.NUMBERED, children: any[] } = {type, children: []};
         Transforms.wrapNodes(editor, listWrapper);
+    }
+}
+
+export function cancelNestedList(editor: SketchboxEditor) {
+    const isActive = isListActive(editor);
+
+    if (isActive) {
+        Transforms.unwrapNodes(editor, {
+            match: n => !Editor.isEditor(n)
+                && Element.isElement(n)
+                && (n.type === SketchboxElementType.BULLETED || n.type === SketchboxElementType.NUMBERED)
+        });
     }
 }
