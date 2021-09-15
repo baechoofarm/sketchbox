@@ -1,16 +1,18 @@
 import {Editor, Element, Point, Range, Transforms} from "slate";
 import {SketchboxEditor, SketchboxElement, SketchboxElementType} from "../../../../../internal";
 
-const isListActive = (editor: SketchboxEditor, type: SketchboxElementType) => {
+const isListActive = (editor: SketchboxEditor) => {
     const [match] = Editor.nodes(editor, {
-        match: n => !Editor.isEditor(n) && Element.isElement(n) && n.type === type,
+        match: n => !Editor.isEditor(n)
+            && Element.isElement(n)
+            && (n.type === SketchboxElementType.NUMBERED || n.type === SketchboxElementType.BULLETED),
     });
 
     return !!match;
 };
 
 export const toggleList = (editor: SketchboxEditor, type: SketchboxElementType) => {
-    const isActive = isListActive(editor, type);
+    const isActive = isListActive(editor);
 
     Transforms.unwrapNodes(editor, {
         match: n => (
@@ -56,5 +58,22 @@ export function checkDeleteList(editor: SketchboxEditor) {
                 });
             }
         }
+    }
+}
+
+export function applyNestedList(editor: SketchboxEditor) {
+    const isActive = isListActive(editor);
+
+    if (isActive) {
+        const [match] = Editor.nodes(editor, {
+            match: n => !Editor.isEditor(n)
+                && Element.isElement(n)
+                && (n.type === SketchboxElementType.BULLETED)
+        });
+
+        const type = match ? SketchboxElementType.BULLETED : SketchboxElementType.NUMBERED;
+
+        const listWrapper: {type: SketchboxElementType.BULLETED | SketchboxElementType.NUMBERED, children: any[]} = {type, children: []};
+        Transforms.wrapNodes(editor, listWrapper);
     }
 }

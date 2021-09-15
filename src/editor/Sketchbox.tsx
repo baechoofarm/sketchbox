@@ -10,7 +10,7 @@ import {
     SketchboxElementType,
     SketchboxFormatSwitcher,
     SketchboxValue,
-    SketchboxToolbar, insertLink
+    SketchboxToolbar, insertLink, applyNestedList
 } from "../internal";
 import s from "./sketchbox.scss";
 import {deserialize} from "./utils/deserialize";
@@ -50,6 +50,10 @@ const Sketchbox: React.FC<Props> = props => {
     }, [editor, formatChangers]);
 
     const handleKeyDown = useCallback((event: React.KeyboardEvent) => {
+        if (event.key === "Tab") {
+            event.preventDefault();
+            applyNestedList(editor);
+        }
         if (formatCommands === undefined || !event.ctrlKey) return;
         formatCommands.forEach(command => {
             if (event.key === command.key) {
