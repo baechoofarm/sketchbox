@@ -11,6 +11,22 @@ const isListActive = (editor: SketchboxEditor) => {
     return !!match;
 };
 
+const isListNested = (editor: SketchboxEditor) => {
+    const {selection} = editor;
+
+    if (selection) {
+        const node = Editor.parent(editor, selection);
+        const parent = Editor.parent(editor, selection, {depth: node[1].length - 1});
+        const parentNode = parent[0] as SketchboxElement;
+
+        if (parentNode && (parentNode.type === SketchboxElementType.BULLETED || parentNode.type === SketchboxElementType.NUMBERED)) {
+            return true;
+        }
+    }
+
+    return false;
+};
+
 export const toggleList = (editor: SketchboxEditor, type: SketchboxElementType) => {
     const isActive = isListActive(editor);
 
@@ -70,7 +86,6 @@ export function checkDeleteList(editor: SketchboxEditor): boolean {
 
 export function applyNestedList(editor: SketchboxEditor) {
     const isActive = isListActive(editor);
-
     if (isActive) {
         const [match] = Editor.nodes(editor, {
             match: n => !Editor.isEditor(n)
@@ -87,8 +102,10 @@ export function applyNestedList(editor: SketchboxEditor) {
 
 export function cancelNestedList(editor: SketchboxEditor) {
     const isActive = isListActive(editor);
+    const isNested = isListNested(editor);
+    const {selection} = editor;
 
-    if (isActive) {
+    if (isActive && selection && isNested) {
         Transforms.unwrapNodes(editor, {
             match: n => !Editor.isEditor(n)
                 && Element.isElement(n)
