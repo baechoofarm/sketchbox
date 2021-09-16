@@ -128,9 +128,14 @@ export function cancelNestedList(editor: SketchboxEditor) {
             at: {path: [...node[1]], offset: 1}
         });
 
+        const path = (lists.length > 0) ? [...parent[1], lists.length - 1, 0] : [...parent[1], 0];
+        if (lists.length < 1) {
+            path[path.length - 2]--;
+        }
+
         Transforms.insertNodes(editor, node[0], {
             at: {
-                path: [...parent[1], lists.length - 1, 0],
+                path,
                 offset: 1
             }
         });
