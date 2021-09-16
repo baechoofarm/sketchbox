@@ -1,6 +1,9 @@
 .row {
+  height: 32px;
+  display: flex;
 
   > * ~ * {
+    align-items: center;
     margin-left: 10px;
   }
 }

@@ -1,16 +1,17 @@
 import React from "react";
 import {EditOutlined, ReadOutlined} from "@ant-design/icons";
-import {SketchboxToolbarButton} from "../../common/SketchboxToolbarButton";
+import {EditorMode, SketchboxToolbarButton, useSketchboxOption} from "../../../../../internal";
 
 interface Props {
-    isReadMode?: boolean;
 
-    onIsModeChange(isReadMode: boolean): void;
 }
 
-const EditorModeButton: React.FC<Props> = ({isReadMode, onIsModeChange}) => {
+const EditorModeButton: React.FC<Props> = () => {
+    const {isReadMode, onModeChange} = useSketchboxOption();
+
     const onClick = () => {
-        onIsModeChange(!isReadMode);
+        if (isReadMode) onModeChange?.(EditorMode.WRITE);
+        else onModeChange?.(EditorMode.READ);
     };
 
     return (

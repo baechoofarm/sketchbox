@@ -3,7 +3,8 @@ import {SketchboxEditor} from "../../../../../internal";
 
 export type FormatChangeFunction<T> = (value: T, selection: Range | null, editor?: SketchboxEditor) => void;
 
-export type FormatChanger = {
+export type FormatChanger<T> = {
+    value: T | null;
     check: () => void;
-    setEditor: (editor: any) => void;
+    change: (newValue: T) => void;
 }

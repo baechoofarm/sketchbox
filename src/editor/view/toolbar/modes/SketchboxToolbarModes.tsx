@@ -2,15 +2,13 @@ import React from "react";
 import {EditorModeButton, SketchboxToolbarRow} from "../../../../internal";
 
 interface Props {
-    isReadMode?: boolean;
 
-    onIsModeChange(isReadMode: boolean): void;
 }
 
-const SketchboxToolbarModes: React.FC<Props> = ({isReadMode, onIsModeChange}) => {
+const SketchboxToolbarModes: React.FC<Props> = () => {
     return (
         <SketchboxToolbarRow>
-            <EditorModeButton isReadMode={isReadMode} onIsModeChange={onIsModeChange}/>
+            <EditorModeButton/>
         </SketchboxToolbarRow>
     );
 };

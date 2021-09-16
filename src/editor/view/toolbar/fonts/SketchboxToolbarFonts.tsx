@@ -1,13 +1,15 @@
 import React from "react";
-import {SketchboxToolbarRow, BoldButton, ItalicButton, LineThroughButton, UnderlineButton} from "../../../../internal";
+import {
+    SketchboxToolbarRow,
+    FontSizeInput,
+    FontFamilySelect
+} from "../../../../internal";
 
 const SketchboxToolbarFonts: React.FC = () => {
     return (
         <SketchboxToolbarRow>
-            <BoldButton/>
-            <ItalicButton/>
-            <UnderlineButton/>
-            <LineThroughButton/>
+            <FontSizeInput/>
+            <FontFamilySelect/>
         </SketchboxToolbarRow>
     );
 };

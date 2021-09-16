@@ -1,38 +1,28 @@
 import React, {useCallback, useMemo, useState} from "react";
-import {Editable, Slate} from "slate-react";
+import {Slate} from "slate-react";
 import cn from "classnames";
 import {OverlayRoot} from "react-overlay-layer";
 import {
     createSketchboxEditor,
-    FormatChanger,
-    FormatCommand,
-    SketchboxElementSwitcher,
     SketchboxElementType,
-    SketchboxFormatSwitcher,
     SketchboxValue,
-    SketchboxToolbar, insertLink, applyNestedList, cancelNestedList
+    SketchboxToolbar, insertLink, SketchboxOption,
+    deserialize,
+    SketchboxContext, SketchboxContent, useFontSizeFormatChanger, useFontFamilyFormatChanger
 } from "../internal";
 import s from "./sketchbox.scss";
-import {deserialize} from "./utils/deserialize";
 
 interface Props {
-    formatCommands?: FormatCommand[];
-    formatChangers?: FormatChanger[];
     className?: string;
-    isReadMode?: boolean;
-
-    onIsModeChange(isReadMode: boolean): void;
+    option: SketchboxOption;
 }
 
-const Sketchbox: React.FC<Props> = props => {
-    const {
-        formatCommands,
-        formatChangers,
-        className,
-        isReadMode,
-        onIsModeChange
-    } = props;
+const Sketchbox: React.FC<Props> = ({option, className}) => {
     const editor = useMemo(() => createSketchboxEditor(), []);
+
+    const fontSize = useFontSizeFormatChanger(editor);
+    const fontFamily = useFontFamilyFormatChanger(editor);
+
     const [value, setValue] = useState<SketchboxValue>(() => [{
         type: SketchboxElementType.PARAGRAPH,
         children: [{text: ''}]
@@ -40,35 +30,14 @@ const Sketchbox: React.FC<Props> = props => {
 
     const onChange = useCallback((newValue: SketchboxValue) => {
         setValue(newValue);
+        [fontSize, fontFamily].forEach(v => v.check());
+    }, [fontFamily, fontSize]);
 
-        if (!formatChangers || formatChangers.length < 1 || !editor.selection) return;
-
-        formatChangers.forEach(changer => {
-            changer.setEditor(editor);
-            changer.check();
-        });
-    }, [editor, formatChangers]);
-
-    const handleKeyDown = useCallback((event: React.KeyboardEvent) => {
-        if (event.shiftKey && event.key === "Tab") {
-            event.preventDefault();
-            cancelNestedList(editor);
-        } else if (event.key === "Tab") {
-            event.preventDefault();
-            applyNestedList(editor);
-        }
-        if (formatCommands === undefined || !event.ctrlKey) return;
-        formatCommands.forEach(command => {
-            if (event.key === command.key) {
-                command.formatFunc(editor);
-            }
-        });
-    }, [editor, formatCommands]);
-
-    const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
+    const handlePaste = useCallback((e: React.ClipboardEvent<HTMLDivElement>) => {
         const data = e.clipboardData.getData('text/html');
         const parsed = new DOMParser().parseFromString(data, 'text/html');
         const fragment = deserialize(parsed.body) as any[];
+
         if (fragment.length > 1) {
             editor.insertBreak();
             fragment.forEach(element => {
@@ -83,33 +52,23 @@ const Sketchbox: React.FC<Props> = props => {
             });
             e.preventDefault();
         }
-    };
+    }, [editor]);
 
     return (
         <div className={className ? cn(s.sketchbox, className) : s.sketchbox} onPaste={handlePaste}>
             <Slate editor={editor} value={value} onChange={onChange}>
-                <SketchboxToolbar
-                    isReadMode={isReadMode}
-                    onIsModeChange={v => onIsModeChange(v)}
-                />
-                <div className={s.content}>
-                    <Editable
-                        className={s.editable}
-                        readOnly={isReadMode}
-                        renderElement={ep => (
-                            <SketchboxElementSwitcher element={ep.element} attributes={ep.attributes} isReadMode={isReadMode ?? false}>
-                                {ep.children}
-                            </SketchboxElementSwitcher>
-                        )}
-                        renderLeaf={ep => (
-                            <SketchboxFormatSwitcher leaf={ep.leaf} text={ep.text} attributes={ep.attributes}>
-                                {ep.children}
-                            </SketchboxFormatSwitcher>
-                        )}
-                        onKeyDown={handleKeyDown}
-                    />
-                </div>
-                <OverlayRoot/>
+                <SketchboxContext.Provider
+                    value={{
+                        ...(option ?? {}),
+                        formatChangers: {
+                            fontSize, fontFamily
+                        }
+                    }}
+                >
+                    <SketchboxToolbar/>
+                    <SketchboxContent/>
+                    <OverlayRoot/>
+                </SketchboxContext.Provider>
             </Slate>
         </div>
     );
