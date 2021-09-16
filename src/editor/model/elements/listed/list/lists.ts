@@ -1,5 +1,5 @@
 import {Editor, Element, Point, Range, Transforms} from "slate";
-import {SketchboxEditor, SketchboxElement, SketchboxElementType} from "../../../../../internal";
+import {SketchboxEditor, SketchboxElement, SketchboxElementType, SketchboxText} from "../../../../../internal";
 
 const isListActive = (editor: SketchboxEditor) => {
     const [match] = Editor.nodes(editor, {
@@ -133,10 +133,12 @@ export function cancelNestedList(editor: SketchboxEditor) {
             path[path.length - 2]--;
         }
 
+        const insertPos = Editor.node(editor, {path, offset: 0})[0] as SketchboxText;
+
         Transforms.insertNodes(editor, node[0], {
             at: {
                 path,
-                offset: 1
+                offset: insertPos.text.length
             }
         });
     }
