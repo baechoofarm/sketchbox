@@ -27,6 +27,16 @@ const isListNested = (editor: SketchboxEditor) => {
     return false;
 };
 
+const getListType = (editor: SketchboxEditor) => {
+    const [match] = Editor.nodes(editor, {
+        match: n => !Editor.isEditor(n)
+            && Element.isElement(n)
+            && (n.type === SketchboxElementType.BULLETED)
+    });
+
+    return match ? SketchboxElementType.BULLETED : SketchboxElementType.NUMBERED;
+};
+
 export const toggleList = (editor: SketchboxEditor, type: SketchboxElementType) => {
     const isActive = isListActive(editor);
 
@@ -41,10 +51,12 @@ export const toggleList = (editor: SketchboxEditor, type: SketchboxElementType) 
     const newProperties: Partial<SketchboxElement> = {
         type: isActive ? SketchboxElementType.PARAGRAPH : SketchboxElementType.LIST
     };
+
     Transforms.setNodes(editor, newProperties);
 
     if (!isActive && (type === SketchboxElementType.BULLETED || type === SketchboxElementType.NUMBERED)) {
         const listWrapper = {type, children: []};
+
         Transforms.wrapNodes(editor, listWrapper);
     }
 };
@@ -67,16 +79,19 @@ export function checkDeleteList(editor: SketchboxEditor): boolean {
                 const newProperties: Partial<SketchboxElement> = {
                     type: SketchboxElementType.PARAGRAPH
                 };
+
                 Transforms.unwrapNodes(editor, {
                     match: n => !Editor.isEditor(n)
                         && Element.isElement(n)
                         && n.type === SketchboxElementType.LIST
                 });
+
                 Transforms.setNodes(editor, newProperties, {
                     match: n => !Editor.isEditor(n)
                         && Element.isElement(n)
                         && (n.type === SketchboxElementType.BULLETED || n.type === SketchboxElementType.NUMBERED)
                 });
+
                 return true;
             }
         }
@@ -86,16 +101,11 @@ export function checkDeleteList(editor: SketchboxEditor): boolean {
 
 export function applyNestedList(editor: SketchboxEditor) {
     const isActive = isListActive(editor);
+
     if (isActive) {
-        const [match] = Editor.nodes(editor, {
-            match: n => !Editor.isEditor(n)
-                && Element.isElement(n)
-                && (n.type === SketchboxElementType.BULLETED)
-        });
-
-        const type = match ? SketchboxElementType.BULLETED : SketchboxElementType.NUMBERED;
-
+        const type = getListType(editor);
         const listWrapper: { type: SketchboxElementType.BULLETED | SketchboxElementType.NUMBERED, children: any[] } = {type, children: []};
+
         Transforms.wrapNodes(editor, listWrapper);
     }
 }
@@ -106,10 +116,23 @@ export function cancelNestedList(editor: SketchboxEditor) {
     const {selection} = editor;
 
     if (isActive && selection && isNested) {
-        Transforms.unwrapNodes(editor, {
-            match: n => !Editor.isEditor(n)
-                && Element.isElement(n)
-                && (n.type === SketchboxElementType.BULLETED || n.type === SketchboxElementType.NUMBERED)
+        const node = Editor.parent(editor, selection);
+        const parent = Editor.parent(editor, selection, {depth: node[1].length - 1});
+        const parentNode = parent[0] as SketchboxElement;
+        const lists = parentNode.children.filter(n => {
+            const element = n as SketchboxElement;
+            return element.type === SketchboxElementType.LIST;
+        });
+
+        Transforms.removeNodes(editor, {
+            at: {path: [...node[1]], offset: 1}
+        });
+
+        Transforms.insertNodes(editor, node[0], {
+            at: {
+                path: [...parent[1], lists.length - 1, 0],
+                offset: 1
+            }
         });
     }
 }
