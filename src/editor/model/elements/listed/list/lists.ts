@@ -37,6 +37,14 @@ const getListType = (editor: SketchboxEditor) => {
     return match ? SketchboxElementType.BULLETED : SketchboxElementType.NUMBERED;
 };
 
+const getListCounts = (element: SketchboxElement) => {
+    const lists = element.children.filter(n => {
+        const node = n as SketchboxElement;
+        return node.type === SketchboxElementType.LIST;
+    });
+    return lists.length;
+};
+
 export const toggleList = (editor: SketchboxEditor, type: SketchboxElementType) => {
     const isActive = isListActive(editor);
 
@@ -117,19 +125,25 @@ export function cancelNestedList(editor: SketchboxEditor) {
 
     if (isActive && selection && isNested) {
         const node = Editor.parent(editor, selection);
-        const parent = Editor.parent(editor, selection, {depth: node[1].length - 1});
-        const parentNode = parent[0] as SketchboxElement;
-        const lists = parentNode.children.filter(n => {
-            const element = n as SketchboxElement;
-            return element.type === SketchboxElementType.LIST;
-        });
+        const parent = Editor.parent(editor, selection, {depth: node[1].length});
+        const ancestor = Editor.parent(editor, selection, {depth: node[1].length - 1});
+
+        const parentListCounts = getListCounts(parent[0] as SketchboxElement);
+        const ancestorListCounts = getListCounts(ancestor[0] as SketchboxElement);
+
+        if (parentListCounts <= 1) {
+            Transforms.unwrapNodes(editor);
+        }
 
         Transforms.removeNodes(editor, {
             at: {path: [...node[1]], offset: 1}
         });
 
-        const path = (lists.length > 0) ? [...parent[1], lists.length - 1, 0] : [...parent[1], 0];
-        if (lists.length < 1) {
+        const path = (ancestorListCounts > 0)
+            ? [...ancestor[1], ancestorListCounts - 1, 0]
+            : [...ancestor[1], 0];
+
+        if (ancestorListCounts < 1) {
             path[path.length - 2]--;
         }
 
