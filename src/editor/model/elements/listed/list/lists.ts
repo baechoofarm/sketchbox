@@ -153,12 +153,18 @@ export function cancelNestedList(editor: SketchboxEditor) {
                     if (upperListCounts < 1) {
                         temp++;
                         path.pop();
+                        if (parentListCounts <= 1) {
+                            Transforms.unwrapNodes(editor, {at: selection});
+                        }
                     } else {
                         isEmpty = false;
                     }
                 } catch (e) {
                     isEmpty = false;
                 }
+            }
+            if (parentListCounts <= 1) {
+                Transforms.unwrapNodes(editor, {at: selection});
             }
             path[path.length - 2]--;
         }
