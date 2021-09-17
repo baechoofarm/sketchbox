@@ -128,7 +128,7 @@ export function cancelNestedList(editor: SketchboxEditor) {
         const parent = Editor.parent(editor, selection, {depth: node[1].length});
         const ancestor = Editor.parent(editor, selection, {depth: node[1].length - 1});
 
-        const parentListCounts = getListCounts(parent[0] as SketchboxElement);
+        const parentListCounts = (parent[0] as SketchboxElement).children.length;
         const ancestorListCounts = getListCounts(ancestor[0] as SketchboxElement);
 
         if (parentListCounts <= 1) {
