@@ -153,7 +153,7 @@ export function cancelNestedList(editor: SketchboxEditor) {
                     if (upperListCounts < 1) {
                         temp++;
                         path.pop();
-                        if (parentListCounts <= 1) {
+                        if (parentListCounts <= 1 && path.length > 1) {
                             Transforms.unwrapNodes(editor, {at: selection});
                         }
                     } else {
@@ -163,18 +163,22 @@ export function cancelNestedList(editor: SketchboxEditor) {
                     isEmpty = false;
                 }
             }
-            if (parentListCounts <= 1) {
+            if (parentListCounts <= 1 && path.length > 1) {
                 Transforms.unwrapNodes(editor, {at: selection});
             }
             path[path.length - 2]--;
         }
 
-        const insertPos = Editor.node(editor, {path, offset: 0})[0] as SketchboxText;
+        let insertPos = Editor.node(editor, {path, offset: 0})[0] as SketchboxText;
+        if (!insertPos.text) {
+            path[path.length - 2]--;
+            insertPos = Editor.node(editor, {path, offset: 0})[0] as SketchboxText;
+        }
 
         Transforms.insertNodes(editor, node[0], {
             at: {
                 path,
-                offset: insertPos.text.length
+                offset: insertPos?.text?.length ?? 0
             }
         });
     }
