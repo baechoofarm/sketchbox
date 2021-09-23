@@ -83,7 +83,7 @@
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-overlay-layer": "0.1.0-alpha",
+    "react-overlay-layer": "0.2.0-alpha",
     "rollup": "^2.56.3",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-builtins": "^2.1.2",
@@ -100,8 +100,8 @@
     "tslib": "^2.3.1",
     "typescript": "^4.3.5",
     "webpack": "^5.51.1",
-    "antd": "^4.16.13",
-    "@ant-design/icons": "^4.6.4"
+    "@ant-design/icons": "^4.6.4",
+    "keycode": "^2.2.0"
   },
   "peerDependencies": {
     "react": "^17.0.0",

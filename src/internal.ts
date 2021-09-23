@@ -73,6 +73,7 @@ export * from "./editor/utils/line";
  */
 
 export * from "./editor/hooks/useSketchboxOption";
+export * from "./editor/hooks/element/mention/useMention";
 export * from "./editor/hooks/element/listed/useNestedList";
 export * from "./editor/hooks/text/format/useFormatCommands";
 
@@ -117,6 +118,8 @@ export * from "./editor/view/content/elements/sketchboxElementProps";
 export * from "./editor/view/content/elements/listed/NumberedElementItem";
 export * from "./editor/view/content/elements/link/LinkElementItem";
 
+export * from "./editor/view/content/elements/mention/dropdown/MentionElementDropdownItem";
+export * from "./editor/view/content/elements/mention/dropdown/MentionElementDropdown";
 export * from "./editor/view/content/elements/mention/MentionElementItem";
 
 export * from "./editor/view/content/elements/image/toolbar/ImageElementToolbar";
@@ -133,4 +136,5 @@ export * from "./editor/view/content/elements/SketchboxElementSwitcher";
 
 export * from "./editor/view/content/SketchboxContent";
 
+export * from "./editor/view/SketchboxView";
 export * from "./editor/Sketchbox";

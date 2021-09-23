@@ -1,15 +1,13 @@
 import React, {useMemo} from "react";
-import {useSlate} from "slate-react";
 import {
     FormatCommand,
     applyBoldFormat,
     applyItalicFormat,
     applyUnderlineFormat,
-    applyLineThroughFormat
+    applyLineThroughFormat, SketchboxEditor
 } from "../../../../internal";
 
-export function useFormatCommands() {
-    const editor = useSlate();
+export function useFormatCommands(editor: SketchboxEditor) {
     const commands = useMemo(() => [
         new FormatCommand("b", applyBoldFormat),
         new FormatCommand("i", applyItalicFormat),

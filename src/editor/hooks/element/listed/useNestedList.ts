@@ -1,10 +1,8 @@
 import React from "react";
-import {useSlate} from "slate-react";
 import {applyNestedList, cancelNestedList} from "../../../model/elements/listed/list/lists";
+import {SketchboxEditor} from "../../../model/sketchboxEditor";
 
-export function useNestedList() {
-    const editor = useSlate();
-
+export function useNestedList(editor: SketchboxEditor) {
     const onKeyDown = (event: React.KeyboardEvent) => {
         if (event.shiftKey && event.key === "Tab") {
             event.preventDefault();

@@ -1,30 +1,44 @@
-import React from "react";
-import {Editable} from "slate-react";
+import React, {useCallback} from "react";
+import {Editable, useSlate} from "slate-react";
 import {
     useSketchboxOption,
     SketchboxElementSwitcher,
     SketchboxFormatSwitcher,
-    useNestedList, useFormatCommands,
+    deserialize, insertLink,
 } from "../../../internal";
 import s from "../../sketchbox.scss";
 
 interface Props {
-
+    onKeyDown(event: React.KeyboardEvent): void;
 }
 
-const SketchboxContent: React.FC<Props> = () => {
+const SketchboxContent: React.FC<Props> = ({onKeyDown}) => {
+    const editor = useSlate();
     const {isReadMode} = useSketchboxOption();
 
-    const nestedList = useNestedList();
-    const formatCommands = useFormatCommands();
+    const onPaste = useCallback((e: React.ClipboardEvent<HTMLDivElement>) => {
+        const data = e.clipboardData.getData('text/html');
+        const parsed = new DOMParser().parseFromString(data, 'text/html');
+        const fragment = deserialize(parsed.body) as any[];
 
-    const onKeyDown = (event: React.KeyboardEvent) => {
-        if (nestedList.onKeyDown(event)) return;
-        formatCommands.onKeyDown(event);
-    };
+        if (fragment.length > 1) {
+            editor.insertBreak();
+            fragment.forEach(element => {
+                if (element.type) {
+                    insertLink(editor, element.url, element.children[0].text);
+                } else if (element.text.length >= 1) {
+                    const texts = element.text.split('\n');
+                    if (texts.length) {
+                        editor.insertText(element.text.replaceAll('\n', ''));
+                    }
+                }
+            });
+            e.preventDefault();
+        }
+    }, [editor]);
 
     return (
-        <div className={s.content}>
+        <div className={s.content} onPaste={onPaste}>
             <Editable
                 className={s.editable}
                 readOnly={isReadMode}

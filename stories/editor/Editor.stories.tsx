@@ -1,11 +1,15 @@
 import React, {useState} from "react";
 import {Meta} from "@storybook/react";
-import {EditorMode, Sketchbox} from "../../src/main";
+import {EditorMode, MentionMember, Sketchbox} from "../../src/main";
 import s from "./editor.scss";
 
 export default {
     title: 'Sketchbox/Editor'
 } as Meta;
+
+const members: MentionMember[] = [
+    {title: "Byeonggeol Ha", value: "Byeonggeol Ha"}
+];
 
 const Template = () => {
     const [mode, setMode] = useState(EditorMode.WRITE);
@@ -19,7 +23,9 @@ const Template = () => {
             <Sketchbox
                 option={{
                     mode,
-                    onModeChange
+                    onModeChange,
+                    mentionable: true,
+                    mentionableMembers: members
                 }}
             />
         </div>

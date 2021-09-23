@@ -7365,6 +7365,11 @@ junk@^3.1.0:
   resolved "https://registry.yarnpkg.com/junk/-/junk-3.1.0.tgz#31499098d902b7e98c5d9b9c80f43457a88abfa1"
   integrity sha512-pBxcB3LFc8QVgdggvZWyeys+hnrNWg4OcZIU/1X59k5jQdLBlCsYGRQaz234SqoRLTCgMH00fY0xRJH+F9METQ==
 
+keycode@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/keycode/-/keycode-2.2.0.tgz#3d0af56dc7b8b8e5cba8d0a97f107204eec22b04"
+  integrity sha1-PQr1bce4uOXLqNCpfxByBO7CKwQ=
+
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.2.2.tgz#31ea21a734bab9bbb0f32466d893aea51e4a3c64"
@@ -9630,10 +9635,10 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-overlay-layer@0.1.0-alpha:
-  version "0.1.0-alpha"
-  resolved "https://registry.yarnpkg.com/react-overlay-layer/-/react-overlay-layer-0.1.0-alpha.tgz#44a587a3061ce65fe70a633253dc9296cac1ce65"
-  integrity sha512-W7b/PEdwaXMs2JVCMeFSvmcqO/hRF3GCQKonhPzpY63OAE7GGTUdY3wQuLBV1Yebum2uwZjhJaesJnbHAMgbNA==
+react-overlay-layer@0.2.0-alpha:
+  version "0.2.0-alpha"
+  resolved "https://registry.yarnpkg.com/react-overlay-layer/-/react-overlay-layer-0.2.0-alpha.tgz#312e72fe7ff3786980cf477b3eee019ec5e1ade4"
+  integrity sha512-bpYiLQ+c/Cj1DdDz5wHAVpp7A2RMlf5R0aKj2xAxj8GiZk0eSeOsLMNWNmQSlopCAz63hUxNDeS4Hdc5sShvmA==
 
 react-popper-tooltip@^3.1.1:
   version "3.1.1"
