@@ -13,7 +13,7 @@ interface Props extends SketchboxFormatProps {
 }
 
 export const SketchboxFormatSwitcher: React.FC<Props> = ({leaf, attributes, children}) => {
-    let fontSize = leaf.fontSize !== undefined ? leaf.fontSize : 16;
+    let fontSize = leaf.fontSize !== undefined ? leaf.fontSize : 14;
     if (fontSize === 0) fontSize = 1;
 
     const classname = cn(s.formatSwitcher, {[s.bold]: leaf.bold},

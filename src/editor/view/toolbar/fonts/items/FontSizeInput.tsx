@@ -17,7 +17,7 @@ const FontSizeInput: React.FC = () => {
         if (isValid(size)) {
             change(size);
         } else {
-            change(16);
+            change(14);
         }
     };
 

@@ -8,7 +8,8 @@ export default {
 } as Meta;
 
 const members: MentionMember[] = [
-    {title: "Byeonggeol Ha", value: "Byeonggeol Ha"}
+    {title: "Byeonggeol Ha", value: "Byeonggeol Ha"},
+    {title: "Baechoo", value: "Baechoo"},
 ];
 
 const Template = () => {

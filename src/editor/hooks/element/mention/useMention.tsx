@@ -1,7 +1,8 @@
 import React, {useCallback, useState} from "react";
-import {useTracerOverlayWithTracer} from "react-overlay-layer";
+import {useOverlay} from "react-overlay-layer";
 import keycode from "keycode";
 import {Editor, Range, Transforms} from "slate";
+import {ReactEditor} from "slate-react";
 import {
     useSketchboxOption,
     MentionMember,
@@ -33,8 +34,23 @@ export function useMention(editor: SketchboxEditor, target: Range | null, onTarg
         }
     }
 
-    const overlay = useTracerOverlayWithTracer(() => {
-        return <MentionElementDropdown/>;
+    const overlay = useOverlay(() => {
+        if (target) {
+            const domRange = ReactEditor.toDOMRange(editor, target);
+            const {bottom, left} = domRange.getBoundingClientRect();
+
+            return (
+                <MentionElementDropdown
+                    style={{
+                        top: bottom + 5,
+                        left
+                    }}
+                    members={filteredList}
+                    selectedIndex={index}
+                />
+            );
+        }
+        return null;
     });
 
     const setTarget = useCallback((newTarget: Range | null) => {
