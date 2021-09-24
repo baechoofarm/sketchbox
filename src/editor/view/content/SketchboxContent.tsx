@@ -6,7 +6,7 @@ import {
     SketchboxFormatSwitcher,
     deserialize, insertLink,
 } from "../../../internal";
-import s from "../../sketchbox.scss";
+import s from "./sketchboxContent.scss";
 
 interface Props {
     onKeyDown(event: React.KeyboardEvent): void;
@@ -38,23 +38,22 @@ const SketchboxContent: React.FC<Props> = ({onKeyDown}) => {
     }, [editor]);
 
     return (
-        <div className={s.content} onPaste={onPaste}>
-            <Editable
-                className={s.editable}
-                readOnly={isReadMode}
-                renderElement={ep => (
-                    <SketchboxElementSwitcher element={ep.element} attributes={ep.attributes}>
-                        {ep.children}
-                    </SketchboxElementSwitcher>
-                )}
-                renderLeaf={ep => (
-                    <SketchboxFormatSwitcher leaf={ep.leaf} text={ep.text} attributes={ep.attributes}>
-                        {ep.children}
-                    </SketchboxFormatSwitcher>
-                )}
-                onKeyDown={onKeyDown}
-            />
-        </div>
+        <Editable
+            className={s.editable}
+            readOnly={isReadMode}
+            renderElement={ep => (
+                <SketchboxElementSwitcher element={ep.element} attributes={ep.attributes}>
+                    {ep.children}
+                </SketchboxElementSwitcher>
+            )}
+            renderLeaf={ep => (
+                <SketchboxFormatSwitcher leaf={ep.leaf} text={ep.text} attributes={ep.attributes}>
+                    {ep.children}
+                </SketchboxFormatSwitcher>
+            )}
+            onKeyDown={onKeyDown}
+            onPaste={onPaste}
+        />
     );
 };
 

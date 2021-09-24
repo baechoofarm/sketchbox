@@ -3,6 +3,8 @@
   height: 32px;
   text-align: right;
   -moz-appearance: textfield;
+  border: 1px solid #e8e8e8;
+  border-radius: 3px;
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {

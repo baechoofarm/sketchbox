@@ -1,4 +1,12 @@
 .select {
   width: 130px;
   height: 32px;
+
+  :global {
+
+    .ant-select-selector {
+      border: 1px solid #e8e8e8 !important;
+      border-radius: 3px !important;
+    }
+  }
 }
