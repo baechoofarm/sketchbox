@@ -6,10 +6,12 @@ import s from "./mentionElementDropdownItem.scss";
 interface Props {
     member: MentionMember;
     selected: boolean;
+
+    onClick(): void;
 }
 
 const MentionElementDropdownItem: React.FC<Props> = props => {
-    const {member, selected} = props;
+    const {member, selected, onClick} = props;
 
     return (
         <div
@@ -17,6 +19,7 @@ const MentionElementDropdownItem: React.FC<Props> = props => {
                 [s.selected]: selected
             })}
             title={member.title}
+            onClick={onClick}
         >
             {member.title}
         </div>

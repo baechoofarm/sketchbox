@@ -34,7 +34,7 @@ export function useMention(editor: SketchboxEditor, target: Range | null, onTarg
         }
     }
 
-    const overlay = useOverlay(() => {
+    const overlay = useOverlay(ov => {
         if (target) {
             const domRange = ReactEditor.toDOMRange(editor, target);
             const {bottom, left} = domRange.getBoundingClientRect();
@@ -47,6 +47,12 @@ export function useMention(editor: SketchboxEditor, target: Range | null, onTarg
                     }}
                     members={filteredList}
                     selectedIndex={index}
+                    onSelect={member => {
+                        Transforms.select(editor, target);
+                        insertMention(editor, member);
+                        onTargetChange(null);
+                        ov.close();
+                    }}
                 />
             );
         }

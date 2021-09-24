@@ -6,10 +6,12 @@ interface Props {
     style: CSSProperties;
     members: MentionMember[];
     selectedIndex: number;
+
+    onSelect(member: MentionMember): void;
 }
 
 const MentionElementDropdown: React.FC<Props> = props => {
-    const {style, members, selectedIndex} = props;
+    const {style, members, selectedIndex, onSelect} = props;
 
     return (
         <div className={s.dropdown} style={style}>
@@ -21,6 +23,7 @@ const MentionElementDropdown: React.FC<Props> = props => {
                         key={key}
                         member={member}
                         selected={selectedIndex === i}
+                        onClick={() => onSelect(member)}
                     />
                 );
             })}
