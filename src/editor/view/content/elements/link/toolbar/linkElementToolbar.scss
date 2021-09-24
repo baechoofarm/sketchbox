@@ -21,7 +21,7 @@
     background: #d8d8d8;
   }
 
-  button {
+  > button {
     outline: none;
     background: none;
     box-shadow: none;
@@ -29,41 +29,12 @@
     cursor: pointer;
     transition: color .2s;
 
-    &:hover,
-    &.selected {
+    &:hover {
       color: #FF4785;
     }
 
     & + button {
       margin-left: 3px;
-    }
-  }
-
-  > .size {
-
-    > .input {
-      width: 55px;
-      height: 28px;
-      border: 1px solid #e8e8e8;
-      border-radius: 3px;
-      text-align: right;
-      -moz-appearance: textfield;
-
-      &::-webkit-outer-spin-button,
-      &::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
-    }
-
-    > .px {
-      margin-left: 3px;
-      font-size: 12px;
-    }
-
-    > .x {
-      margin: 0 8px;
-      font-size: 14px;
     }
   }
 }

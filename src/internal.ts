@@ -116,6 +116,8 @@ export * from "./editor/view/content/text/format/SketchboxFormatSwitcher";
 export * from "./editor/view/content/elements/sketchboxElementProps";
 
 export * from "./editor/view/content/elements/listed/NumberedElementItem";
+
+export * from "./editor/view/content/elements/link/toolbar/LinkElementToolbar";
 export * from "./editor/view/content/elements/link/LinkElementItem";
 
 export * from "./editor/view/content/elements/mention/dropdown/MentionElementDropdownItem";

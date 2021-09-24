@@ -1,27 +1,7 @@
-.linkElement {
+.link {
+  color: #1890ff;
 
-}
-
-.tooltip {
-  border-radius: 4px;
-  background-color: rgb(34,34,34);
-  opacity: 0.85;
-  height: 25px;
-  width: 145px;
-
-  .button {
-    float: left;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-
-  .icon {
-    color: white;
-    font-size: 18px;
-
-    &:hover {
-      color: #FF4785;
-    }
+  &.focused {
+    text-decoration: underline;
   }
 }
