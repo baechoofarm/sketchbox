@@ -1,5 +1,5 @@
 import {Editor, Element, Point, Range, Transforms} from "slate";
-import {SketchboxEditor, SketchboxElement, SketchboxElementType} from "../../../../../internal";
+import {SketchboxEditor, SketchboxElement, SketchboxElementType, SketchboxText} from "../../../../../internal";
 
 const isListActive = (editor: SketchboxEditor) => {
     const [match] = Editor.nodes(editor, {
@@ -117,18 +117,40 @@ export function cancelNestedList(editor: SketchboxEditor) {
     const {selection} = editor;
     if (!selection) return;
 
-    const path = selection?.anchor.path ?? [];
-    const siblingCounts = path[path.length - 2];
-
-    const dest = path.slice(0, path.length - 1);
-    dest[dest.length - 1] = 0;
-
-    if (siblingCounts === 0) {
+    const node = Editor.parent(editor, selection);
+    const wrapper = Editor.parent(editor, selection, {depth: node[1].length});
+    if ((wrapper[0] as SketchboxElement).type === SketchboxElementType.BULLETED) {
         Transforms.unwrapNodes(editor);
-    }
 
-    const newProps: Partial<SketchboxElement> = {
-        type: SketchboxElementType.LIST
-    };
-    Transforms.setNodes(editor, newProps);
+        const newProps: Partial<SketchboxElement> = {
+            type: SketchboxElementType.LIST
+        };
+        Transforms.setNodes(editor, newProps);
+    } else if ((wrapper[0] as SketchboxElement).type === SketchboxElementType.NUMBERED) {
+        const {path} = selection.anchor;
+        const test = path.slice();
+
+        test.pop();
+        test[test.length - 1] = 0;
+        test[test.length - 2]++;
+
+        if (wrapper[0].children.length === 1) {
+            Transforms.unwrapNodes(editor);
+
+            const newProps: Partial<SketchboxElement> = {
+                type: SketchboxElementType.LIST
+            };
+            Transforms.setNodes(editor, newProps);
+
+            test[test.length - 2]--;
+        } else {
+            Transforms.removeNodes(editor);
+
+            Transforms.select(editor, {offset: 0, path: test});
+            editor.insertBreak();
+
+            Transforms.select(editor, {offset: 0, path: test});
+            editor.insertText((node[0].children[0] as SketchboxText).text);
+        }
+    }
 }
