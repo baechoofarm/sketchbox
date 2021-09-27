@@ -1,5 +1,5 @@
 import {Editor, Element, Point, Range, Transforms} from "slate";
-import {SketchboxEditor, SketchboxElement, SketchboxElementType, SketchboxText} from "../../../../../internal";
+import {SketchboxEditor, SketchboxElement, SketchboxElementType} from "../../../../../internal";
 
 const isListActive = (editor: SketchboxEditor) => {
     const [match] = Editor.nodes(editor, {
@@ -35,14 +35,6 @@ const getListType = (editor: SketchboxEditor) => {
     });
 
     return match ? SketchboxElementType.BULLETED : SketchboxElementType.NUMBERED;
-};
-
-const getListCounts = (element: SketchboxElement) => {
-    const lists = element.children.filter(n => {
-        const node = n as SketchboxElement;
-        return node.type === SketchboxElementType.LIST;
-    });
-    return lists.length;
 };
 
 export const toggleList = (editor: SketchboxEditor, type: SketchboxElementType) => {
@@ -118,87 +110,25 @@ export function applyNestedList(editor: SketchboxEditor) {
     }
 }
 
-export function newCancelNestedList(editor: SketchboxEditor) {
+export function cancelNestedList(editor: SketchboxEditor) {
     const isNested = isListNested(editor);
     if (!isNested) return;
 
     const {selection} = editor;
+    if (!selection) return;
+
     const path = selection?.anchor.path ?? [];
+    const siblingCounts = path[path.length - 2];
 
     const dest = path.slice(0, path.length - 1);
     dest[dest.length - 1] = 0;
 
-    Transforms.moveNodes(editor, {at: selection ?? undefined, to: dest});
-    Transforms.unwrapNodes(editor);
+    if (siblingCounts === 0) {
+        Transforms.unwrapNodes(editor);
+    }
 
     const newProps: Partial<SketchboxElement> = {
         type: SketchboxElementType.LIST
     };
     Transforms.setNodes(editor, newProps);
-}
-
-export function cancelNestedList(editor: SketchboxEditor) {
-    const isActive = isListActive(editor);
-    const isNested = isListNested(editor);
-    const {selection} = editor;
-
-    if (isActive && selection && isNested) {
-        const node = Editor.parent(editor, selection);
-        const parent = Editor.parent(editor, selection, {depth: node[1].length});
-        const ancestor = Editor.parent(editor, selection, {depth: node[1].length - 1});
-
-        const parentListCounts = (parent[0] as SketchboxElement).children.length;
-        const ancestorListCounts = getListCounts(ancestor[0] as SketchboxElement);
-
-        if (parentListCounts <= 1) {
-            Transforms.unwrapNodes(editor);
-        }
-
-        Transforms.removeNodes(editor, {
-            at: {path: [...node[1]], offset: 1}
-        });
-
-        const path = (ancestorListCounts > 0)
-            ? [...ancestor[1], ancestorListCounts - 1, 0]
-            : [...ancestor[1], 0];
-
-        if (ancestorListCounts < 1) {
-            let isEmpty = true;
-            let temp = 2;
-            while (isEmpty) {
-                try {
-                    const upperElement = Editor.parent(editor, selection, {depth: node[1].length - temp});
-                    const upperListCounts = getListCounts(upperElement[0] as SketchboxElement);
-                    if (upperListCounts < 1) {
-                        temp++;
-                        path.pop();
-                        if (parentListCounts <= 1 && path.length > 1) {
-                            Transforms.unwrapNodes(editor, {at: selection});
-                        }
-                    } else {
-                        isEmpty = false;
-                    }
-                } catch (e) {
-                    isEmpty = false;
-                }
-            }
-            if (parentListCounts <= 1 && path.length > 1) {
-                Transforms.unwrapNodes(editor, {at: selection});
-            }
-            path[path.length - 2]--;
-        }
-
-        let insertPos = Editor.node(editor, {path, offset: 0})[0] as SketchboxText;
-        if (!insertPos.text) {
-            path[path.length - 2]--;
-            insertPos = Editor.node(editor, {path, offset: 0})[0] as SketchboxText;
-        }
-
-        Transforms.insertNodes(editor, node[0], {
-            at: {
-                path,
-                offset: insertPos?.text?.length ?? 0
-            }
-        });
-    }
 }

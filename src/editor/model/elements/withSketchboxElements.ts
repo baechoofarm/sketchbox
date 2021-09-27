@@ -1,7 +1,8 @@
 import isUrl from "is-url";
-import {Editor, Range, Transforms} from "slate";
+import {Editor, Node, Range, Transforms} from "slate";
 import {
-    checkDeleteCheckbox, checkDeleteList,
+    checkDeleteCheckbox,
+    checkDeleteList,
     findCurrentLineRange,
     insertImage,
     isImageUrl,
@@ -114,6 +115,36 @@ export function withSketchboxElements(editor: SketchboxEditor) {
                     Transforms.delete(editor, {at: currentLineRange});
                 }
             }
+        }
+    };
+
+    editor.insertBreak = () => {
+        const {selection} = editor;
+        if (!selection) return;
+
+        const node = Editor.parent(editor, selection);
+        const wrapper = Editor.parent(editor, selection, {depth: node[1].length});
+        const parent = Editor.parent(editor, selection, {depth: node[1].length - 1});
+        const parentType = (parent[0] as SketchboxElement).type;
+
+        if (parentType === SketchboxElementType.BULLETED) {
+            const listNode: Node = {type: SketchboxElementType.LIST, children: [{text: ""}]};
+
+            const dest = wrapper[1].slice();
+            dest[dest.length - 1]++;
+
+            Transforms.insertNodes(editor, listNode, {
+                at: dest
+            });
+            Transforms.select(editor, dest);
+
+            const listWrapper: { type: SketchboxElementType.BULLETED, children: any[] } = {
+                type: parentType,
+                children: []
+            };
+            Transforms.wrapNodes(editor, listWrapper);
+        } else {
+            Transforms.splitNodes(editor, {always: true});
         }
     };
 
