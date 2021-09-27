@@ -63,7 +63,7 @@ const ImageElementItem: React.FC<ImageElementItemProps> = ({attributes, children
         if (imageRef.current) {
             const {width: w, height: h} = imageRef.current.getBoundingClientRect();
             const path = ReactEditor.findPath(editor, element);
-            const newProperties: Partial<ImageElement> = {width: w, height: h};
+            const newProperties: Partial<ImageElement> = {width: Math.round(w), height: Math.round(h)};
 
             Transforms.setNodes(editor, newProperties, {at: path});
         }

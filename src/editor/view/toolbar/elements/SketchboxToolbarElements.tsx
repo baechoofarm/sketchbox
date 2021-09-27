@@ -5,7 +5,8 @@ import {
     LinkButton,
     NumberedButton,
     SketchboxToolbarRow,
-    UnLinkButton
+    UnLinkButton,
+    ImageButton
 } from "../../../../internal";
 
 const SketchboxToolbarElements: React.FC = () => {
@@ -16,6 +17,7 @@ const SketchboxToolbarElements: React.FC = () => {
             <LinkButton/>
             <UnLinkButton/>
             <CheckboxButton/>
+            <ImageButton/>
         </SketchboxToolbarRow>
     );
 };

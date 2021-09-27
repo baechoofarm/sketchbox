@@ -108,6 +108,7 @@ export * from "./editor/view/toolbar/elements/items/NumberedButton";
 export * from "./editor/view/toolbar/elements/items/LinkButton";
 export * from "./editor/view/toolbar/elements/items/UnLinkButton";
 export * from "./editor/view/toolbar/elements/items/CheckboxButton";
+export * from "./editor/view/toolbar/elements/items/ImageButton";
 
 export * from "./editor/view/toolbar/SketchboxToolbar";
 
