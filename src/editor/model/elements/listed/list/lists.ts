@@ -118,6 +118,25 @@ export function applyNestedList(editor: SketchboxEditor) {
     }
 }
 
+export function newCancelNestedList(editor: SketchboxEditor) {
+    const isNested = isListNested(editor);
+    if (!isNested) return;
+
+    const {selection} = editor;
+    const path = selection?.anchor.path ?? [];
+
+    const dest = path.slice(0, path.length - 1);
+    dest[dest.length - 1] = 0;
+
+    Transforms.moveNodes(editor, {at: selection ?? undefined, to: dest});
+    Transforms.unwrapNodes(editor);
+
+    const newProps: Partial<SketchboxElement> = {
+        type: SketchboxElementType.LIST
+    };
+    Transforms.setNodes(editor, newProps);
+}
+
 export function cancelNestedList(editor: SketchboxEditor) {
     const isActive = isListActive(editor);
     const isNested = isListNested(editor);
