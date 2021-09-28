@@ -4,4 +4,4 @@
 
 You can see Demo Editor in this [Storybook Page](https://baechoofarm.github.io/sketchbox)
 
-![](../sketchbox/stories/assets/sketchbox.gif)
+![](https://github.com/baechoofarm/sketchbox/blob/master/stories/assets/sketchbox.gif)
