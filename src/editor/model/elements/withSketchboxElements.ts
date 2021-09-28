@@ -124,6 +124,10 @@ export function withSketchboxElements(editor: SketchboxEditor) {
 
         const node = Editor.parent(editor, selection);
         const wrapper = Editor.parent(editor, selection, {depth: node[1].length});
+        if (wrapper[1].length < 1) {
+            return Transforms.splitNodes(editor, {always: true});
+        }
+
         const parent = Editor.parent(editor, selection, {depth: node[1].length - 1});
         const parentType = (parent[0] as SketchboxElement).type;
 
