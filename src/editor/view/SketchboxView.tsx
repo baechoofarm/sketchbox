@@ -11,6 +11,7 @@ import {SketchboxValue} from "../model/sketchboxValue";
 import {SketchboxElementType} from "../model/elements/sketchboxElementType";
 import {SketchboxContext} from "../sketchboxContext";
 import {SketchboxEditor} from "../model/sketchboxEditor";
+import {useImage} from "../hooks/element/image/useImage";
 
 interface Props {
     editor: SketchboxEditor;
@@ -27,6 +28,7 @@ const SketchboxView: React.FC<Props> = ({editor}) => {
     }]);
 
     const mention = useMention(editor, target, newTarget => setTarget(newTarget));
+    const image = useImage(editor);
     const nestedList = useNestedList(editor);
     const formatCommands = useFormatCommands(editor);
 
@@ -39,8 +41,9 @@ const SketchboxView: React.FC<Props> = ({editor}) => {
     const onKeyDown = useCallback((event: React.KeyboardEvent) => {
         if (mention.onKeyDown(event)) return;
         if (nestedList.onKeyDown(event)) return;
+        if (image.onKeyDown(event)) return;
         formatCommands.onKeyDown(event);
-    }, [formatCommands, mention, nestedList]);
+    }, [formatCommands, image, mention, nestedList]);
 
     return (
         <Slate editor={editor} value={value} onChange={onChange}>

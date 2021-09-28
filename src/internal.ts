@@ -67,12 +67,14 @@ export * from "./editor/model/createSketchboxEditor";
 export * from "./editor/utils/deserialize";
 export * from "./editor/utils/getLeafOfSelection";
 export * from "./editor/utils/line";
+export * from "./editor/utils/isElementActive";
 
 /**
  * Hooks
  */
 
 export * from "./editor/hooks/useSketchboxOption";
+export * from "./editor/hooks/element/image/useImage";
 export * from "./editor/hooks/element/mention/useMention";
 export * from "./editor/hooks/element/listed/useNestedList";
 export * from "./editor/hooks/text/format/useFormatCommands";
