@@ -130,7 +130,7 @@ export function withSketchboxElements(editor: SketchboxEditor) {
         if (parentType === SketchboxElementType.BULLETED) {
             const listNode: Node = {type: SketchboxElementType.LIST, children: [{text: ""}]};
 
-            const dest = wrapper[1].slice();
+            const dest = [wrapper[1][0], wrapper[1][1]];
             dest[dest.length - 1]++;
 
             Transforms.insertNodes(editor, listNode, {
@@ -142,7 +142,10 @@ export function withSketchboxElements(editor: SketchboxEditor) {
                 type: parentType,
                 children: []
             };
-            Transforms.wrapNodes(editor, listWrapper);
+
+            for (let i = node[1].length; i > 2; i--) {
+                Transforms.wrapNodes(editor, listWrapper);
+            }
         } else {
             Transforms.splitNodes(editor, {always: true});
         }
