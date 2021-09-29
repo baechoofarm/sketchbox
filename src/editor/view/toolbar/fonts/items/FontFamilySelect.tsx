@@ -21,7 +21,7 @@ const FontFamilySelect: React.FC = () => {
             <Option value={""}>None</Option>
             <Option value={"Noto Sans KR"}>Noto Sans KR</Option>
             <Option value={"Black Han Sans"}>Black Han Sans</Option>
-            <Option value={"Yeon Sung"}>Black Han Sans</Option>
+            <Option value={"Yeon Sung"}>Yeon Sung</Option>
         </Select>
     );
 };
