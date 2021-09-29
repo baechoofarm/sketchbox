@@ -12,6 +12,7 @@ import {SketchboxElementType} from "../model/elements/sketchboxElementType";
 import {SketchboxContext} from "../sketchboxContext";
 import {SketchboxEditor} from "../model/sketchboxEditor";
 import {useImage} from "../hooks/element/image/useImage";
+import {HoveringToolbar} from "./toolbar/hoveringToolbar/HoveringToolbar";
 
 interface Props {
     editor: SketchboxEditor;
@@ -48,6 +49,7 @@ const SketchboxView: React.FC<Props> = ({editor}) => {
     return (
         <Slate editor={editor} value={value} onChange={onChange}>
             <SketchboxToolbar/>
+            <HoveringToolbar/>
             <SketchboxContent onKeyDown={onKeyDown}/>
             <OverlayRoot/>
         </Slate>
