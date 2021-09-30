@@ -5,6 +5,7 @@ import s from "./innerSelect.scss";
 export interface SelectOption {
     title: string;
     value: any;
+    renderer?: () => React.ReactElement;
 }
 
 interface Props {
@@ -27,7 +28,7 @@ const InnerSelect: React.FC<Props> = props => {
                 <div style={{left, top: bottom + 5}} className={s.options}>
                     {options.map(option => (
                         <div key={option.title} onClick={() => handleClick(option.value)} className={s.option}>
-                            {option.title}
+                            {option.renderer ? option.renderer() : option.title}
                         </div>
                     ))}
                 </div>
@@ -53,6 +54,7 @@ const InnerSelect: React.FC<Props> = props => {
 
     let selected = options.find(option => option.value === selectedValue)?.title ?? "None";
     if (selected.length < 1) selected = "None";
+    if (typeof selectedValue === "object" && selectedValue !== null) selected = selectedValue;
 
     return (
         <div
