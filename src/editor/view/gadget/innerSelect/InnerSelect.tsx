@@ -2,13 +2,20 @@ import React, {useEffect, useState} from "react";
 import {useOverlay} from "react-overlay-layer";
 import s from "./innerSelect.scss";
 
+export interface SelectOption {
+    title: string;
+    value: any;
+}
+
 interface Props {
-    options: string[];
+    options: SelectOption[];
+    selectedValue: any;
     visible: boolean;
+    changeFunc: (value: any) => void;
 }
 
 const InnerSelect: React.FC<Props> = props => {
-    const {options, visible, children} = props;
+    const {options, visible, changeFunc, selectedValue} = props;
 
     const [targetRect, setTargetRect] = useState<DOMRect | null>(null);
 
@@ -19,8 +26,8 @@ const InnerSelect: React.FC<Props> = props => {
             return (
                 <div style={{left, top: bottom + 5}} className={s.options}>
                     {options.map(option => (
-                        <div key={option} onClick={() => ov.close()} className={s.option}>
-                            {option}
+                        <div key={option.title} onClick={() => handleClick(option.value)} className={s.option}>
+                            {option.title}
                         </div>
                     ))}
                 </div>
@@ -33,14 +40,27 @@ const InnerSelect: React.FC<Props> = props => {
         if (!visible) overlay.close();
     });
 
-    const handleMouseDown = (e: React.MouseEvent<HTMLSelectElement>) => {
+    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
         setTargetRect(e.currentTarget.getBoundingClientRect());
         overlay.open();
     };
 
+    const handleClick = (font: any) => {
+        changeFunc(font);
+        overlay.close();
+    };
+
+    let selected = options.find(option => option.value === selectedValue)?.title ?? "None";
+    if (selected.length < 1) selected = "None";
+
     return (
-        <div onMouseDown={handleMouseDown}>{children}</div>
+        <div
+            className={s.select}
+            onMouseDown={handleMouseDown}
+        >
+            {selected}
+        </div>
     );
 };
 

@@ -86,6 +86,7 @@ export * from "./editor/hooks/text/format/useFormatChanger";
 /**
  * View
  */
+export * from "./editor/view/gadget/innerSelect/InnerSelect";
 
 export * from "./editor/view/toolbar/common/SketchboxToolbarButton";
 export * from "./editor/view/toolbar/common/SketchboxToolbarRow";
@@ -113,6 +114,9 @@ export * from "./editor/view/toolbar/elements/items/CheckboxButton";
 export * from "./editor/view/toolbar/elements/items/ImageButton";
 
 export * from "./editor/view/toolbar/SketchboxToolbar";
+
+export * from "./editor/view/toolbar/hoveringToolbar/fontFamilySelect/FontFamilyInnerSelect";
+export * from "./editor/view/toolbar/hoveringToolbar/HoveringToolbar";
 
 export * from "./editor/view/content/text/format/SketchboxFormatSwitcher";
 
