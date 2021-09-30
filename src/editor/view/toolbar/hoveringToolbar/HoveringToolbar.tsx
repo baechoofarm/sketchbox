@@ -2,8 +2,9 @@ import React, {useEffect, useRef, useState} from "react";
 import ReactDOM from "react-dom";
 import {ReactEditor, useSlate} from "slate-react";
 import {Editor, Range} from "slate";
-import {getLeafOfSelection, FontFamilyInnerSelect} from "../../../../internal";
+import {FontFamilyInnerSelect} from "../../../../internal";
 import s from "./hoveringToolbar.scss";
+import {FontsizeInnerSelect} from "./fontSizeInnerSelect/FontsizeInnerSelect";
 
 interface Props {
 }
@@ -17,7 +18,6 @@ const Portal: React.FC<Props> = ({children}) => {
 const HoveringToolbar: React.FC = () => {
     const ref = useRef<HTMLDivElement | null>(null);
     const editor = useSlate();
-    const [fontSize, setFontSize] = useState(14);
     const [domSelection, setDomSelection] = useState<Selection | null>(null);
     const [isVisible, setVisible] = useState(false);
 
@@ -56,18 +56,12 @@ const HoveringToolbar: React.FC = () => {
 
             setVisible(true);
         }
-
-        if (selection) {
-            const leaf = getLeafOfSelection(editor);
-            setFontSize(leaf?.[0]?.fontSize ?? 14);
-        }
-
     });
 
     return (
         <Portal>
             <div className={s.toolbar} ref={ref}>
-                Font Size : {fontSize}
+                <FontsizeInnerSelect visible={isVisible}/>
                 <FontFamilyInnerSelect visible={isVisible}/>
             </div>
         </Portal>
