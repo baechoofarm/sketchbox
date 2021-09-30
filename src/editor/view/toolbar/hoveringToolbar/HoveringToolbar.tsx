@@ -2,9 +2,9 @@ import React, {useEffect, useRef, useState} from "react";
 import ReactDOM from "react-dom";
 import {ReactEditor, useSlate} from "slate-react";
 import {Editor, Range} from "slate";
-import {useOverlay} from "react-overlay-layer";
 import {getLeafOfSelection} from "../../../utils/getLeafOfSelection";
 import s from "./hoveringToolbar.scss";
+import {InnerSelect} from "../../gadget/innerSelect/InnerSelect";
 
 interface Props {
 }
@@ -21,6 +21,7 @@ const HoveringToolbar: React.FC = () => {
     const [fontSize, setFontSize] = useState(14);
     const [fontFamily, setFontFamily] = useState("None");
     const [domSelection, setDomSelection] = useState<Selection | null>(null);
+    const [isVisible, setVisible] = useState(false);
 
     useEffect(() => {
         setDomSelection(window.getSelection());
@@ -41,14 +42,17 @@ const HoveringToolbar: React.FC = () => {
             || Editor.string(editor, selection) === ""
         ) {
             el.style.display = "none";
+            setVisible(false);
             return;
         }
+
         const domRange = domSelection?.getRangeAt(0);
         if (domRange) {
             const rect = domRange.getBoundingClientRect();
             el.style.display = "block";
             el.style.top = `${rect.top - el.offsetHeight - 10}px`;
             el.style.left = `${rect.left - el.offsetWidth / 2 + rect.width / 2}px`;
+            setVisible(true);
         }
 
         if (selection) {
@@ -59,32 +63,11 @@ const HoveringToolbar: React.FC = () => {
 
     });
 
-    const [targetRect, setTargetRect] = useState<DOMRect | null>(null);
-
-    const overlay = useOverlay(ov => {
-        if (targetRect) {
-            const {left, bottom} = targetRect;
-
-            return (
-                <div style={{left, top: bottom + 5, position: "absolute"}}>👑👑👑👑</div>
-            );
-        }
-        return null;
-    });
-
     return (
         <Portal>
             <div className={s.toolbar} ref={ref}>
                 Font Size : {fontSize} Font Family : {fontFamily}
-                <select onMouseDown={e => {
-                    e.preventDefault();
-                    setTargetRect(e.currentTarget.getBoundingClientRect());
-                    overlay.open();
-                }}
-                >
-                    <option>test</option>
-                    <option>testfsa</option>
-                </select>
+                <InnerSelect options={["Noto Sans KR", "Black Han Sans", "Yeon Sung"]} visible={isVisible}>Select FontFamily</InnerSelect>
             </div>
         </Portal>
     );
