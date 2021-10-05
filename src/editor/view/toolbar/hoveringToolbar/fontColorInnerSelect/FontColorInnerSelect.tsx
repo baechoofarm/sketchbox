@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useContext} from "react";
 import {FontColorsOutlined} from "@ant-design/icons";
-import {InnerSelect, SelectOption} from "../../../../../internal";
+import {InnerSelect, SelectOption, SketchboxContext} from "../../../../../internal";
 import s from "./fontColorInnerSelect.scss";
 
 interface Props {
@@ -9,6 +9,7 @@ interface Props {
 
 const FontColorInnerSelect: React.FC<Props> = ({visible}) => {
     const fontColorOptions: SelectOption[] = [
+        {title: "black", value: "black", renderer: () => (<FontColorsOutlined className={s.black}/>)},
         {title: "red", value: "red", renderer: () => (<FontColorsOutlined className={s.red}/>)},
         {title: "green", value: "green", renderer: () => (<FontColorsOutlined className={s.green}/>)},
         {title: "blue", value: "blue", renderer: () => (<FontColorsOutlined className={s.blue}/>)},
@@ -16,14 +17,16 @@ const FontColorInnerSelect: React.FC<Props> = ({visible}) => {
         {title: "violet", value: "violet", renderer: () => (<FontColorsOutlined className={s.violet}/>)},
     ];
 
-    const handleClick = () => {
-        // nothing
+    const {value, change} = useContext(SketchboxContext).formatChangers.fontColor;
+
+    const handleClick = (fontColor: string) => {
+        change(fontColor);
     };
 
     return (
         <InnerSelect
             options={fontColorOptions}
-            selectedValue={<FontColorsOutlined/>}
+            selectedValue={value}
             visible={visible}
             changeFunc={handleClick}
         />

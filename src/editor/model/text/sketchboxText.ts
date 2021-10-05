@@ -3,6 +3,7 @@ import {BaseText} from "slate";
 interface SketchboxFormatText extends BaseText {
     fontSize?: number;
     fontFamily?: string;
+    fontColor?: string;
     bold?: boolean;
     italic?: boolean;
     underline?: boolean;

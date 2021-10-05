@@ -52,9 +52,12 @@ const InnerSelect: React.FC<Props> = props => {
         overlay.close();
     };
 
-    let selected = options.find(option => option.value === selectedValue)?.title ?? "None";
-    if (selected.length < 1) selected = "None";
-    if (typeof selectedValue === "object" && selectedValue !== null) selected = selectedValue;
+    let selected: any = options.find(option => option.value === selectedValue) ?? "None";
+    if (typeof selected !== "string" && selected.renderer) {
+        selected = selected.renderer();
+    } else {
+        selected = selected.title ?? "None";
+    }
 
     return (
         <div
