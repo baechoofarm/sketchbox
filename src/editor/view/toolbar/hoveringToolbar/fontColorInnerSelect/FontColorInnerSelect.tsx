@@ -14,7 +14,8 @@ const FontColorInnerSelect: React.FC<Props> = ({visible}) => {
         {title: "green", value: "green", renderer: () => (<FontColorsOutlined className={s.green}/>)},
         {title: "blue", value: "blue", renderer: () => (<FontColorsOutlined className={s.blue}/>)},
         {title: "yellow", value: "yellow", renderer: () => (<FontColorsOutlined className={s.yellow}/>)},
-        {title: "violet", value: "violet", renderer: () => (<FontColorsOutlined className={s.violet}/>)},
+        {title: "violet", value: "darkviolet", renderer: () => (<FontColorsOutlined className={s.violet}/>)},
+        {title: "white", value: "white", renderer: () => (<FontColorsOutlined className={s.white}/>)},
     ];
 
     const {value, change} = useContext(SketchboxContext).formatChangers.fontColor;
