@@ -1,3 +1,3 @@
-import {createChangeFormatFunc} from "../func/createChangeFormatFunc";
+import {createChangeFormatFunc} from "../../../../../internal";
 
 export const changeFontColor = createChangeFormatFunc("fontColor");

@@ -6,6 +6,7 @@ export interface SketchboxContextValue extends SketchboxOption {
         fontSize: FormatChanger<number>;
         fontFamily: FormatChanger<string>;
         fontColor: FormatChanger<string>;
+        backgroundColor: FormatChanger<string>;
     };
 }
 

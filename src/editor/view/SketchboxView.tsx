@@ -19,7 +19,7 @@ interface Props {
 }
 
 const SketchboxView: React.FC<Props> = ({editor}) => {
-    const {formatChangers: {fontSize, fontFamily, fontColor}} = useContext(SketchboxContext);
+    const {formatChangers: {fontSize, fontFamily, fontColor, backgroundColor}} = useContext(SketchboxContext);
 
     const [target, setTarget] = useState<Range | null>(null);
 
@@ -35,9 +35,9 @@ const SketchboxView: React.FC<Props> = ({editor}) => {
 
     const onChange = useCallback((newValue: SketchboxValue) => {
         setValue(newValue);
-        [fontSize, fontFamily, fontColor].forEach(v => v.check());
+        [fontSize, fontFamily, fontColor, backgroundColor].forEach(v => v.check());
         mention.onChange();
-    }, [fontFamily, fontSize, fontColor, mention]);
+    }, [fontFamily, fontSize, fontColor, backgroundColor, mention]);
 
     const onKeyDown = useCallback((event: React.KeyboardEvent) => {
         if (mention.onKeyDown(event)) return;

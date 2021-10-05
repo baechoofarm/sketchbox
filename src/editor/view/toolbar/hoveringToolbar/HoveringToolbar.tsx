@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import ReactDOM from "react-dom";
 import {ReactEditor, useSlate} from "slate-react";
 import {Editor, Range} from "slate";
-import {FontFamilyInnerSelect, FontsizeInnerSelect, FontColorInnerSelect} from "../../../../internal";
+import {FontFamilyInnerSelect, FontsizeInnerSelect, FontColorInnerSelect, BackgroundColorInnerSelect} from "../../../../internal";
 import s from "./hoveringToolbar.scss";
 
 interface Props {
@@ -63,6 +63,7 @@ const HoveringToolbar: React.FC = () => {
                 <FontsizeInnerSelect visible={isVisible}/>
                 <FontFamilyInnerSelect visible={isVisible}/>
                 <FontColorInnerSelect visible={isVisible}/>
+                <BackgroundColorInnerSelect visible={isVisible}/>
             </div>
         </Portal>
     );

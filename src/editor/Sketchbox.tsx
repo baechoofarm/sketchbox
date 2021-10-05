@@ -10,6 +10,7 @@ import {
 } from "../internal";
 import s from "./sketchbox.scss";
 import {useFontColorFormatChanger} from "./hooks/text/format/formats/useFontColorFormatChanger";
+import {useBackgroundFormatChanger} from "./hooks/text/format/formats/useBackgroundFormatChanger";
 
 interface Props {
     className?: string;
@@ -22,13 +23,14 @@ const Sketchbox: React.FC<Props> = ({option, className}) => {
     const fontSize = useFontSizeFormatChanger(editor);
     const fontFamily = useFontFamilyFormatChanger(editor);
     const fontColor = useFontColorFormatChanger(editor);
+    const backgroundColor = useBackgroundFormatChanger(editor);
 
     return (
         <div className={className ? cn(s.sketchbox, className) : s.sketchbox}>
             <SketchboxContext.Provider
                 value={{
                     ...(option ?? {}),
-                    formatChangers: {fontSize, fontFamily, fontColor}
+                    formatChangers: {fontSize, fontFamily, fontColor, backgroundColor}
                 }}
             >
                 <SketchboxView editor={editor}/>

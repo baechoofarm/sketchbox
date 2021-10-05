@@ -118,6 +118,7 @@ export * from "./editor/view/toolbar/SketchboxToolbar";
 export * from "./editor/view/toolbar/hoveringToolbar/fontFamilyInnerSelect/FontFamilyInnerSelect";
 export * from "./editor/view/toolbar/hoveringToolbar/fontSizeInnerSelect/FontsizeInnerSelect";
 export * from "./editor/view/toolbar/hoveringToolbar/fontColorInnerSelect/FontColorInnerSelect";
+export * from "./editor/view/toolbar/hoveringToolbar/backgroundColorInnerSelect/backgroundColorInnerSelect";
 export * from "./editor/view/toolbar/hoveringToolbar/HoveringToolbar";
 
 export * from "./editor/view/content/text/format/SketchboxFormatSwitcher";

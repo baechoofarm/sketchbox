@@ -4,6 +4,7 @@ interface SketchboxFormatText extends BaseText {
     fontSize?: number;
     fontFamily?: string;
     fontColor?: string;
+    backgroundColor?: string;
     bold?: boolean;
     italic?: boolean;
     underline?: boolean;

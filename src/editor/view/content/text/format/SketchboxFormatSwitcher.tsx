@@ -28,7 +28,8 @@ export const SketchboxFormatSwitcher: React.FC<Props> = ({leaf, attributes, chil
             style={{
                 fontSize,
                 fontFamily: leaf.fontFamily,
-                color: leaf.fontColor === "violet" ? "darkviolet" : leaf.fontColor
+                color: leaf.fontColor === "violet" ? "darkviolet" : leaf.fontColor,
+                backgroundColor: leaf.backgroundColor
             }}
         >
             {children}
