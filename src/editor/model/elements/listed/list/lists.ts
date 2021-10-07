@@ -106,7 +106,15 @@ export function applyNestedList(editor: SketchboxEditor) {
         const type = getListType(editor);
         const listWrapper: { type: SketchboxElementType.BULLETED | SketchboxElementType.NUMBERED, children: any[] } = {type, children: []};
 
-        Transforms.wrapNodes(editor, listWrapper);
+        if (type === SketchboxElementType.BULLETED) Transforms.wrapNodes(editor, listWrapper);
+
+        const {selection} = editor;
+        if (!selection) return;
+
+        const {path} = selection.anchor;
+        if (path[path.length - 2] !== 0) {
+            Transforms.wrapNodes(editor, listWrapper);
+        }
     }
 }
 
