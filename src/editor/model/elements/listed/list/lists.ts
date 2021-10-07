@@ -119,16 +119,23 @@ export function applyNestedList(editor: SketchboxEditor) {
         const wrapper = Editor.parent(editor, selection, {depth: node[1].length});
 
         const index = wrapper[0].children.findIndex(v => v === node[0]);
-        const upperNode = wrapper[0].children[index - 1] as SketchboxElement;
+        const upperNodes = wrapper[0].children[index - 1] as SketchboxElement;
 
-        if (!upperNode || (upperNode as Element).type !== SketchboxElementType.NUMBERED) {
+        if (!upperNodes || (upperNodes as Element).type !== SketchboxElementType.NUMBERED) {
+            Transforms.wrapNodes(editor, listWrapper);
+            return;
+        }
+
+        const upperNode = upperNodes.children[upperNodes.children.length - 1] as SketchboxElement;
+
+        if (upperNode.type === SketchboxElementType.NUMBERED) {
             Transforms.wrapNodes(editor, listWrapper);
             return;
         }
 
         Transforms.removeNodes(editor);
 
-        const upperPath = ReactEditor.findPath(editor, upperNode.children[upperNode.children.length - 1]);
+        const upperPath = ReactEditor.findPath(editor, upperNode);
         Transforms.select(editor, upperPath);
         if (!editor.selection) return;
 
