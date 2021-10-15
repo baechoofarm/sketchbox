@@ -1,4 +1,5 @@
 import {Editor, Element, Point, Range, Transforms} from "slate";
+import {ReactEditor} from "slate-react";
 import {SketchboxEditor, SketchboxElement, SketchboxElementType, SketchboxText} from "../../../../../internal";
 
 const isListActive = (editor: SketchboxEditor) => {
@@ -112,9 +113,32 @@ export function applyNestedList(editor: SketchboxEditor) {
         if (!selection) return;
 
         const {path} = selection.anchor;
-        if (path[path.length - 2] !== 0) {
+        if (path[path.length - 2] === 0) return;
+
+        const node = Editor.parent(editor, selection);
+        const wrapper = Editor.parent(editor, selection, {depth: node[1].length});
+
+        const index = wrapper[0].children.findIndex(v => v === node[0]);
+        const upperNode = wrapper[0].children[index - 1] as SketchboxElement;
+
+        if (!upperNode || (upperNode as Element).type !== SketchboxElementType.NUMBERED) {
             Transforms.wrapNodes(editor, listWrapper);
+            return;
         }
+
+        Transforms.removeNodes(editor);
+
+        const upperPath = ReactEditor.findPath(editor, upperNode.children[upperNode.children.length - 1]);
+        Transforms.select(editor, upperPath);
+        if (!editor.selection) return;
+
+        const insertPath = editor.selection.anchor.path.slice();
+        insertPath[insertPath.length - 2]++;
+        insertPath.splice(insertPath.length - 1, 1);
+
+        Transforms.insertNodes(editor, node[0], {
+            at: insertPath
+        });
     }
 }
 
