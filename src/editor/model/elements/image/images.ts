@@ -70,3 +70,33 @@ export async function insertTempImage(
 
     return element;
 }
+
+export function imageUrlToBlob(url: string): Promise<Blob> {
+    return new Promise(((resolve, reject) => {
+        const image = new Image();
+
+        image.crossOrigin = 'Anonymous';
+        image.onload = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = image.width;
+            canvas.height = image.height;
+
+            if (ctx) {
+                ctx.drawImage(image, 0, 0);
+                canvas.toBlob(blob => {
+                    if (blob) {
+                        resolve(blob);
+                    } else {
+                        reject();
+                    }
+                    canvas.remove();
+                });
+            } else {
+                reject();
+            }
+        };
+        image.src = url;
+    }));
+}

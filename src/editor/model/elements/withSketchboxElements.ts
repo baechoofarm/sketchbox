@@ -3,17 +3,17 @@ import {Editor, Node, Range, Transforms} from "slate";
 import {
     checkDeleteCheckbox,
     checkDeleteList,
-    findCurrentLineRange,
-    insertImage,
+    findCurrentLineRange, imageUrlToBlob,
+    insertImage, insertTempImage,
     isImageUrl,
     SketchboxEditor,
     SketchboxElement,
-    SketchboxElementType,
+    SketchboxElementType, SketchboxOption,
     unwrapLink,
     wrapLink
 } from "../../../internal";
 
-export function withSketchboxElements(editor: SketchboxEditor) {
+export function withSketchboxElements(editor: SketchboxEditor, option: SketchboxOption) {
     const {
         insertData,
         insertText,
@@ -162,19 +162,18 @@ export function withSketchboxElements(editor: SketchboxEditor) {
         if (files?.length > 0) {
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
-                const reader = new FileReader();
                 const [mime] = file.type.split('/');
 
                 if (mime === 'image') {
-                    reader.addEventListener('load', () => {
-                        const url = reader.result as string;
-                        insertImage(editor, url);
-                    });
-                    reader.readAsDataURL(file);
+                    if (option.onImageTempUpload) {
+                        insertTempImage(editor, file, option.onImageTempUpload);
+                    } else {
+                        insertImage(editor, file);
+                    }
                 }
             }
         } else if (isImageUrl(text)) {
-            insertImage(editor, text);
+            imageUrlToBlob(text).then(image => insertImage(editor, image));
         } else if (text && isUrl(text)) {
             wrapLink(editor, text);
         } else {

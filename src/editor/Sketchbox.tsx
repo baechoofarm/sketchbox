@@ -18,7 +18,7 @@ interface Props {
 }
 
 const Sketchbox: React.FC<Props> = ({option, className}) => {
-    const editor = useMemo(() => createSketchboxEditor(), []);
+    const editor = useMemo(() => createSketchboxEditor(option), [option]);
 
     const fontSize = useFontSizeFormatChanger(editor);
     const fontFamily = useFontFamilyFormatChanger(editor);

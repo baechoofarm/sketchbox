@@ -23,17 +23,25 @@ const SketchboxContent: React.FC<Props> = ({onKeyDown}) => {
 
         if (fragment.length > 1) {
             editor.insertBreak();
+
+            let count = 0;
             fragment.forEach(element => {
                 if (element.type) {
-                    insertLink(editor, element.url, element.children[0].text);
+                    if (element.type === 'link') {
+                        insertLink(editor, element.url, element.children[0].text);
+                        count++;
+                    }
                 } else if (element.text.length >= 1) {
                     const texts = element.text.split('\n');
-                    if (texts.length) {
+                    if (texts?.filter((v: string) => v?.length).length) {
                         editor.insertText(element.text.replaceAll('\n', ''));
+                        count++;
                     }
                 }
             });
-            e.preventDefault();
+            if (count > 0) {
+                e.preventDefault();
+            }
         }
     }, [editor]);
 
