@@ -35,6 +35,7 @@ export * from "./editor/model/text/format/changer/formatChanger";
 export * from "./editor/model/elements/sketchboxElementType";
 export * from "./editor/model/elements/sketchboxElementBase";
 
+export * from "./editor/model/elements/image/imageInfo";
 export * from "./editor/model/elements/image/images";
 export * from "./editor/model/elements/image/imageElement";
 
@@ -135,6 +136,8 @@ export * from "./editor/view/content/elements/mention/dropdown/MentionElementDro
 export * from "./editor/view/content/elements/mention/MentionElementItem";
 
 export * from "./editor/view/content/elements/image/toolbar/ImageElementToolbar";
+export * from "./editor/view/content/elements/image/ImageElementItemCore";
+export * from "./editor/view/content/elements/image/TempImageElementItem";
 export * from "./editor/view/content/elements/image/ImageElementItem";
 
 export * from "./editor/view/content/elements/checkbox/CheckboxElementItem";

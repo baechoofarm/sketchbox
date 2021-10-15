@@ -6,7 +6,7 @@ import {
     ListElement,
     BulletedElement,
     NumberedElement,
-    CheckboxElement
+    CheckboxElement, TempImageElement
 } from "../../../internal";
 
 export type SketchboxElement =
@@ -14,6 +14,7 @@ export type SketchboxElement =
     LinkElement |
     MentionElement |
     ImageElement |
+    TempImageElement |
     ListElement |
     BulletedElement |
     NumberedElement |

@@ -1,18 +1,14 @@
-import React, {CSSProperties, useEffect, useRef, useState} from "react";
-import {ReactEditor, useFocused, useSelected, useSlate} from "slate-react";
+import React, {useRef, useState} from "react";
 import {useOverlay} from "react-overlay-layer";
-import classNames from "classnames";
+import {ReactEditor, useSlate} from "slate-react";
 import {Transforms} from "slate";
-import {ImageElement, ImageElementAlign, ImageElementToolbar, SketchboxElementProps} from "../../../../../internal";
-import s from "./imageElementItem.scss";
+import {ImageElement, ImageElementItemCore, ImageElementToolbar, SketchboxElementProps} from "../../../../../internal";
 
 export interface ImageElementItemProps extends SketchboxElementProps<ImageElement> {
 
 }
 
 const ImageElementItem: React.FC<ImageElementItemProps> = ({attributes, children, element}) => {
-    const selected = useSelected();
-    const focused = useFocused();
     const editor = useSlate();
 
     const imageRef = useRef<HTMLImageElement>(null);
@@ -35,21 +31,15 @@ const ImageElementItem: React.FC<ImageElementItemProps> = ({attributes, children
         return null;
     });
 
-    const {width, height, align} = element;
+    const onImageLoad = (event: React.SyntheticEvent<HTMLImageElement>) => {
+        const {clientWidth: w, clientHeight: h} = event.currentTarget;
+        const newProperties: Partial<ImageElement> = {width: Math.round(w), height: Math.round(h)};
+        const path = ReactEditor.findPath(editor, element);
 
-    const cssAlign: CSSProperties['textAlign'] = (() => {
-        switch (align) {
-            case ImageElementAlign.CENTER:
-                return 'center';
-            case ImageElementAlign.RIGHT:
-                return 'right';
-            case ImageElementAlign.LEFT:
-            default:
-                return 'left';
-        }
-    })();
+        Transforms.setNodes(editor, newProperties, {at: path});
+    };
 
-    function onClick(e: React.MouseEvent) {
+    const onImageClick = (e: React.MouseEvent) => {
         setTargetRect(e.currentTarget.getBoundingClientRect());
         if (overlay.opened) {
             overlay.close();
@@ -57,37 +47,18 @@ const ImageElementItem: React.FC<ImageElementItemProps> = ({attributes, children
         } else {
             overlay.open();
         }
-    }
-
-    useEffect(() => {
-        if (imageRef.current) {
-            const {width: w, height: h} = imageRef.current.getBoundingClientRect();
-            const path = ReactEditor.findPath(editor, element);
-            const newProperties: Partial<ImageElement> = {width: Math.round(w), height: Math.round(h)};
-
-            Transforms.setNodes(editor, newProperties, {at: path});
-        }
-    }, [editor, element]);
+    };
 
     return (
-        <div {...attributes}>
-            <div contentEditable={false} style={{textAlign: cssAlign}}>
-                <img
-                    ref={imageRef}
-                    className={classNames(s.image, {
-                        [s.focused]: selected && focused
-                    })}
-                    style={{
-                        width: width ?? undefined,
-                        height: height ?? undefined
-                    }}
-                    src={element.url}
-                    alt={"image"}
-                    onClick={onClick}
-                />
-            </div>
+        <ImageElementItemCore
+            imageRef={imageRef}
+            element={element}
+            attributes={attributes}
+            onImageClick={onImageClick}
+            onImageLoad={onImageLoad}
+        >
             {children}
-        </div>
+        </ImageElementItemCore>
     );
 };
 

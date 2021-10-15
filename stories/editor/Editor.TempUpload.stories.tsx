@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Meta} from "@storybook/react";
-import {EditorMode, MentionMember, Sketchbox} from "../../src/main";
+import {EditorMode, getImageDataURI, ImageInfo, MentionMember, Sketchbox} from "../../src/main";
 
 export default {
     title: 'Sketchbox/Editor'
@@ -18,12 +18,21 @@ const Template = () => {
         setMode(newMode);
     };
 
+    const onImageTempUpload = (image: Blob): Promise<ImageInfo> => {
+        return new Promise<ImageInfo>((resolve => {
+            getImageDataURI(image).then(src => {
+                setTimeout(() => resolve({src}), 3000);
+            });
+        }));
+    };
+
     return (
         <div style={{position: "relative", marginBottom: 30}}>
             <Sketchbox
                 option={{
                     mode,
                     onModeChange,
+                    onImageTempUpload,
                     mentionable: true,
                     mentionableMembers: members
                 }}
@@ -32,4 +41,4 @@ const Template = () => {
     );
 };
 
-export const Basic = Template.bind({});
+export const TempUpload = Template.bind({});

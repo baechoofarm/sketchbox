@@ -2,17 +2,15 @@ import React, {useCallback, useContext, useState} from "react";
 import {Slate} from "slate-react";
 import {Range} from "slate";
 import {OverlayRoot} from "react-overlay-layer";
-import {SketchboxToolbar} from "./toolbar/SketchboxToolbar";
-import {SketchboxContent} from "./content/SketchboxContent";
-import {useMention} from "../hooks/element/mention/useMention";
-import {useNestedList} from "../hooks/element/listed/useNestedList";
-import {useFormatCommands} from "../hooks/text/format/useFormatCommands";
-import {SketchboxValue} from "../model/sketchboxValue";
-import {SketchboxElementType} from "../model/elements/sketchboxElementType";
-import {SketchboxContext} from "../sketchboxContext";
-import {SketchboxEditor} from "../model/sketchboxEditor";
-import {useImage} from "../hooks/element/image/useImage";
-import {HoveringToolbar} from "./toolbar/hoveringToolbar/HoveringToolbar";
+import {
+    SketchboxContent,
+    SketchboxContext,
+    SketchboxEditor,
+    SketchboxElementType,
+    SketchboxToolbar,
+    HoveringToolbar,
+    SketchboxValue, useFormatCommands, useImage, useMention, useNestedList
+} from "../../internal";
 
 interface Props {
     editor: SketchboxEditor;

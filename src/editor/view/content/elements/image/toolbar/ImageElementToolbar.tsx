@@ -4,12 +4,12 @@ import {Transforms} from "slate";
 import {Input} from "antd";
 import {AlignCenterOutlined, AlignLeftOutlined, AlignRightOutlined, CloseOutlined} from "@ant-design/icons";
 import classNames from "classnames";
-import {ImageElement, ImageElementAlign} from "../../../../../../internal";
+import {ImageElement, ImageElementAlign, TempImageElement} from "../../../../../../internal";
 import s from "./imageElementToolbar.scss";
 
 interface Props {
     style: CSSProperties;
-    element: ImageElement;
+    element: ImageElement | TempImageElement;
 
     onClose(): void;
 }

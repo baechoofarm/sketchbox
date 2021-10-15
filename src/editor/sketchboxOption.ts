@@ -1,4 +1,4 @@
-import {MentionMember} from "../internal";
+import {ImageInfo, MentionMember} from "../internal";
 
 export enum EditorMode {
     READ = 'READ',
@@ -12,4 +12,6 @@ export interface SketchboxOption {
     mentionableMembers?: MentionMember[];
 
     onModeChange?(mode: EditorMode): void;
+
+    onImageTempUpload?(image: Blob): Promise<ImageInfo>;
 }

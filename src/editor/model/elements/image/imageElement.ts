@@ -8,9 +8,13 @@ export enum ImageElementAlign {
 
 export interface ImageElement extends SketchboxElementBase {
     readonly type: SketchboxElementType.IMAGE;
-    url: string;
+    src: string;
     width: number | null;
     height: number | null;
     align: ImageElementAlign;
     children: SketchboxEmptyText[];
+}
+
+export interface TempImageElement extends Omit<ImageElement, 'type'> {
+    readonly type: SketchboxElementType.IMAGE_TEMP;
 }

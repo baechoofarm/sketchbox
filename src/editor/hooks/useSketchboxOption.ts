@@ -3,7 +3,7 @@ import {EditorMode, SketchboxContext} from "../../internal";
 
 export function useSketchboxOption() {
     const {
-        mode, onModeChange,
+        mode, onModeChange, onImageTempUpload,
         mentionable, mentionableMembers
     } = useContext(SketchboxContext);
 
@@ -13,6 +13,7 @@ export function useSketchboxOption() {
         mode,
         isReadMode,
         onModeChange,
+        onImageTempUpload,
         mentionable,
         mentionableMembers: mentionableMembers ?? []
     };

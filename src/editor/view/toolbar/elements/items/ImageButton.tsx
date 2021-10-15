@@ -2,10 +2,13 @@ import React, {useRef} from "react";
 import {useSlate} from "slate-react";
 import {PictureOutlined} from "@ant-design/icons";
 import {SketchboxToolbarButton} from "../../common/SketchboxToolbarButton";
-import {insertImage} from "../../../../model/elements/image/images";
+import {insertImage, insertTempImage} from "../../../../model/elements/image/images";
+import {useSketchboxOption} from "../../../../hooks/useSketchboxOption";
 
 const ImageButton: React.FC = () => {
     const editor = useSlate();
+    const {onImageTempUpload} = useSketchboxOption();
+
     const inputRef = useRef<HTMLInputElement>(null);
 
     const handleClick = () => {
@@ -18,11 +21,11 @@ const ImageButton: React.FC = () => {
         const {files} = event.currentTarget;
 
         if (files?.length) {
-            const reader = new FileReader();
-            reader.onload = () => {
-                insertImage(editor, reader.result as string);
-            };
-            reader.readAsDataURL(files[0]);
+            if (onImageTempUpload) {
+                insertTempImage(editor, files[0], onImageTempUpload);
+            } else {
+                insertImage(editor, files[0]);
+            }
             event.currentTarget.value = '';
         }
     };

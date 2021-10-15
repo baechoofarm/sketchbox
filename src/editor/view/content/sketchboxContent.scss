@@ -1,7 +1,19 @@
 .editable {
   min-width: 100%;
-  min-height: 351px;
   padding: 8px 10px;
   box-sizing: border-box;
   font-size: 14px;
+  flex-shrink: 1;
+  flex-grow: 1;
+  overflow: auto;
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #AFB1B3;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
 }
