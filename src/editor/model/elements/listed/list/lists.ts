@@ -1,4 +1,4 @@
-import {Editor, Element, Point, Range, Transforms} from "slate";
+import {Editor, Element, Range, Transforms} from "slate";
 import {ReactEditor} from "slate-react";
 import {SketchboxEditor, SketchboxElement, SketchboxElementType, SketchboxText} from "../../../../../internal";
 
@@ -38,9 +38,7 @@ const getListType = (editor: SketchboxEditor) => {
     return match ? SketchboxElementType.BULLETED : SketchboxElementType.NUMBERED;
 };
 
-export const toggleList = (editor: SketchboxEditor, type: SketchboxElementType) => {
-    const isActive = isListActive(editor);
-
+const unWrapList = (editor: SketchboxEditor, isActive: boolean) => {
     Transforms.unwrapNodes(editor, {
         match: n => (
             !Editor.isEditor(n) && Element.isElement(n)
@@ -54,6 +52,12 @@ export const toggleList = (editor: SketchboxEditor, type: SketchboxElementType) 
     };
 
     Transforms.setNodes(editor, newProperties);
+};
+
+export const toggleList = (editor: SketchboxEditor, type: SketchboxElementType) => {
+    const isActive = isListActive(editor);
+
+    unWrapList(editor, isActive);
 
     if (!isActive && (type === SketchboxElementType.BULLETED || type === SketchboxElementType.NUMBERED)) {
         const listWrapper = {type, children: []};
@@ -66,35 +70,13 @@ export function checkDeleteList(editor: SketchboxEditor): boolean {
     const {selection} = editor;
 
     if (selection && Range.isCollapsed(selection)) {
-        const [match] = Editor.nodes(editor, {
-            match: n => !Editor.isEditor(n)
-                && Element.isElement(n)
-                && (n.type === SketchboxElementType.BULLETED || n.type === SketchboxElementType.NUMBERED || n.type === SketchboxElementType.LIST)
-        });
+        const node = Editor.parent(editor, selection);
+        const isEmpty = (node[0].children[0] as SketchboxText).text.length < 1;
 
-        if (match) {
-            const [, path] = match;
-            const start = Editor.start(editor, path);
+        if (isListActive(editor) && isEmpty) {
+            unWrapList(editor, true);
 
-            if (Point.equals(selection.anchor, start)) {
-                const newProperties: Partial<SketchboxElement> = {
-                    type: SketchboxElementType.PARAGRAPH
-                };
-
-                Transforms.unwrapNodes(editor, {
-                    match: n => !Editor.isEditor(n)
-                        && Element.isElement(n)
-                        && n.type === SketchboxElementType.LIST
-                });
-
-                Transforms.setNodes(editor, newProperties, {
-                    match: n => !Editor.isEditor(n)
-                        && Element.isElement(n)
-                        && (n.type === SketchboxElementType.BULLETED || n.type === SketchboxElementType.NUMBERED)
-                });
-
-                return true;
-            }
+            return true;
         }
     }
     return false;
