@@ -6,7 +6,6 @@ import {
     SketchboxContent,
     SketchboxContext,
     SketchboxEditor,
-    SketchboxElementType,
     SketchboxToolbar,
     HoveringToolbar,
     SketchboxValue, useFormatCommands, useImage, useMention, useNestedList
@@ -14,17 +13,16 @@ import {
 
 interface Props {
     editor: SketchboxEditor;
+    value: SketchboxValue;
+    onChangeValue: (value: SketchboxValue) => void;
 }
 
-const SketchboxView: React.FC<Props> = ({editor}) => {
+const SketchboxView: React.FC<Props> = ({editor, value, onChangeValue}) => {
     const {formatChangers: {fontSize, fontFamily, fontColor, backgroundColor}} = useContext(SketchboxContext);
 
     const [target, setTarget] = useState<Range | null>(null);
 
-    const [value, setValue] = useState<SketchboxValue>(() => [{
-        type: SketchboxElementType.PARAGRAPH,
-        children: [{text: ''}]
-    }]);
+    const [_value, setValue] = useState<SketchboxValue>(value);
 
     const mention = useMention(editor, target, newTarget => setTarget(newTarget));
     const image = useImage(editor);
@@ -44,11 +42,15 @@ const SketchboxView: React.FC<Props> = ({editor}) => {
         formatCommands.onKeyDown(event);
     }, [formatCommands, image, mention, nestedList]);
 
+    const onBlur = useCallback((event: React.FocusEvent) => {
+        onChangeValue(_value);
+    }, [onChangeValue, _value]);
+
     return (
-        <Slate editor={editor} value={value} onChange={onChange}>
+        <Slate editor={editor} value={_value} onChange={onChange}>
             <SketchboxToolbar/>
             <HoveringToolbar/>
-            <SketchboxContent onKeyDown={onKeyDown}/>
+            <SketchboxContent onKeyDown={onKeyDown} onBlur={onBlur}/>
             <OverlayRoot/>
         </Slate>
     );

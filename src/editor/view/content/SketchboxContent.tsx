@@ -10,9 +10,10 @@ import s from "./sketchboxContent.scss";
 
 interface Props {
     onKeyDown(event: React.KeyboardEvent): void;
+    onBlur(event: React.FocusEvent): void;
 }
 
-const SketchboxContent: React.FC<Props> = ({onKeyDown}) => {
+const SketchboxContent: React.FC<Props> = ({onKeyDown, onBlur}) => {
     const editor = useSlate();
     const {isReadMode} = useSketchboxOption();
 
@@ -61,6 +62,7 @@ const SketchboxContent: React.FC<Props> = ({onKeyDown}) => {
             )}
             onKeyDown={onKeyDown}
             onPaste={onPaste}
+            onBlur={onBlur}
         />
     );
 };

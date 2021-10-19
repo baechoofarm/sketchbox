@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {Meta} from "@storybook/react";
-import {EditorMode, getImageDataURI, ImageInfo, MentionMember, Sketchbox} from "../../src/main";
+import {EditorMode, getImageDataURI, ImageInfo, MentionMember, Sketchbox, SketchboxElementType, SketchboxValue} from "../../src/main";
 
 export default {
     title: 'Sketchbox/Editor'
@@ -14,6 +14,11 @@ const members: MentionMember[] = [
 const Template = () => {
     const [mode, setMode] = useState(EditorMode.WRITE);
 
+    const value: SketchboxValue = [{
+        type: SketchboxElementType.PARAGRAPH,
+        children: [{text: ''}]
+    }];
+
     const onModeChange = (newMode: EditorMode) => {
         setMode(newMode);
     };
@@ -26,9 +31,15 @@ const Template = () => {
         }));
     };
 
+    const onChangeValue = useCallback((newValue: SketchboxValue) => {
+        console.log(newValue);
+    }, []);
+
     return (
         <div style={{position: "relative", marginBottom: 30}}>
             <Sketchbox
+                value={value}
+                onChangeValue={onChangeValue}
                 option={{
                     mode,
                     onModeChange,
