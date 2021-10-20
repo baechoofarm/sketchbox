@@ -1,8 +1,8 @@
-import React, {CSSProperties} from "react";
+import React, {CSSProperties, useState} from "react";
+import {useOverlay} from "react-overlay-layer";
+import {useSlate} from "slate-react";
 import {CloseOutlined, DisconnectOutlined, ExportOutlined, LinkOutlined} from "@ant-design/icons";
-import {SketchboxText} from "../../../../../model/text/sketchboxText";
-import {useLink} from "../../../../../model/elements/link/links";
-import {LinkElement} from "../../../../../model/elements/link/linkElement";
+import {useLink, LinkElement, LinkInsertDialog} from "../../../../../../internal";
 import s from "./linkElementToolbar.scss";
 
 interface Props {
@@ -15,7 +15,24 @@ interface Props {
 const LinkElementToolbar: React.FC<Props> = props => {
     const {style, element, onClose} = props;
 
+    const editor = useSlate();
     const [wrapLink, unWrapLink] = useLink();
+
+    const [targetRect, setTargetRect] = useState<DOMRect | null>(null);
+
+    const overlay = useOverlay(ov => {
+        if (targetRect) {
+            const {left, top} = targetRect;
+            return (
+                <LinkInsertDialog
+                    style={{position: "absolute", left, top: top + 24}}
+                    element={element}
+                    selection={editor.selection}
+                />
+            );
+        }
+        return null;
+    });
 
     const handleRedirect = () => {
         window.open(element.url);
@@ -25,12 +42,9 @@ const LinkElementToolbar: React.FC<Props> = props => {
         unWrapLink();
     };
 
-    const handleEditConnect = () => {
-        const url = window.prompt('Enter the URL of the link: ', element.url);
-        const child = element.children[0] as SketchboxText;
-        const text = window.prompt('Enter the Text of the link: ', child.text);
-        if (!url) return;
-        wrapLink(url, text ?? url);
+    const handleEditConnect = (e: React.MouseEvent) => {
+        setTargetRect(e.currentTarget.getBoundingClientRect());
+        overlay.open();
     };
 
     return (
