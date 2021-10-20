@@ -8,13 +8,14 @@ import {
     MentionMember,
     insertMention,
     MentionElementDropdown,
-    SketchboxEditor
+    SketchboxEditor, useLightBoxOption
 } from "../../../../internal";
 
 type TargetChangeHandler = (range: Range | null) => void;
 
-export function useMention(editor: SketchboxEditor, target: Range | null, onTargetChange: TargetChangeHandler) {
-    const {mentionable, mentionableMembers} = useSketchboxOption();
+export function useMention(editor: SketchboxEditor, target: Range | null, onTargetChange: TargetChangeHandler, isLight?: boolean) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const {mentionable, mentionableMembers} = isLight ? useLightBoxOption() : useSketchboxOption();
 
     const [index, setIndex] = useState(0);
     const [searchText, setSearchText] = useState('');

@@ -4,6 +4,7 @@
 
 export * from "./editor/sketchboxOption";
 export * from "./editor/sketchboxContext";
+export * from "./editor/lightBox/lightBoxContext";
 
 /**
  * Text
@@ -75,6 +76,7 @@ export * from "./editor/utils/isElementActive";
  */
 
 export * from "./editor/hooks/useSketchboxOption";
+export * from "./editor/lightBox/hooks/useLightBoxOption";
 export * from "./editor/hooks/element/image/useImage";
 export * from "./editor/hooks/element/mention/useMention";
 export * from "./editor/hooks/element/listed/useNestedList";
@@ -154,3 +156,6 @@ export * from "./editor/view/content/SketchboxContent";
 
 export * from "./editor/view/SketchboxView";
 export * from "./editor/Sketchbox";
+
+export * from "./editor/lightBox/view/LightboxView";
+export * from "./editor/lightBox/LightBox";

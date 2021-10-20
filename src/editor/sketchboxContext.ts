@@ -2,7 +2,7 @@ import React from "react";
 import {FormatChanger, SketchboxOption} from "../internal";
 
 export interface SketchboxContextValue extends SketchboxOption {
-    formatChangers: {
+    formatChangers?: {
         fontSize: FormatChanger<number>;
         fontFamily: FormatChanger<string>;
         fontColor: FormatChanger<string>;
