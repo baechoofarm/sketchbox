@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import {Slate} from "slate-react";
 import {Range} from "slate";
 import {OverlayRoot} from "react-overlay-layer";
@@ -28,6 +28,10 @@ const SketchboxView: React.FC<Props> = ({editor, value, onChangeValue}) => {
     const image = useImage(editor);
     const nestedList = useNestedList(editor);
     const formatCommands = useFormatCommands(editor);
+
+    useEffect(() => {
+        setValue(value);
+    }, [value]);
 
     const onChange = useCallback((newValue: SketchboxValue) => {
         setValue(newValue);
