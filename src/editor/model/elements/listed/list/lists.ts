@@ -149,11 +149,15 @@ export function cancelNestedList(editor: SketchboxEditor) {
         };
         Transforms.setNodes(editor, newProps);
     } else if ((wrapper[0] as SketchboxElement).type === SketchboxElementType.NUMBERED) {
-        const lists = (wrapper[0].children as SketchboxElement[]).filter(child => child.type === SketchboxElementType.LIST);
+        const children = wrapper[0].children as SketchboxElement[];
+
+        const lists = children.filter(child => child.type === SketchboxElementType.LIST);
         const isAlone = lists.length === 1;
 
         const destPath = selection.anchor.path.slice();
         destPath.splice(destPath.length - 2, 2);
+
+        Transforms.select(editor, {path: selection.anchor.path, offset: (node[0].children[0] as SketchboxText).text.length});
 
         if (isAlone) {
             Transforms.unwrapNodes(editor);
@@ -162,6 +166,17 @@ export function cancelNestedList(editor: SketchboxEditor) {
         } else {
             destPath[destPath.length - 1]++;
             Transforms.moveNodes(editor, {to: destPath});
+        }
+
+        const index = children.findIndex(child => child === node[0]);
+        if (index >= children.length - 1) return;
+
+        if (children[index + 1].type === SketchboxElementType.NUMBERED || children[index + 1].type === SketchboxElementType.NUMBERED) {
+            const path = selection.anchor.path.slice();
+            path.splice(path.length - 1, 1);
+
+            Transforms.removeNodes(editor, {at: path});
+            Transforms.insertNodes(editor, children[index + 1]);
         }
     }
 }
