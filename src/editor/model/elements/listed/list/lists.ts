@@ -149,11 +149,19 @@ export function cancelNestedList(editor: SketchboxEditor) {
         };
         Transforms.setNodes(editor, newProps);
     } else if ((wrapper[0] as SketchboxElement).type === SketchboxElementType.NUMBERED) {
+        const lists = (wrapper[0].children as SketchboxElement[]).filter(child => child.type === SketchboxElementType.LIST);
+        const isAlone = lists.length === 1;
+
         const destPath = selection.anchor.path.slice();
-
         destPath.splice(destPath.length - 2, 2);
-        destPath[destPath.length - 1]++;
 
-        Transforms.moveNodes(editor, {to: destPath});
+        if (isAlone) {
+            Transforms.unwrapNodes(editor);
+            Transforms.unwrapNodes(editor);
+            Transforms.insertNodes(editor, node[0], {at: destPath});
+        } else {
+            destPath[destPath.length - 1]++;
+            Transforms.moveNodes(editor, {to: destPath});
+        }
     }
 }
