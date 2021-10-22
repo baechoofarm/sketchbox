@@ -140,6 +140,7 @@ export function cancelNestedList(editor: SketchboxEditor) {
 
     const node = Editor.parent(editor, selection);
     const wrapper = Editor.parent(editor, selection, {depth: node[1].length});
+
     if ((wrapper[0] as SketchboxElement).type === SketchboxElementType.BULLETED) {
         Transforms.unwrapNodes(editor);
 
@@ -148,30 +149,11 @@ export function cancelNestedList(editor: SketchboxEditor) {
         };
         Transforms.setNodes(editor, newProps);
     } else if ((wrapper[0] as SketchboxElement).type === SketchboxElementType.NUMBERED) {
-        const {path} = selection.anchor;
-        const test = path.slice();
+        const destPath = selection.anchor.path.slice();
 
-        test.pop();
-        test[test.length - 1] = 0;
-        test[test.length - 2]++;
+        destPath.splice(destPath.length - 2, 2);
+        destPath[destPath.length - 1]++;
 
-        if (wrapper[0].children.length === 1) {
-            Transforms.unwrapNodes(editor);
-
-            const newProps: Partial<SketchboxElement> = {
-                type: SketchboxElementType.LIST
-            };
-            Transforms.setNodes(editor, newProps);
-
-            test[test.length - 2]--;
-        } else {
-            Transforms.removeNodes(editor);
-
-            Transforms.select(editor, {offset: 0, path: test});
-            editor.insertBreak();
-
-            Transforms.select(editor, {offset: 0, path: test});
-            editor.insertText((node[0].children[0] as SketchboxText).text);
-        }
+        Transforms.moveNodes(editor, {to: destPath});
     }
 }
