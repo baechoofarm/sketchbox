@@ -10,12 +10,12 @@ interface Props {
 const FontColorInnerSelect: React.FC<Props> = ({visible}) => {
     const fontColorOptions: SelectOption[] = [
         {title: "black", value: "black", renderer: () => (<FontColorsOutlined className={s.black}/>)},
-        {title: "red", value: "red", renderer: () => (<FontColorsOutlined className={s.red}/>)},
-        {title: "green", value: "green", renderer: () => (<FontColorsOutlined className={s.green}/>)},
-        {title: "blue", value: "blue", renderer: () => (<FontColorsOutlined className={s.blue}/>)},
-        {title: "yellow", value: "yellow", renderer: () => (<FontColorsOutlined className={s.yellow}/>)},
-        {title: "violet", value: "darkviolet", renderer: () => (<FontColorsOutlined className={s.violet}/>)},
-        {title: "white", value: "white", renderer: () => (<FontColorsOutlined className={s.white}/>)},
+        {title: "red", value: "red", renderer: () => (<div className={s.red}><FontColorsOutlined/></div>)},
+        {title: "green", value: "green", renderer: () => (<div className={s.green}><FontColorsOutlined/></div>)},
+        {title: "blue", value: "blue", renderer: () => (<div className={s.blue}><FontColorsOutlined/></div>)},
+        {title: "yellow", value: "yellow", renderer: () => (<div className={s.yellow}><FontColorsOutlined/></div>)},
+        {title: "violet", value: "darkviolet", renderer: () => (<div className={s.violet}><FontColorsOutlined/></div>)},
+        {title: "white", value: "white", renderer: () => (<div className={s.white}><FontColorsOutlined/></div>)},
     ];
 
     const {value, change} = useContext(SketchboxContext).formatChangers.fontColor;
