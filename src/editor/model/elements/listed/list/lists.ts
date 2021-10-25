@@ -159,24 +159,24 @@ export function cancelNestedList(editor: SketchboxEditor) {
 
         Transforms.select(editor, {path: selection.anchor.path, offset: (node[0].children[0] as SketchboxText).text.length});
 
-        if (isAlone) {
-            Transforms.unwrapNodes(editor);
-            Transforms.unwrapNodes(editor);
-            Transforms.insertNodes(editor, node[0], {at: destPath});
-        } else {
-            destPath[destPath.length - 1]++;
-            Transforms.moveNodes(editor, {to: destPath});
-        }
+        destPath[destPath.length - 1]++;
+        Transforms.moveNodes(editor, {to: destPath});
 
         const index = children.findIndex(child => child === node[0]);
-        if (index >= children.length - 1) return;
 
-        if (children[index + 1].type === SketchboxElementType.NUMBERED || children[index + 1].type === SketchboxElementType.NUMBERED) {
+        // TODO : NUMBERED/BULLETED는 아래처럼 처리
+        // TODO : List 경우 처리
+        if (index < children.length - 1 && (children[index + 1].type === SketchboxElementType.NUMBERED || children[index + 1].type === SketchboxElementType.BULLETED)) {
             const path = selection.anchor.path.slice();
             path.splice(path.length - 1, 1);
 
             Transforms.removeNodes(editor, {at: path});
             Transforms.insertNodes(editor, children[index + 1]);
+        }
+
+        if (isAlone) {
+            Transforms.select(editor, selection);
+            Transforms.unwrapNodes(editor);
         }
     }
 }
