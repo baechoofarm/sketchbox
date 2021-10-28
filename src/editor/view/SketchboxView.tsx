@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import React, {useCallback, useContext, useState} from "react";
 import {Slate} from "slate-react";
 import {Range} from "slate";
 import {OverlayRoot} from "react-overlay-layer";
@@ -13,25 +13,19 @@ import {
 
 interface Props {
     editor: SketchboxEditor;
-    value: SketchboxValue;
-    onChangeValue: (value: SketchboxValue) => void;
 }
 
-const SketchboxView: React.FC<Props> = ({editor, value, onChangeValue}) => {
-    const {formatChangers: {fontSize, fontFamily, fontColor, backgroundColor}} = useContext(SketchboxContext);
+const SketchboxView: React.FC<Props> = ({editor}) => {
+    const {formatChangers: {fontSize, fontFamily, fontColor, backgroundColor}, value, onValueChange} = useContext(SketchboxContext);
 
     const [target, setTarget] = useState<Range | null>(null);
-
-    const [_value, setValue] = useState<SketchboxValue>(value);
 
     const mention = useMention(editor, target, newTarget => setTarget(newTarget));
     const image = useImage(editor);
     const nestedList = useNestedList(editor);
     const formatCommands = useFormatCommands(editor);
 
-    useEffect(() => {
-        setValue(value);
-    }, [value]);
+    const [_value, setValue] = useState(value);
 
     const onChange = useCallback((newValue: SketchboxValue) => {
         setValue(newValue);
@@ -47,8 +41,8 @@ const SketchboxView: React.FC<Props> = ({editor, value, onChangeValue}) => {
     }, [formatCommands, image, mention, nestedList]);
 
     const onBlur = useCallback((event: React.FocusEvent) => {
-        onChangeValue(_value);
-    }, [onChangeValue, _value]);
+        onValueChange(_value);
+    }, [_value, onValueChange]);
 
     return (
         <Slate editor={editor} value={_value} onChange={onChange}>

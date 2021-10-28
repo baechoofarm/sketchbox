@@ -1,4 +1,4 @@
-import {ImageInfo, MentionMember} from "../internal";
+import {ImageInfo, MentionMember, SketchboxValue} from "../internal";
 
 export enum EditorMode {
     READ = 'READ',
@@ -10,6 +10,9 @@ export interface SketchboxOption {
     modeChangeable?: boolean;
     mentionable?: boolean;
     mentionableMembers?: MentionMember[];
+    value: SketchboxValue;
+
+    onValueChange(value: SketchboxValue): void;
 
     onModeChange?(mode: EditorMode): void;
 

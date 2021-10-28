@@ -6,7 +6,7 @@ import {
     SketchboxContext,
     useFontSizeFormatChanger,
     useFontFamilyFormatChanger,
-    SketchboxView, SketchboxValue
+    SketchboxView
 } from "../internal";
 import s from "./sketchbox.scss";
 import {useFontColorFormatChanger} from "./hooks/text/format/formats/useFontColorFormatChanger";
@@ -15,12 +15,10 @@ import {useBackgroundFormatChanger} from "./hooks/text/format/formats/useBackgro
 interface Props {
     className?: string;
     option: SketchboxOption;
-    value: SketchboxValue;
-    onChangeValue: (value: SketchboxValue) => void;
 }
 
-const Sketchbox: React.FC<Props> = ({option, className, value, onChangeValue}) => {
-    const editor = useMemo(() => createSketchboxEditor(option), [option]);
+const Sketchbox: React.FC<Props> = ({option, className}) => {
+    const editor = useMemo(() => createSketchboxEditor(option), []);
 
     const fontSize = useFontSizeFormatChanger(editor);
     const fontFamily = useFontFamilyFormatChanger(editor);
@@ -32,10 +30,10 @@ const Sketchbox: React.FC<Props> = ({option, className, value, onChangeValue}) =
             <SketchboxContext.Provider
                 value={{
                     ...(option ?? {}),
-                    formatChangers: {fontSize, fontFamily, fontColor, backgroundColor}
+                    formatChangers: {fontSize, fontFamily, fontColor, backgroundColor},
                 }}
             >
-                <SketchboxView editor={editor} value={value} onChangeValue={onChangeValue}/>
+                <SketchboxView editor={editor}/>
             </SketchboxContext.Provider>
         </div>
     );

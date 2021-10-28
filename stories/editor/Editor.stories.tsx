@@ -14,27 +14,29 @@ const members: MentionMember[] = [
 const Template = () => {
     const [mode, setMode] = useState(EditorMode.WRITE);
 
-    const value: SketchboxValue = [{
+    const [value, setValue] = useState<SketchboxValue>([{
         type: SketchboxElementType.PARAGRAPH,
         children: [{text: ''}]
-    }];
+    }]);
 
     const onModeChange = (newMode: EditorMode) => {
+        console.log('changed mode! : ', newMode);
         setMode(newMode);
     };
 
-    const onChangeValue = useCallback((newValue: SketchboxValue) => {
-        console.log(newValue);
+    const onValueChange = useCallback((newValue: SketchboxValue) => {
+        console.log('changed value! : ', newValue);
+        setValue(newValue);
     }, []);
 
     return (
         <div style={{position: "relative", marginBottom: 30}}>
             <Sketchbox
-                value={value}
-                onChangeValue={onChangeValue}
                 option={{
+                    value,
                     mode,
                     onModeChange,
+                    onValueChange,
                     mentionable: true,
                     mentionableMembers: members
                 }}
