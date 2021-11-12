@@ -101,7 +101,8 @@ export function checkIsBetweenLists(editor: SketchboxEditor): boolean {
             const lowerPath = path.slice();
             lowerPath[0]++;
             const lowerNode = Editor.node(editor, {path: lowerPath, offset});
-            const lowerIsList = (lowerNode[0] as SketchboxElement).type === SketchboxElementType.LIST;
+            const lowerIsList = (lowerNode[0] as SketchboxElement).type === SketchboxElementType.LIST
+                || (lowerNode[0] as SketchboxElement).type === SketchboxElementType.NUMBERED;
 
             if (!upperIsList || !lowerIsList) return false;
 
