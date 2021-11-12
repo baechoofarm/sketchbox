@@ -107,11 +107,26 @@ export function checkIsBetweenLists(editor: SketchboxEditor): boolean {
 
             const upperParent = Editor.parent(editor, {path: upperPath, offset: 0});
             const lowerParent = Editor.parent(editor, {path: lowerPath, offset: 0});
-            upperPath[1] = (upperParent[0] as SketchboxElement).children.length;
 
-            Transforms.moveNodes(editor, {at: {path: lowerParent[1], offset: 0}, to: upperPath});
+            upperPath[1] = (upperParent[0] as SketchboxElement).children.length - 1;
+            const {text} = (upperParent[0].children[upperParent[0].children.length - 1] as SketchboxElement).children[0] as SketchboxText;
+
+            Transforms.select(editor,
+                {
+                    path: upperPath,
+                    offset: text.length
+                });
+
             Transforms.removeNodes(editor, {at: {path: lowerParent[1], offset: 0}});
-            Transforms.select(editor, {path: upperPath, offset: 0});
+            Transforms.insertNodes(editor, lowerParent[0].children);
+            Transforms.removeNodes(editor, {at: {path: selection.anchor.path, offset: 0}});
+
+            lowerParent[1][0]--;
+            Transforms.select(editor, {path: lowerParent[1], offset: 0});
+
+            while ((Editor.parent(editor, {path: selection.anchor.path, offset: 0})[0] as SketchboxElement).type === SketchboxElementType.NUMBERED) {
+                Transforms.unwrapNodes(editor);
+            }
 
             return true;
         } catch (e) {
