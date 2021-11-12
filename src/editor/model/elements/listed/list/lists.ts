@@ -83,6 +83,44 @@ export function checkDeleteList(editor: SketchboxEditor): boolean {
     return false;
 }
 
+export function checkIsBetweenLists(editor: SketchboxEditor): boolean {
+    const {selection} = editor;
+
+    if (selection && selection.anchor.offset === 0) {
+        const {path, offset} = selection.anchor;
+
+        const node = Editor.parent(editor, {path, offset});
+        if ((node[0] as SketchboxElement).type === SketchboxElementType.LIST) return false;
+
+        try {
+            const upperPath = path.slice();
+            upperPath[0]--;
+            const upperNode = Editor.node(editor, {path: upperPath, offset});
+            const upperIsList = (upperNode[0] as SketchboxElement).type === SketchboxElementType.LIST;
+
+            const lowerPath = path.slice();
+            lowerPath[0]++;
+            const lowerNode = Editor.node(editor, {path: lowerPath, offset});
+            const lowerIsList = (lowerNode[0] as SketchboxElement).type === SketchboxElementType.LIST;
+
+            if (!upperIsList || !lowerIsList) return false;
+
+            const upperParent = Editor.parent(editor, {path: upperPath, offset: 0});
+            const lowerParent = Editor.parent(editor, {path: lowerPath, offset: 0});
+            upperPath[1] = (upperParent[0] as SketchboxElement).children.length;
+
+            Transforms.moveNodes(editor, {at: {path: lowerParent[1], offset: 0}, to: upperPath});
+            Transforms.removeNodes(editor, {at: {path: lowerParent[1], offset: 0}});
+            Transforms.select(editor, {path: upperPath, offset: 0});
+
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+    return false;
+}
+
 export function applyNestedList(editor: SketchboxEditor) {
     const isActive = isListActive(editor);
 

@@ -2,7 +2,7 @@ import isUrl from "is-url";
 import {Editor, Node, Range, Transforms} from "slate";
 import {
     checkDeleteCheckbox,
-    checkDeleteList,
+    checkDeleteList, checkIsBetweenLists,
     findCurrentLineRange, imageUrlToBlob,
     insertImage, insertTempImage,
     isImageUrl,
@@ -90,6 +90,8 @@ export function withSketchboxElements(editor: SketchboxEditor, option: Sketchbox
             }
             return;
         }
+
+        if (checkIsBetweenLists(editor)) return;
 
         if (unit !== 'line') {
             return deleteBackward(unit);
