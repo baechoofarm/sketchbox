@@ -72,8 +72,9 @@ export function checkDeleteList(editor: SketchboxEditor): boolean {
     if (selection && Range.isCollapsed(selection)) {
         const node = Editor.parent(editor, selection);
         const isEmpty = (node[0].children[0] as SketchboxText).text.length < 1;
+        const onFirstPoint = selection.anchor.offset === 0;
 
-        if (isListActive(editor) && isEmpty) {
+        if (isListActive(editor) && (isEmpty || onFirstPoint)) {
             unWrapList(editor, true);
 
             return true;
