@@ -134,7 +134,10 @@ export function checkIsBetweenLists(editor: SketchboxEditor): boolean {
             lowerParent[1][0]--;
             Transforms.select(editor, {path: lowerParent[1], offset: 0});
 
-            while ((Editor.parent(editor, {path: selection.anchor.path, offset: 0})[0] as SketchboxElement).type === SketchboxElementType.NUMBERED) {
+            while ((Editor.parent(editor, {
+                path: selection.anchor.path,
+                offset: 0
+            })[0] as SketchboxElement).type === SketchboxElementType.NUMBERED) {
                 Transforms.unwrapNodes(editor);
             }
 
@@ -144,6 +147,18 @@ export function checkIsBetweenLists(editor: SketchboxEditor): boolean {
         }
     }
     return false;
+}
+
+function getUpperNode(upperNodes: SketchboxElement) {
+    if (!upperNodes) return null;
+
+    let upperNode = upperNodes.children[upperNodes.children.length - 1] as SketchboxElement;
+
+    while (upperNode.type === SketchboxElementType.NUMBERED) {
+        upperNode = upperNode.children[upperNode.children.length - 1] as SketchboxElement;
+    }
+
+    return upperNode;
 }
 
 export function applyNestedList(editor: SketchboxEditor) {
@@ -157,27 +172,25 @@ export function applyNestedList(editor: SketchboxEditor) {
 
         const {selection} = editor;
         if (!selection) return;
-
         const {path} = selection.anchor;
-        if (path[path.length - 2] === 0) return;
+
+        const isFirstNode = path[path.length - 2] === 0;
+        if (isFirstNode) return;
 
         const node = Editor.parent(editor, selection);
         const wrapper = Editor.parent(editor, selection, {depth: node[1].length});
 
-        const index = wrapper[0].children.findIndex(v => v === node[0]);
-        const upperNodes = wrapper[0].children[index - 1] as SketchboxElement;
+        const indexInChildren = wrapper[0].children.findIndex(child => child === node[0]);
+
+        const upperNodes = wrapper[0].children[indexInChildren - 1] as SketchboxElement;
+        const upperNode = getUpperNode(upperNodes);
 
         if (!upperNodes || (upperNodes as Element).type !== SketchboxElementType.NUMBERED) {
             Transforms.wrapNodes(editor, listWrapper);
             return;
         }
 
-        const upperNode = upperNodes.children[upperNodes.children.length - 1] as SketchboxElement;
-
-        if (upperNode.type === SketchboxElementType.NUMBERED) {
-            Transforms.wrapNodes(editor, listWrapper);
-            return;
-        }
+        if (!upperNode) return;
 
         Transforms.removeNodes(editor);
 
@@ -185,13 +198,14 @@ export function applyNestedList(editor: SketchboxEditor) {
         Transforms.select(editor, upperPath);
         if (!editor.selection) return;
 
-        const insertPath = editor.selection.anchor.path.slice();
-        insertPath[insertPath.length - 2]++;
-        insertPath.splice(insertPath.length - 1, 1);
-
         Transforms.insertNodes(editor, node[0], {
-            at: insertPath
+            at: {path: upperPath, offset: (upperNode.children[0] as SketchboxText).text.length}
         });
+
+        const deletePath = upperPath.slice();
+        deletePath[deletePath.length - 1] += 2;
+        Transforms.select(editor, deletePath);
+        Transforms.removeNodes(editor);
     }
 }
 
