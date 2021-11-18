@@ -54,6 +54,48 @@ const unWrapList = (editor: SketchboxEditor, isActive: boolean) => {
     Transforms.setNodes(editor, newProperties);
 };
 
+const getUpperNodeAndDepth = (upperNodes: SketchboxElement) => {
+    if (!upperNodes) return {upperNode: null, depth: 0};
+
+    let upperNode = upperNodes.children[upperNodes.children.length - 1] as SketchboxElement;
+    let depth = 0;
+
+    while (upperNode.type === SketchboxElementType.NUMBERED) {
+        upperNode = upperNode.children[upperNode.children.length - 1] as SketchboxElement;
+        depth++;
+    }
+
+    return {upperNode, depth};
+};
+
+const cleanUnnecessaryNode = (editor: SketchboxEditor, path: Path) => {
+    const deletePath = path.slice();
+    deletePath[deletePath.length - 1] += 2;
+
+    Transforms.select(editor, deletePath);
+    Transforms.removeNodes(editor);
+};
+
+const takeChildNodes = (editor: SketchboxEditor, wrapper: SketchboxElement, pivot: number) => {
+    if (!editor.selection) return;
+
+    const currentNode = Editor.node(editor, editor.selection);
+    Transforms.select(editor, {path: currentNode[1], offset: (currentNode[0] as SketchboxText).text.length});
+
+    for (let i = pivot + 1; i <= wrapper.children.length - 1; i++) {
+        const childNode = wrapper.children[i] as SketchboxElement;
+        if (childNode.type !== SketchboxElementType.NUMBERED) {
+            break;
+        }
+
+        const childPath = ReactEditor.findPath(editor, wrapper.children[i]);
+        childPath[childPath.length - 1]--;
+        Transforms.removeNodes(editor, {at: childPath});
+
+        editor.insertNode(childNode);
+    }
+};
+
 export const toggleList = (editor: SketchboxEditor, type: SketchboxElementType) => {
     const isActive = isListActive(editor);
 
@@ -66,7 +108,7 @@ export const toggleList = (editor: SketchboxEditor, type: SketchboxElementType) 
     }
 };
 
-export function checkDeleteList(editor: SketchboxEditor): boolean {
+export const checkDeleteList = (editor: SketchboxEditor): boolean => {
     const {selection} = editor;
 
     if (selection && Range.isCollapsed(selection)) {
@@ -81,9 +123,9 @@ export function checkDeleteList(editor: SketchboxEditor): boolean {
         }
     }
     return false;
-}
+};
 
-export function checkIsBetweenLists(editor: SketchboxEditor): boolean {
+export const checkIsBetweenLists = (editor: SketchboxEditor): boolean => {
     const {selection} = editor;
 
     if (selection && selection.anchor.offset === 0) {
@@ -147,31 +189,9 @@ export function checkIsBetweenLists(editor: SketchboxEditor): boolean {
         }
     }
     return false;
-}
+};
 
-function getUpperNodeAndDepth(upperNodes: SketchboxElement) {
-    if (!upperNodes) return {upperNode: null, depth: 0};
-
-    let upperNode = upperNodes.children[upperNodes.children.length - 1] as SketchboxElement;
-    let depth = 0;
-
-    while (upperNode.type === SketchboxElementType.NUMBERED) {
-        upperNode = upperNode.children[upperNode.children.length - 1] as SketchboxElement;
-        depth++;
-    }
-
-    return {upperNode, depth};
-}
-
-function cleanUnnecessaryNode(editor: SketchboxEditor, path: Path) {
-    const deletePath = path.slice();
-    deletePath[deletePath.length - 1] += 2;
-
-    Transforms.select(editor, deletePath);
-    Transforms.removeNodes(editor);
-}
-
-export function cancelNestedList(editor: SketchboxEditor) {
+export const cancelNestedList = (editor: SketchboxEditor) => {
     const isNested = isListNested(editor);
     if (!isNested) return;
 
@@ -204,8 +224,6 @@ export function cancelNestedList(editor: SketchboxEditor) {
 
         const index = children.findIndex(child => child === node[0]);
 
-        // TODO : NUMBERED/BULLETED는 아래처럼 처리
-        // TODO : List 경우 처리
         if (index < children.length - 1 && (children[index + 1].type === SketchboxElementType.NUMBERED || children[index + 1].type === SketchboxElementType.BULLETED)) {
             const path = selection.anchor.path.slice();
             path.splice(path.length - 1, 1);
@@ -219,9 +237,9 @@ export function cancelNestedList(editor: SketchboxEditor) {
             Transforms.unwrapNodes(editor);
         }
     }
-}
+};
 
-export function applyNestedList(editor: SketchboxEditor) {
+export const applyNestedList = (editor: SketchboxEditor) => {
     const isActive = isListActive(editor);
 
     if (isActive) {
@@ -266,5 +284,7 @@ export function applyNestedList(editor: SketchboxEditor) {
         for (let i = 0; i < depth; i++) {
             cancelNestedList(editor);
         }
+
+        takeChildNodes(editor, wrapper[0] as SketchboxElement, indexInChildren);
     }
-}
+};
