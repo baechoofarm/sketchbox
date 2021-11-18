@@ -1,4 +1,4 @@
-import {Editor, Element, Range, Transforms} from "slate";
+import {Editor, Element, Path, Range, Transforms} from "slate";
 import {ReactEditor} from "slate-react";
 import {SketchboxEditor, SketchboxElement, SketchboxElementType, SketchboxText} from "../../../../../internal";
 
@@ -149,64 +149,26 @@ export function checkIsBetweenLists(editor: SketchboxEditor): boolean {
     return false;
 }
 
-function getUpperNode(upperNodes: SketchboxElement) {
-    if (!upperNodes) return null;
+function getUpperNodeAndDepth(upperNodes: SketchboxElement) {
+    if (!upperNodes) return {upperNode: null, depth: 0};
 
     let upperNode = upperNodes.children[upperNodes.children.length - 1] as SketchboxElement;
+    let depth = 0;
 
     while (upperNode.type === SketchboxElementType.NUMBERED) {
         upperNode = upperNode.children[upperNode.children.length - 1] as SketchboxElement;
+        depth++;
     }
 
-    return upperNode;
+    return {upperNode, depth};
 }
 
-export function applyNestedList(editor: SketchboxEditor) {
-    const isActive = isListActive(editor);
+function cleanUnnecessaryNode(editor: SketchboxEditor, path: Path) {
+    const deletePath = path.slice();
+    deletePath[deletePath.length - 1] += 2;
 
-    if (isActive) {
-        const type = getListType(editor);
-        const listWrapper: { type: SketchboxElementType.BULLETED | SketchboxElementType.NUMBERED, children: any[] } = {type, children: []};
-
-        if (type === SketchboxElementType.BULLETED) Transforms.wrapNodes(editor, listWrapper);
-
-        const {selection} = editor;
-        if (!selection) return;
-        const {path} = selection.anchor;
-
-        const isFirstNode = path[path.length - 2] === 0;
-        if (isFirstNode) return;
-
-        const node = Editor.parent(editor, selection);
-        const wrapper = Editor.parent(editor, selection, {depth: node[1].length});
-
-        const indexInChildren = wrapper[0].children.findIndex(child => child === node[0]);
-
-        const upperNodes = wrapper[0].children[indexInChildren - 1] as SketchboxElement;
-        const upperNode = getUpperNode(upperNodes);
-
-        if (!upperNodes || (upperNodes as Element).type !== SketchboxElementType.NUMBERED) {
-            Transforms.wrapNodes(editor, listWrapper);
-            return;
-        }
-
-        if (!upperNode) return;
-
-        Transforms.removeNodes(editor);
-
-        const upperPath = ReactEditor.findPath(editor, upperNode);
-        Transforms.select(editor, upperPath);
-        if (!editor.selection) return;
-
-        Transforms.insertNodes(editor, node[0], {
-            at: {path: upperPath, offset: (upperNode.children[0] as SketchboxText).text.length}
-        });
-
-        const deletePath = upperPath.slice();
-        deletePath[deletePath.length - 1] += 2;
-        Transforms.select(editor, deletePath);
-        Transforms.removeNodes(editor);
-    }
+    Transforms.select(editor, deletePath);
+    Transforms.removeNodes(editor);
 }
 
 export function cancelNestedList(editor: SketchboxEditor) {
@@ -255,6 +217,54 @@ export function cancelNestedList(editor: SketchboxEditor) {
         if (isAlone) {
             Transforms.select(editor, selection);
             Transforms.unwrapNodes(editor);
+        }
+    }
+}
+
+export function applyNestedList(editor: SketchboxEditor) {
+    const isActive = isListActive(editor);
+
+    if (isActive) {
+        const type = getListType(editor);
+        const listWrapper: { type: SketchboxElementType.BULLETED | SketchboxElementType.NUMBERED, children: any[] } = {type, children: []};
+
+        if (type === SketchboxElementType.BULLETED) Transforms.wrapNodes(editor, listWrapper);
+
+        const {selection} = editor;
+        if (!selection) return;
+        const {path} = selection.anchor;
+
+        const isFirstNode = path[path.length - 2] === 0;
+        if (isFirstNode) return;
+
+        const node = Editor.parent(editor, selection);
+        const wrapper = Editor.parent(editor, selection, {depth: node[1].length});
+
+        const indexInChildren = wrapper[0].children.findIndex(child => child === node[0]);
+
+        const upperNodes = wrapper[0].children[indexInChildren - 1] as SketchboxElement;
+        const {upperNode, depth} = getUpperNodeAndDepth(upperNodes);
+
+        if (!upperNodes || (upperNodes as Element).type !== SketchboxElementType.NUMBERED) {
+            Transforms.wrapNodes(editor, listWrapper);
+            return;
+        }
+        if (!upperNode) return;
+
+        Transforms.removeNodes(editor);
+
+        const upperPath = ReactEditor.findPath(editor, upperNode);
+        Transforms.select(editor, upperPath);
+        if (!editor.selection) return;
+
+        Transforms.insertNodes(editor, node[0], {
+            at: {path: upperPath, offset: (upperNode.children[0] as SketchboxText).text.length}
+        });
+
+        cleanUnnecessaryNode(editor, upperPath);
+
+        for (let i = 0; i < depth; i++) {
+            cancelNestedList(editor);
         }
     }
 }
