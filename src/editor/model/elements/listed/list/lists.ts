@@ -76,7 +76,7 @@ const cleanUnnecessaryNode = (editor: SketchboxEditor, path: Path) => {
     Transforms.removeNodes(editor);
 };
 
-const takeChildNodes = (editor: SketchboxEditor, wrapper: SketchboxElement, pivot: number) => {
+const takeChildNodes = (editor: SketchboxEditor, wrapper: SketchboxElement, pivot: number, flag: boolean) => {
     if (!editor.selection) return;
 
     const currentNode = Editor.node(editor, editor.selection);
@@ -89,7 +89,10 @@ const takeChildNodes = (editor: SketchboxEditor, wrapper: SketchboxElement, pivo
         }
 
         const childPath = ReactEditor.findPath(editor, wrapper.children[i]);
-        childPath[childPath.length - 1]--;
+        if (flag) {
+            childPath[childPath.length - 1]--;
+        }
+
         Transforms.removeNodes(editor, {at: childPath});
 
         editor.insertNode(childNode);
@@ -264,7 +267,10 @@ export const applyNestedList = (editor: SketchboxEditor) => {
         const {upperNode, depth} = getUpperNodeAndDepth(upperNodes);
 
         if (!upperNodes || (upperNodes as Element).type !== SketchboxElementType.NUMBERED) {
+            if (!upperNode) return;
+
             Transforms.wrapNodes(editor, listWrapper);
+            takeChildNodes(editor, wrapper[0] as SketchboxElement, indexInChildren, false);
             return;
         }
         if (!upperNode) return;
@@ -285,6 +291,6 @@ export const applyNestedList = (editor: SketchboxEditor) => {
             cancelNestedList(editor);
         }
 
-        takeChildNodes(editor, wrapper[0] as SketchboxElement, indexInChildren);
+        takeChildNodes(editor, wrapper[0] as SketchboxElement, indexInChildren, true);
     }
 };
