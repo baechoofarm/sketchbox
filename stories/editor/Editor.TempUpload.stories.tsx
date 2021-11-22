@@ -38,10 +38,10 @@ const Template = () => {
     return (
         <div style={{position: "relative", marginBottom: 30}}>
             <Sketchbox
-                value={value}
-                onChangeValue={onChangeValue}
                 option={{
                     mode,
+                    value,
+                    onChangeValue,
                     onModeChange,
                     onImageTempUpload,
                     mentionable: true,
