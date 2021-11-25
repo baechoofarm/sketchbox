@@ -196,10 +196,8 @@ export const checkIsBetweenLists = (editor: SketchboxEditor): boolean => {
 
 export const cancelNestedList = (editor: SketchboxEditor) => {
     const isNested = isListNested(editor);
-    if (!isNested) return;
-
     const {selection} = editor;
-    if (!selection) return;
+    if (!isNested || !selection) return;
 
     const node = Editor.parent(editor, selection);
     const wrapper = Editor.parent(editor, selection, {depth: node[1].length});
@@ -217,6 +215,9 @@ export const cancelNestedList = (editor: SketchboxEditor) => {
         const lists = children.filter(child => child.type === SketchboxElementType.LIST);
         const isAlone = lists.length === 1;
 
+        const index = children.findIndex(child => child === node[0]);
+        const isFirst = index === 0;
+
         const destPath = selection.anchor.path.slice();
         destPath.splice(destPath.length - 2, 2);
 
@@ -225,17 +226,33 @@ export const cancelNestedList = (editor: SketchboxEditor) => {
         destPath[destPath.length - 1]++;
         Transforms.moveNodes(editor, {to: destPath});
 
-        const index = children.findIndex(child => child === node[0]);
+        let shouldWrap = true;
+        let prevType = SketchboxElementType.LIST;
 
-        if (index < children.length - 1 && (children[index + 1].type === SketchboxElementType.NUMBERED || children[index + 1].type === SketchboxElementType.BULLETED)) {
+        for (let i = 1; index + i <= children.length - 1; i++) {
+            const currentType = (children[index + i]).type;
+
             const path = selection.anchor.path.slice();
             path.splice(path.length - 1, 1);
 
             Transforms.removeNodes(editor, {at: path});
-            Transforms.insertNodes(editor, children[index + 1]);
+            Transforms.insertNodes(editor, children[index + i]);
+
+            if (currentType === SketchboxElementType.LIST && shouldWrap) {
+                const listType: SketchboxElementType.NUMBERED = SketchboxElementType.NUMBERED;
+                const listWrapper = {type: listType, children: []};
+                Transforms.wrapNodes(editor, listWrapper);
+                shouldWrap = false;
+            }
+
+            if (currentType === SketchboxElementType.LIST && prevType === SketchboxElementType.NUMBERED && !shouldWrap) {
+                cancelNestedList(editor);
+            }
+
+            prevType = currentType;
         }
 
-        if (isAlone) {
+        if (isAlone || isFirst) {
             Transforms.select(editor, selection);
             Transforms.unwrapNodes(editor);
         }
